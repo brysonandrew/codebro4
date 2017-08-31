@@ -20,7 +20,7 @@ class App extends React.Component<any, any> {
             <section className={style.AppContainer}>
                 <Helmet {...appConfig.app} {...appConfig.app.head}/>
                 {this.props.children}
-                {this.renderDevTool()}
+                {/*{this.renderDevTool()}*/}
             </section>
         );
     }
