@@ -8,7 +8,7 @@ import { inject, observer } from 'mobx-react';
 import { computed } from 'mobx';
 import HomeStore from '../../../mobx/stores/HomeStore';
 import { colors } from '../../../data/themeOptions';
-import {Header} from './Body/Header/Header';
+import { Header } from './Body/Header/Header';
 
 interface IState {
     isMounted: boolean
@@ -52,7 +52,7 @@ export class Home extends React.Component<IProps, IState> {
 
     componentDidMount() {
         const { onResizeViewport, onLocationListen, onLoad } = this.props.store;
-        console.log("mounted");
+
         this.isFirstRender = false;
         // reset window pos
         window.scroll(0, 0);
@@ -129,7 +129,9 @@ export class Home extends React.Component<IProps, IState> {
         return (
             <div style={ this.styles.home }
                  ref={el => el ? (this.home = el) : null}>
-                <Header/>
+                <div>
+                    <Header/>
+                </div>
                 <div style={ this.styles.home__pages }>
                     <Pages/>
                 </div>

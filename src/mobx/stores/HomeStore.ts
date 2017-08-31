@@ -1,6 +1,7 @@
 import { observable, action } from 'mobx';
 import { IParams } from '../../data/models/models';
 import { buildMap } from '../../data/helpers/buildMap';
+import {breakPointTests} from '../../data/helpers/breakPoints';
 
 export default class HomeStore<Item> {
 
@@ -49,6 +50,9 @@ export default class HomeStore<Item> {
     public onResizeViewport = (width: number, height: number) => {
         this.width = width;
         this.height = height;
+        this.isMobile = breakPointTests.isMobile(width);
+        this.isTablet = breakPointTests.isTablet(width);
+        this.isLaptop = breakPointTests.isLaptop(width);
     };
 
     @action
