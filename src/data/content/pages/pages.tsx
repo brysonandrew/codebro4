@@ -8,10 +8,10 @@ function PortfolioProject(name) {
 
 export const pageList: IPage[] = [
     new PortfolioProject(
-        "Hello"
+        "Bro"
     ),
     new PortfolioProject(
-        "World"
+        "Syn"
     )
 ];
 
