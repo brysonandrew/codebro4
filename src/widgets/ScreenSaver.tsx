@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { colors } from '../../data/themeOptions';
+import { colors } from '../data/themeOptions';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
-import { IInlineStyles } from '../../data/models';
+import { IInlineStyles } from '../data/models';
 
 interface IProps {
     isFirstRender: boolean

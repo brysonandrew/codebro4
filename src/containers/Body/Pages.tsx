@@ -2,10 +2,10 @@ import * as React from 'react';
 import { browserHistory } from 'react-router';
 import { inject, observer } from 'mobx-react';
 import {computed} from 'mobx';
-import { MotionScroll } from "../../../../widgets/MotionScroll/MotionScroll";
-import { Page } from ".";
-import { IDictionary, pageList } from '../../../../../data';
-import HomeStore from '../../../../../mobx/stores/HomeStore';
+import { MotionScroll } from "../../widgets/MotionScroll/MotionScroll";
+import { PagesItem } from "./";
+import { IDictionary, pageList } from '../../data';
+import HomeStore from '../../mobx/stores/HomeStore';
 
 interface IProps {
     store?: HomeStore<string>
@@ -18,7 +18,7 @@ interface IState {
 
 @inject('store')
 @observer
-export class PagesInner extends React.Component<IProps, IState> {
+export class Pages extends React.Component<IProps, IState> {
 
     timeoutId;
     timeoutStopDelay = 50;
@@ -46,7 +46,7 @@ export class PagesInner extends React.Component<IProps, IState> {
     @computed public get widthMarginFactor(): any {
         const { isMobile, isTablet, isLaptop } = this.props.store;
 
-        return PagesInner.calcWidthMarginFactor(isMobile, isTablet, isLaptop);
+        return Pages.calcWidthMarginFactor(isMobile, isTablet, isLaptop);
     }
 
     @computed public get widthMargin(): any {
@@ -66,7 +66,7 @@ export class PagesInner extends React.Component<IProps, IState> {
         const { docScroll } = this.state;
 
         const scrollHeight = width * (pageList.length - 1);
-        const widthMarginFactor = PagesInner.calcWidthMarginFactor(isMobile, isTablet, isLaptop);
+        const widthMarginFactor = Pages.calcWidthMarginFactor(isMobile, isTablet, isLaptop);
         const adjustedScroll = docScroll - (widthMarginFactor * docScroll * 2);
 
         return {
@@ -156,10 +156,10 @@ export class PagesInner extends React.Component<IProps, IState> {
         return  isMobile
                     ?   0
                     :   isTablet
-                            ?   0.0675
+                            ?   -0.0675
                             :   isLaptop
-                                    ?   0.125
-                                    :   0.25;
+                                    ?   -0.125
+                                    :   -0.25;
     }
 
     render(): JSX.Element {
@@ -178,7 +178,7 @@ export class PagesInner extends React.Component<IProps, IState> {
                     {pageList.map((page, i) =>
                         <div key={`page-${i}`}
                              style={ this.styles.pagesInner__page }>
-                            <Page
+                            <PagesItem
                                 index={i}
                                 page={page}
                                 previewWidth={this.adjustedWidth}

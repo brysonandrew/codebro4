@@ -9,7 +9,7 @@ interface IState {}
 @observer
 export class Empty extends React.Component<IProps, IState> {
 
-    @computed public get styles(): any {
+    @computed static get styles(): any {
         return {};
     }
     public constructor(props?: any, context?: any) {

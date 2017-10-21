@@ -4,9 +4,9 @@ import { computed } from 'mobx';
 import createHistory from 'history/createBrowserHistory';
 import { browserHistory } from 'react-router';
 import { Header, Pages } from './Body';
-import { ScreenSaver } from '../../widgets/ScreenSaver';
-import { toParams, colors } from '../../../data';
-import HomeStore from '../../../mobx/stores/HomeStore';
+import { ScreenSaver } from '../widgets/ScreenSaver';
+import { toParams, colors, listeners, resetIdle } from '../data';
+import HomeStore from '../mobx/stores/HomeStore';
 
 interface IState {
     isMounted: boolean
@@ -20,18 +20,21 @@ interface IProps {
 @observer
 export class Home extends React.Component<IProps, IState> {
 
-    activeTimeout;
-    mountTimeout;
-    home;
-    isIdle = true;
+    parentRef;
+    idleTimeoutId;
+    mountTimeoutId;
     isFirstRender = true;
 
     @computed public get styles(): any {
         return {
             home: {
                 position: "relative",
+                textAlign: "left",
                 background: colors.blk,
                 overflow: "hidden"
+            },
+            home__title: {
+                transform: "rotate(90deg) translateX(-100%)"
             },
             home__pages: {
                 opacity: this.state.isMounted ? 1 : 0,
@@ -60,73 +63,34 @@ export class Home extends React.Component<IProps, IState> {
         onLoad(toParams(history.location.pathname));
     // listen to future params
         browserHistory.listen( location =>  {
-
             onLocationListen(
                 toParams(location.pathname)
             );
-
         });
 
-        this.mountTimeout = setTimeout(() => this.setState({ isMounted: true }), 0);
+        this.mountTimeoutId = setTimeout(() => this.setState({ isMounted: true }), 0);
 
-        window.addEventListener("resize"
-            , () => onResizeViewport(window.innerWidth, window.innerHeight));
-        window.addEventListener("load"
-            , () => onResizeViewport(window.innerWidth, window.innerHeight));
-        this.home.addEventListener("mousemove"
-            , this.resetIdle);
-        this.home.addEventListener("click"
-            , this.resetIdle);
-        this.home.addEventListener("scroll"
-            , this.resetIdle);
-        this.home.addEventListener("wheel"
-            , this.resetIdle);
+        listeners(window, "resize", "addEventListener", () => onResizeViewport(window.innerWidth, window.innerHeight));
+        listeners(this.parentRef, "interaction", "addEventListener", () => resetIdle(this));
     }
-
-    resetIdle = () => {
-        if (this.isIdle) {
-            this.setState({
-                isMounted: true
-            });
-        }
-        this.isIdle = false;
-        clearTimeout(this.activeTimeout);
-        this.activeTimeout = setTimeout(() => {
-            this.isIdle = true;
-            this.setState({
-                isMounted: false
-            });
-        }, 300000); // 300000ms = 5 minutes
-    };
 
     componentWillUnmount() {
         const { onResizeViewport } = this.props.store;
 
-        if (!!this.activeTimeout) {
-            clearTimeout(this.activeTimeout);
-            this.activeTimeout = false;
-        }
+        clearTimeout(this.idleTimeoutId);
 
-        window.removeEventListener("resize"
-            , () => onResizeViewport(window.innerWidth, window.innerHeight));
-        window.removeEventListener("load"
-            , () => onResizeViewport(window.innerWidth, window.innerHeight));
-        this.home.removeEventListener("mousemove"
-            , this.resetIdle);
-        this.home.removeEventListener("click"
-            , this.resetIdle);
-        this.home.removeEventListener("scroll"
-            , this.resetIdle);
-        this.home.removeEventListener("wheel"
-            , this.resetIdle);
-
+        listeners(window, "resize", "removeEventListener", () => onResizeViewport(window.innerWidth, window.innerHeight));
+        listeners(this.parentRef, "interaction", "removeEventListener", () => resetIdle(this));
     }
 
     render(): JSX.Element {
         const { isMounted } = this.state;
         return (
             <div style={ this.styles.home }
-                 ref={el => el ? (this.home = el) : null}>
+                 ref={el => el ? (this.parentRef = el) : null}>
+                <h1 style={this.styles.home__title}>
+                    code bro
+                </h1>
                 <div>
                     <Header/>
                 </div>

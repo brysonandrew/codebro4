@@ -2,8 +2,8 @@ import * as React from 'react';
 import { browserHistory } from 'react-router';
 import { computed } from 'mobx';
 import { inject, observer } from 'mobx-react';
-import { IParams, IPage, colors } from "../../../../../data";
-import HomeStore from '../../../../../mobx/stores/HomeStore';
+import { IParams, IPage, colors } from "../../data";
+import HomeStore from '../../mobx/stores/HomeStore';
 
 interface IProps {
     index: number
@@ -23,7 +23,7 @@ interface IState {
 
 @inject('store')
 @observer
-export class Page extends React.Component<IProps, IState> {
+export class PagesItem extends React.Component<IProps, IState> {
 
     animationFrameId;
     timeoutId;

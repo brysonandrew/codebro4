@@ -4,13 +4,13 @@ import { observer } from 'mobx-react';
 import { IInlineStyles } from '../models';
 
 @observer
-export class Home extends React.Component<{}, {}> {
+export class Intro extends React.Component<{}, {}> {
 
     @computed static get styles(): IInlineStyles {
         return {
-            homeInner: {
+            intro: {
                 position: "absolute",
-                top: "66%",
+                top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -50%)"
             }
@@ -19,9 +19,9 @@ export class Home extends React.Component<{}, {}> {
 
     render(): JSX.Element {
         return (
-            <h1 style={Home.styles.homeInner}>
-                code bro
-            </h1>
+            <div style={Intro.styles}>
+                <p>Hi, my name is Andrew. I am a hard-working and creative web-developer.</p>
+            </div>
         );
     }
 }

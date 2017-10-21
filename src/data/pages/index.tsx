@@ -1,7 +1,7 @@
 import * as React from "react";
 import { toPath } from '../helpers/toPath';
 import { IDictionary, IPage } from '../models';
-import { Home } from './Home';
+import {Intro} from './Intro';
 import { Video } from './Video';
 import { Work } from './Work';
 import { Contact } from './Contact';
@@ -14,8 +14,8 @@ function Page(name, component) {
 
 export const pageList: IPage[] = [
     new Page(
-        "Home",
-        <Home/>
+        "Intro",
+        <Intro/>
     ),
     new Page(
         "Video",
@@ -36,7 +36,7 @@ export const pages: IDictionary<IPage> = pageList.reduce((acc, curr) => {
     return acc;
 }, {});
 
-export { Home } from './Home';
+export { Intro } from './Intro';
 export { Video } from './Video';
 export { Work } from './Work';
 export { Contact } from './Contact';

@@ -7,7 +7,7 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'mobx-react';
 import { Router, browserHistory } from 'react-router';
 import 'isomorphic-fetch';
-import routes from './app/routes';
+import routes from './routes';
 import HomeStore from './mobx/stores/HomeStore';
 
 declare var window: {

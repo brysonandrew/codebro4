@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { findLetter } from "./letters/letters";
-import { colors } from "../../../data/themeOptions";
+import { colors } from "../../data/themeOptions";
 
 interface IProps {
     letter: string

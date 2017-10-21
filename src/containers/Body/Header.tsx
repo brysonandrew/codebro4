@@ -1,17 +1,13 @@
 import * as React from 'react';
 import { computed } from 'mobx';
-import { pageList } from '../../../../../data/pages/index';
-import { HeaderSelector } from './HeaderSelector';
+import { pageList } from '../../data/pages/index';
+import { HeaderItem } from './';
 import { observer } from 'mobx-react';
 
-interface IProps {}
-
-interface IState {}
-
 @observer
-export class Header extends React.Component<IProps, IState> {
+export class Header extends React.Component<{}, {}> {
 
-    @computed public get styles(): any {
+    @computed static get styles(): any {
         return {
             header: {
                 position: "fixed",
@@ -29,17 +25,13 @@ export class Header extends React.Component<IProps, IState> {
         };
     }
 
-    public constructor(props?: any, context?: any) {
-        super(props, context);
-    }
-
     render(): JSX.Element {
         return (
-            <div style={ this.styles.header }>
+            <div style={ HeaderItem.styles.header }>
                 {pageList.map((page, i) =>
                     <div key={`page-${i}`}
-                         style={ this.styles.header__selector }>
-                        <HeaderSelector
+                         style={ HeaderItem.styles.header__selector }>
+                        <HeaderItem
                             page={page}
                         />
                     </div>

@@ -10,9 +10,9 @@ import * as ReactDOMServer from 'react-dom/server';
 import { Provider } from 'mobx-react';
 import { createMemoryHistory, match, RouterContext } from 'react-router';
 import { MobxAsyncConnect, loadOnServer, store as mobxAsyncConnect } from 'mobx-async-connect';
-import routes from './app/routes';
+import routes from './routes';
 
-import { Html } from './app/containers';
+import { Html } from './containers';
 import {default as HomeStore} from './mobx/stores/HomeStore';
 const manifest = require('../build/manifest.json');
 
