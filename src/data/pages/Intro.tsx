@@ -12,6 +12,7 @@ export class Intro extends React.Component<{}, {}> {
                 position: "absolute",
                 top: "50%",
                 left: "50%",
+                fontSize: 24,
                 transform: "translate(-50%, -50%)"
             }
         };
@@ -19,8 +20,8 @@ export class Intro extends React.Component<{}, {}> {
 
     render(): JSX.Element {
         return (
-            <div style={Intro.styles}>
-                <p>Hi, my name is Andrew. I am a hard-working and creative web-developer.</p>
+            <div style={Intro.styles.intro}>
+                <p>Hi, my name is Andrew. and I make websites like the one you are looking at right now.</p>
             </div>
         );
     }

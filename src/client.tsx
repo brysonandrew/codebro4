@@ -8,7 +8,7 @@ import { Provider } from 'mobx-react';
 import { Router, browserHistory } from 'react-router';
 import 'isomorphic-fetch';
 import routes from './routes';
-import HomeStore from './mobx/stores/HomeStore';
+import {HomeStore} from './mobx';
 
 declare var window: {
     __INITIAL_STATE__: any,

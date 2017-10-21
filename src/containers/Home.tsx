@@ -4,12 +4,38 @@ import { computed } from 'mobx';
 import createHistory from 'history/createBrowserHistory';
 import { browserHistory } from 'react-router';
 import { Header, Pages } from './Body';
-import { ScreenSaver } from '../widgets/ScreenSaver';
-import { toParams, colors, listeners, resetIdle } from '../data';
-import HomeStore from '../mobx/stores/HomeStore';
+import { ScreenSaver, MotionScroll } from '../widgets';
+import { toParams, listeners, resetIdle, pageList, IInlineStyles } from '../data';
+import { HomeStore } from '../mobx';
+
+const STYLES: IInlineStyles = {
+    home: {
+        id: "home",
+        position: "relative",
+        fontFamily: "'Advent Pro', 'arial', sans-serif",
+        overflow: "hidden"
+    },
+    home__header: {
+        id: "home header",
+        position: "fixed",
+        left: 0,
+        top: 0,
+        textAlign: "left",
+        width: "100%",
+        zIndex: 10
+    },
+    home__title: {
+        id: "home title",
+        position: "absolute",
+        left: 0,
+        top: `${50 / pageList.length }$`,
+        fontSize: 28,
+        transform: "rotate(-90deg) translate(-100%, 0)"
+    }
+};
 
 interface IState {
-    isMounted: boolean
+    docScroll: number
 }
 
 interface IProps {
@@ -22,87 +48,81 @@ export class Home extends React.Component<IProps, IState> {
 
     parentRef;
     idleTimeoutId;
-    mountTimeoutId;
-    isFirstRender = true;
+    timeoutId;
+    timeoutStopDelay = 50;
+    isWheelRecorded = false;
 
-    @computed public get styles(): any {
-        return {
-            home: {
-                position: "relative",
-                textAlign: "left",
-                background: colors.blk,
-                overflow: "hidden"
-            },
-            home__title: {
-                transform: "rotate(90deg) translateX(-100%)"
-            },
-            home__pages: {
-                opacity: this.state.isMounted ? 1 : 0,
-                filter: this.state.isMounted ? "none" : "blur(10px)",
-                transition: "opacity 1600ms, filter 1600ms"
-            }
+    public constructor(props?: any, context?: any) {
+        super(props, context);
+        this.state = {
+            docScroll: 0
         };
     }
 
-    constructor(props?: any, context?: any) {
-        super(props, context);
-        this.state = {
-            isMounted: false
-        };
+    @computed public get activePagePath(): string {
+        const { savedParams } = this.props.store;
+
+        return !!savedParams.get("activePagePath")
+            ?   savedParams.get("activePagePath")
+            :   pageList[0].path;
     }
 
     componentDidMount() {
-        const { onResizeViewport, onLocationListen, onLoad } = this.props.store;
-
-        this.isFirstRender = false;
-        // reset window pos
-        window.scroll(0, 0);
+        const { onResizeViewport, onLocationListen, onLoad, onScroll, onWheel } = this.props.store;
 
         const history = createHistory();
-    // initial save params
         onLoad(toParams(history.location.pathname));
-    // listen to future params
         browserHistory.listen( location =>  {
             onLocationListen(
                 toParams(location.pathname)
             );
         });
 
-        this.mountTimeoutId = setTimeout(() => this.setState({ isMounted: true }), 0);
-
+        window.scroll(0, 0);
+        window.addEventListener("scroll", onScroll);
+        window.addEventListener("wheel", onWheel);
         listeners(window, "resize", "addEventListener", () => onResizeViewport(window.innerWidth, window.innerHeight));
         listeners(this.parentRef, "interaction", "addEventListener", () => resetIdle(this));
     }
 
     componentWillUnmount() {
-        const { onResizeViewport } = this.props.store;
-
+        const { onResizeViewport, onScroll, onWheel } = this.props.store;
         clearTimeout(this.idleTimeoutId);
-
+        window.removeEventListener("scroll", onScroll);
+        window.removeEventListener("wheel", onWheel);
         listeners(window, "resize", "removeEventListener", () => onResizeViewport(window.innerWidth, window.innerHeight));
         listeners(this.parentRef, "interaction", "removeEventListener", () => resetIdle(this));
     }
 
     render(): JSX.Element {
-        const { isMounted } = this.state;
+        const { onAnimationEnd, isAnimating, isAppMounted, projectOffsets, docScroll } = this.props.store;
+
         return (
-            <div style={ this.styles.home }
-                 ref={el => el ? (this.parentRef = el) : null}>
-                <h1 style={this.styles.home__title}>
-                    code bro
-                </h1>
-                <div>
+            <div
+                className="cb-home"
+                style={ STYLES.home }
+                ref={el => el ? (this.parentRef = el) : null}
+            >
+                <div style={ STYLES.home__title }>
+                    <h1>code bro</h1>
+                </div>
+                <div style={ STYLES.home__header }>
                     <Header/>
                 </div>
-                <div style={ this.styles.home__pages }>
-                    <Pages/>
-                </div>
-                {!isMounted
-                    &&  <div>
-                            <ScreenSaver
-                                isFirstRender={this.isFirstRender}
-                            />
-                        </div>}
+                <Pages
+                    docScroll={docScroll}
+                />
+                <ScreenSaver
+                    isScreenSaver={!isAppMounted}
+                />
+                {!!projectOffsets
+                    ?   <MotionScroll
+                            docScroll={docScroll}
+                            isAnimating={isAnimating}
+                            scrollTarget={projectOffsets[this.activePagePath]}
+                            onRest={onAnimationEnd}
+                        />
+                    :   null}
             </div>
         );
     }

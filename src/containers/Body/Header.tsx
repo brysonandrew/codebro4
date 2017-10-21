@@ -1,41 +1,47 @@
 import * as React from 'react';
-import { computed } from 'mobx';
-import { pageList } from '../../data/pages/index';
-import { HeaderItem } from './';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
+import { pageList, IInlineStyles, colors } from '../../data';
+import { HeaderItem } from '.';
+import { HomeStore } from '../../mobx';
 
-@observer
-export class Header extends React.Component<{}, {}> {
+const TEXT_HEIGHT = 38;
 
-    @computed static get styles(): any {
-        return {
-            header: {
-                position: "fixed",
-                left: 0,
-                top: 0,
-                textAlign: "left",
-                width: "100%",
-                zIndex: 10
-            },
-            header__selector: {
-                display: "inline-block",
-                padding: "14px 0px",
-                width: 100 / pageList.length + "%"
-            }
-        };
+const STYLES: IInlineStyles = {
+    header: {
+        id: "header",
+        height: TEXT_HEIGHT,
+        position: "relative"
+    },
+    header__bar: {
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        height: 1,
+        background: colors.std
     }
+};
+
+interface IProps {
+    store?: HomeStore<string>
+}
+
+@inject('store')
+@observer
+export class Header extends React.Component<IProps, {}> {
 
     render(): JSX.Element {
+        const { width, docScroll } = this.props.store;
+
         return (
-            <div style={ HeaderItem.styles.header }>
+            <div style={STYLES.header}>
                 {pageList.map((page, i) =>
-                    <div key={`page-${i}`}
-                         style={ HeaderItem.styles.header__selector }>
-                        <HeaderItem
-                            page={page}
-                        />
-                    </div>
-                    )}
+                    <HeaderItem
+                        key={`page-${i}`}
+                        page={page}
+                    />)}
+                <div style={{
+                    ...STYLES.header__bar, width: docScroll / pageList.length + width / pageList.length * 0.5
+                }}/>
             </div>
         );
     }

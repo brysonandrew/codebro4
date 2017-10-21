@@ -1,70 +1,83 @@
 import * as React from 'react';
-import { colors } from '../data/themeOptions';
-import { computed } from 'mobx';
-import { observer } from 'mobx-react';
-import { IInlineStyles } from '../data/models';
+import {colors, IInlineStyles} from '../data';
+
+const STYLES: IInlineStyles = {
+    screenSaver: {
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100vh",
+        background: colors.wht,
+        transition: "opacity 800ms",
+        zIndex: 20
+    },
+    screenSaver__text: {
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        color: colors.gry,
+        transform: "translate(-50%, -50%)"
+    }
+};
 
 interface IProps {
-    isFirstRender: boolean
+    isScreenSaver: boolean
 }
 
 interface IState {
     isMounted: boolean
+    isShown: boolean
 }
 
-@observer
 export class ScreenSaver extends React.Component<IProps, IState> {
 
-    mountTimeout;
-
-    @computed public get styles(): IInlineStyles {
-        const { isMounted } = this.state;
-        const { isFirstRender } = this.props;
-        return {
-            screenSaver: {
-                position: "fixed",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                background: colors.blk,
-                opacity: isMounted || isFirstRender ? 1 : 0,
-                filter: isMounted || isFirstRender ? "none" : "blur(10px)",
-                transition: "opacity 1600ms, filter 1600ms",
-                zIndex: 20
-            },
-            screenSaver__inner: {
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%) scale(2)",
-            }
-        };
-    }
+    openTimeoutId;
 
     public constructor(props?: any, context?: any) {
         super(props, context);
         this.state = {
-            isMounted: false
+            isMounted: true,
+            isShown: true
         };
     }
 
-    componentDidMount() {
-        this.mountTimeout = setTimeout(() => this.setState({ isMounted: true }), 0);
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.isScreenSaver !== this.props.isScreenSaver) {
+            this.setState({
+                isMounted: true
+            });
+            this.openTimeoutId = setTimeout(
+                () =>
+                    this.setState({
+                        isShown: nextProps.isScreenSaver
+                    }
+                ), 100);
+        }
     }
 
     componentWillUnmount() {
-        clearTimeout(this.mountTimeout);
+        clearTimeout(this.openTimeoutId);
     }
 
+    handleTransitionEnd = () => {
+        this.setState({
+            isMounted: this.state.isShown
+        })
+    };
+
     render(): JSX.Element {
+        const { isMounted, isShown } = this.state;
 
         return (
-            <div style={this.styles.screenSaver}>
-                <div style={this.styles.screenSaver__inner}>
-                    <h1>code bro</h1>
-                </div>
-            </div>
+            isMounted
+                ?   <div style={{...STYLES.screenSaver, opacity: isShown ? 1 : 0}}
+                         onTransitionEnd={this.handleTransitionEnd}>
+                        <div style={STYLES.screenSaver__text}>
+                            code bro
+                        </div>
+                    </div>
+                :   null
         );
     }
 }

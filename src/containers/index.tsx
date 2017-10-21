@@ -3,10 +3,16 @@ const appConfig = require('../../config/main.js');
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { MobxAsyncConnect, asyncConnect, store as mobxAsyncConnect } from 'mobx-async-connect';
-
-const style = require('./style.css');
+import {Fonts} from '../widgets';
 
 class App extends React.Component<any, any> {
+
+    componentDidMount() {
+        Fonts();
+        document.body.style.margin = "0";
+        document.documentElement.style.margin = "0";
+        console.log(document.body)
+    }
 
     // renderDevTool() {
     //     if (process.env.NODE_ENV !== 'production') {
@@ -17,7 +23,7 @@ class App extends React.Component<any, any> {
 
     public render() {
         return (
-            <section className={style.AppContainer}>
+            <section>
                 <Helmet {...appConfig.app} {...appConfig.app.head}/>
                 {this.props.children}
                 {/*{this.renderDevTool()}*/}

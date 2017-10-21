@@ -3,7 +3,7 @@ import { browserHistory } from 'react-router';
 import { computed } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import { IParams, IPage, colors } from "../../data";
-import HomeStore from '../../mobx/stores/HomeStore';
+import { HomeStore } from '../../mobx';
 
 interface IProps {
     index: number
@@ -30,7 +30,7 @@ export class PagesItem extends React.Component<IProps, IState> {
 
     @computed public get styles(): any {
         return {
-            page: {
+            pagesItem: {
                 position: "relative",
                 height: this.props.store.height,
                 width: "100%",
@@ -75,8 +75,11 @@ export class PagesItem extends React.Component<IProps, IState> {
         const { page } = this.props;
 
         return (
-            <div style={ this.styles.page }
-                onClick={this.handleClick}>
+            <div
+                className="cb-pages-item"
+                style={ this.styles.pagesItem }
+                onClick={this.handleClick}
+            >
                 {page.component}
             </div>
         );

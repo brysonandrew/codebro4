@@ -1,4 +1,4 @@
-export { breakPoints } from "./breakPoints";
+export { breakPoints, breakPointTests } from "./breakPoints";
 export { buildMap } from "./buildMap";
 export { IEVersion } from "./IEVersion";
 export { linearize} from "./linearize";
