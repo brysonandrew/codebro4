@@ -48,7 +48,6 @@ export class Home extends React.Component<IProps, IState> {
 
     parentRef;
     idleTimeoutId;
-    timeoutId;
     timeoutStopDelay = 50;
     isWheelRecorded = false;
 

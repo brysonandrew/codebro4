@@ -1,17 +1,19 @@
+import { colors, setBodyStyle } from '../data';
+
 const appConfig = require('../../config/main.js');
 
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { MobxAsyncConnect, asyncConnect, store as mobxAsyncConnect } from 'mobx-async-connect';
-import {Fonts} from '../widgets';
+import { Fonts } from '../widgets';
 
 class App extends React.Component<any, any> {
 
     componentDidMount() {
         Fonts();
-        document.body.style.margin = "0";
-        document.documentElement.style.margin = "0";
-        console.log(document.body)
+        setBodyStyle("margin", "0");
+        setBodyStyle("color", colors.wht);
+        setBodyStyle("background", colors.blk);
     }
 
     // renderDevTool() {

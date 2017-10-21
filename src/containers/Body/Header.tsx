@@ -17,7 +17,7 @@ const STYLES: IInlineStyles = {
         bottom: 0,
         left: 0,
         height: 1,
-        background: colors.std
+        background: colors.wht
     }
 };
 
@@ -29,9 +29,11 @@ interface IProps {
 @observer
 export class Header extends React.Component<IProps, {}> {
 
-    render(): JSX.Element {
-        const { width, docScroll } = this.props.store;
+    private posFromZero = () => ({
+        ...STYLES.header__bar
+        , width: this.props.store.docScroll / pageList.length + this.props.store.width / pageList.length * 0.5});
 
+    render(): JSX.Element {
         return (
             <div style={STYLES.header}>
                 {pageList.map((page, i) =>
@@ -39,9 +41,7 @@ export class Header extends React.Component<IProps, {}> {
                         key={`page-${i}`}
                         page={page}
                     />)}
-                <div style={{
-                    ...STYLES.header__bar, width: docScroll / pageList.length + width / pageList.length * 0.5
-                }}/>
+                <div style={this.posFromZero()}/>
             </div>
         );
     }

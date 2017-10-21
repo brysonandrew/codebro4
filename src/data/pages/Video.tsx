@@ -10,17 +10,13 @@ const STYLES: IInlineStyles = {
         left: "50%",
         transform: "translate(-50%, -50%)"
     }
-}
+};
 
 @observer
 export class Video extends React.Component<{}, {}> {
 
     PLAYLIST_ID = "PLEJAFE35LZu1hhfSYmFtQsZVtFyJ03C8y";
     src = `https://www.youtube.com/embed/?listType=playlist&list=${this.PLAYLIST_ID}`;
-
-    public constructor(props?: any, context?: any) {
-        super(props, context);
-    }
 
     render(): JSX.Element {
         return (

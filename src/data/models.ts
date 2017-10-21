@@ -16,3 +16,8 @@ export interface IPage {
     backgroundImagePath?: string
     component?: JSX.Element
 }
+
+export interface IWork {
+    name: string
+    link: string
+}

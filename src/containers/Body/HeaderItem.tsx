@@ -6,14 +6,14 @@ import { IPage, IInlineStyles, pageList } from '../../data';
 import { inject, observer } from 'mobx-react';
 import { HomeStore } from '../../mobx';
 
-const TEXT_HEIGHT = 2;
+const TEXT_ORIGIN = -40;
+const TEXT_TARGET = 40;
 
 const STYLES: IInlineStyles = {
     headerItem: {
         id: "header item",
         position: "relative",
         display: "inline-block",
-        height: TEXT_HEIGHT * 2,
         width: `${100 / pageList.length}%`,
         cursor: "pointer"
     },
@@ -21,8 +21,7 @@ const STYLES: IInlineStyles = {
         position: "absolute",
         top: -16,
         left: "50%",
-        fontSize: 14,
-        transform: "translateX(-50%)"
+        fontSize: 14
     }
 };
 
@@ -55,11 +54,11 @@ export class HeaderItem extends React.Component<IProps, {}> {
         const { page } = this.props;
         const isSelected = this.isSelected;
         return (
-            <StaggeredMotion defaultStyles={[{y: -TEXT_HEIGHT}, {y: -TEXT_HEIGHT}, {y: -TEXT_HEIGHT}, {y: -TEXT_HEIGHT}, {y: -TEXT_HEIGHT}]}
+            <StaggeredMotion defaultStyles={[{x: TEXT_ORIGIN}, {x: TEXT_ORIGIN}, {x: TEXT_ORIGIN}, {x: TEXT_ORIGIN}, {x: TEXT_ORIGIN}]}
                 styles={prevInterpolatedStyles => prevInterpolatedStyles.map((_, i) => {
                     return i === 0
-                        ? {y: spring(isSelected ? TEXT_HEIGHT : -TEXT_HEIGHT, this.springConfig)}
-                        : {y: spring(prevInterpolatedStyles[i - 1].y)}
+                        ? {x: spring(isSelected ? TEXT_TARGET : -TEXT_ORIGIN, this.springConfig)}
+                        : {x: spring(prevInterpolatedStyles[i - 1].x)}
                 })}>
                 {interpolatingStyles =>
                     <div
@@ -67,14 +66,15 @@ export class HeaderItem extends React.Component<IProps, {}> {
                         onClick={this.handleClick}
                     >
                         {interpolatingStyles.map((style, styleIndex) =>
-                            <h2 key={`style-${styleIndex}`}
-                                 style={{...STYLES.headerItem__inner,
-                                     transform: `translateY(${style.y}px)`,
-                                     opacity: style.y + (TEXT_HEIGHT + 0.1)
-                                 }}
-                            >
+                                <h2 key={`style-${styleIndex}`}
+                                    style={{...STYLES.headerItem__inner,
+                                        transform: `translateX(${style.x}px)`,
+                                        opacity: style.x + (TEXT_TARGET + 0.1)
+                                    }}
+                                >
                                 {page.name}
-                            </h2>)
+                            </h2>
+                            )
                         }
                     </div>
                 }

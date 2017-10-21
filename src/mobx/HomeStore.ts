@@ -1,7 +1,6 @@
 import { observable, action } from 'mobx';
 import { browserHistory } from 'react-router';
-import { IParams, buildMap, breakPointTests, IDictionary } from '../data';
-import {pageList} from '../data/pages/index';
+import { IParams, buildMap, breakPointTests, IDictionary, pageList } from '../data';
 
 export class HomeStore<Item> {
 

@@ -7,3 +7,4 @@ export { toParams } from "./toParams";
 export { toPath } from "./toPath";
 export { listeners } from "./listeners";
 export { resetIdle } from "./resetIdle";
+export { setBodyStyle } from "./setBodyStyle";

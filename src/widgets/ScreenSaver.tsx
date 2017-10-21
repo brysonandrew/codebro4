@@ -8,7 +8,8 @@ const STYLES: IInlineStyles = {
         left: 0,
         width: "100%",
         height: "100vh",
-        background: colors.wht,
+        color: colors.wht,
+        background: colors.blk,
         transition: "opacity 800ms",
         zIndex: 20
     },
@@ -16,7 +17,7 @@ const STYLES: IInlineStyles = {
         position: "absolute",
         top: "50%",
         left: "50%",
-        color: colors.gry,
+        fontSize: 28,
         transform: "translate(-50%, -50%)"
     }
 };
