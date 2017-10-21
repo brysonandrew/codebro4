@@ -10,7 +10,7 @@ export class ScrollSink extends React.Component<IProps, any> {
     }
     componentDidUpdate(prevProps) {
         if (prevProps.scrollTop !== this.props.scrollTop) {
-            document.scrollingElement.scrollTop = this.props.scrollTop;
+            document[!!document.scrollingElement ? "scrollingElement" : !!document.documentElement ? "documentElement" : "body"].scrollTop = this.props.scrollTop;
         }
     }
     render(): JSX.Element {
