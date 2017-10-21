@@ -1,18 +1,19 @@
 import * as React from 'react';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
+import {IInlineStyles} from '../models';
 
-interface IProps {}
-
-interface IState {}
+const WORK = [
+    "Porizi Software",
+    "Co-workz Coworking Spaces",
+    "Roman Gulumjan Consulting",
+    "phonetradr"
+];
 
 @observer
-export class CoversInner extends React.Component<IProps, IState> {
+export class Work extends React.Component<{}, {}> {
 
-    PLAYLIST_ID = "PLEJAFE35LZu3ej7vgnizGR2yTJ9_2Tlgk";
-    src = `https://www.youtube.com/embed/?listType=playlist&list=${this.PLAYLIST_ID}`;
-
-    @computed public get styles(): any {
+    @computed static get styles(): IInlineStyles {
         return {
             coversInner: {
                 position: "absolute",
@@ -28,8 +29,8 @@ export class CoversInner extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         return (
-            <div style={this.styles.coversInner}>
-                <iframe width="560" height="315" src={this.src} frameBorder="0" allowFullScreen={true}/>
+            <div style={Work.styles.coversInner}>
+                {WORK.map((work) => <div key={work}>{work}</div>)}
             </div>
         );
     }

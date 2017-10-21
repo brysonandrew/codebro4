@@ -1,15 +1,12 @@
 import * as React from 'react';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
-
-interface IProps {}
-
-interface IState {}
+import {IInlineStyles} from '../models';
 
 @observer
-export class ContactInner extends React.Component<IProps, IState> {
+export class Contact extends React.Component<{}, {}> {
 
-    @computed public get styles(): any {
+    @computed static get styles(): IInlineStyles {
         return {
             contactInner: {
                 position: "absolute",
@@ -20,14 +17,11 @@ export class ContactInner extends React.Component<IProps, IState> {
             }
         };
     }
-    public constructor(props?: any, context?: any) {
-        super(props, context);
-    }
 
     render(): JSX.Element {
         return (
-            <div style={this.styles.contactInner}>
-                andrew@brosyn.com
+            <div style={Contact.styles.contactInner}>
+                andrew@codebro.io
             </div>
         );
     }

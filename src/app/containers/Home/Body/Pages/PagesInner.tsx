@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
-import { IDictionary } from "../../../../../data/models/models";
-import { MotionScroll } from "../../../../widgets/MotionScroll/MotionScroll";
-import { Page } from "./Page/Page";
-import { pageList } from '../../../../../data/content/pages/pages';
 import { inject, observer } from 'mobx-react';
+import {computed} from 'mobx';
+import { MotionScroll } from "../../../../widgets/MotionScroll/MotionScroll";
+import { Page } from ".";
+import { IDictionary, pageList } from '../../../../../data';
 import HomeStore from '../../../../../mobx/stores/HomeStore';
-import {computed, observable} from 'mobx';
 
 interface IProps {
     store?: HomeStore<string>
@@ -87,7 +86,7 @@ export class PagesInner extends React.Component<IProps, IState> {
                 verticalAlign: "top",
                 width: this.adjustedWidth,
                 height: height,
-                transform: `translate3d(${-adjustedScroll}px, 0px, 0px)`
+                transform: `translate3d(${-adjustedScroll}px, 0, 0)`
             }
         };
     }

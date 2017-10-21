@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
-import { IParams, IPage } from "../../../../../../data/models/models";
 import { computed } from 'mobx';
 import { inject, observer } from 'mobx-react';
-import HomeStore from '../../../../../../mobx/stores/HomeStore';
-import {colors} from '../../../../../../data/themeOptions';
+import { IParams, IPage, colors } from "../../../../../data";
+import HomeStore from '../../../../../mobx/stores/HomeStore';
 
 interface IProps {
     index: number
@@ -30,13 +29,11 @@ export class Page extends React.Component<IProps, IState> {
     timeoutId;
 
     @computed public get styles(): any {
-        const imagePath = this.props.page.backgroundImagePath;
         return {
             page: {
                 position: "relative",
                 height: this.props.store.height,
                 width: "100%",
-                background: !!imagePath ? `linear-gradient(to right, ${colors.blk} 0%, transparent 10%, transparent 90%, ${colors.blk} 100%), url(${imagePath}) center / cover no-repeat` : "",
                 zIndex: 0
             }
         };

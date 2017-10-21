@@ -1,18 +1,15 @@
 import * as React from 'react';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
-
-interface IProps {}
-
-interface IState {}
+import {IInlineStyles} from '../models';
 
 @observer
-export class OriginalsInner extends React.Component<IProps, IState> {
+export class Video extends React.Component<{}, {}> {
 
     PLAYLIST_ID = "PLEJAFE35LZu1hhfSYmFtQsZVtFyJ03C8y";
     src = `https://www.youtube.com/embed/?listType=playlist&list=${this.PLAYLIST_ID}`;
 
-    @computed public get styles(): any {
+    @computed static get styles(): IInlineStyles {
         return {
             originalsInner: {
                 position: "absolute",
@@ -28,7 +25,7 @@ export class OriginalsInner extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         return (
-            <div style={this.styles.originalsInner}>
+            <div style={Video.styles.originalsInner}>
                 <iframe width="560" height="315" src={this.src} frameBorder="0" allowFullScreen={true}/>
             </div>
     );

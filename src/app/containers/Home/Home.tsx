@@ -1,14 +1,12 @@
 import * as React from 'react';
-import createHistory from 'history/createBrowserHistory';
-import { Pages } from './Body/Pages/Pages';
-import { browserHistory } from 'react-router';
-import { ScreenSaver } from '../../widgets/ScreenSaver';
-import { toParams } from "../../../data/helpers/toParams";
 import { inject, observer } from 'mobx-react';
 import { computed } from 'mobx';
+import createHistory from 'history/createBrowserHistory';
+import { browserHistory } from 'react-router';
+import { Header, Pages } from './Body';
+import { ScreenSaver } from '../../widgets/ScreenSaver';
+import { toParams, colors } from '../../../data';
 import HomeStore from '../../../mobx/stores/HomeStore';
-import { colors } from '../../../data/themeOptions';
-import { Header } from './Body/Header/Header';
 
 interface IState {
     isMounted: boolean
@@ -58,9 +56,9 @@ export class Home extends React.Component<IProps, IState> {
         window.scroll(0, 0);
 
         const history = createHistory();
-// initial save params
+    // initial save params
         onLoad(toParams(history.location.pathname));
-// listen to future params
+    // listen to future params
         browserHistory.listen( location =>  {
 
             onLocationListen(

@@ -1,4 +1,4 @@
-export function getIEVersion() {
+export function IEVersion() {
     if (typeof window === 'undefined') {
         return undefined;
     }

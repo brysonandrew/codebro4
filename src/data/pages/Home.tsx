@@ -1,15 +1,12 @@
 import * as React from 'react';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
-
-interface IProps {}
-
-interface IState {}
+import { IInlineStyles } from '../models';
 
 @observer
-export class HomeInner extends React.Component<IProps, IState> {
+export class Home extends React.Component<{}, {}> {
 
-    @computed public get styles(): any {
+    @computed static get styles(): IInlineStyles {
         return {
             homeInner: {
                 position: "absolute",
@@ -20,14 +17,10 @@ export class HomeInner extends React.Component<IProps, IState> {
         };
     }
 
-    public constructor(props?: any, context?: any) {
-        super(props, context);
-    }
-
     render(): JSX.Element {
         return (
-            <h1 style={this.styles.homeInner}>
-                BROSYN
+            <h1 style={Home.styles.homeInner}>
+                code bro
             </h1>
         );
     }

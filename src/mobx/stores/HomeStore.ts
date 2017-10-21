@@ -1,5 +1,5 @@
 import { observable, action } from 'mobx';
-import { IParams } from '../../data/models/models';
+import { IParams } from '../../data/models';
 import { buildMap } from '../../data/helpers/buildMap';
 import {breakPointTests} from '../../data/helpers/breakPoints';
 

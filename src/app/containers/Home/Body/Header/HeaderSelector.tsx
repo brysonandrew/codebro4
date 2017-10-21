@@ -2,7 +2,7 @@ import * as React from 'react';
 import { browserHistory } from 'react-router';
 import { StaggeredMotion, spring } from 'react-motion';
 import { computed } from 'mobx';
-import { IPage } from '../../../../../data/models/models';
+import { IPage } from '../../../../../data/models';
 import { inject, observer } from 'mobx-react';
 import HomeStore from '../../../../../mobx/stores/HomeStore';
 

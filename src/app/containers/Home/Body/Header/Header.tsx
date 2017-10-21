@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { computed } from 'mobx';
-import { pageList } from '../../../../../data/content/pages/pages';
+import { pageList } from '../../../../../data/pages/index';
 import { HeaderSelector } from './HeaderSelector';
 import { observer } from 'mobx-react';
 

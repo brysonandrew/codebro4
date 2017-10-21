@@ -1,4 +1,4 @@
-export const getScrollTopMax = () => {
+export const scrollTopMax = () => {
     let ref;
     return (ref = document.scrollingElement["scrollTopMax"]) != null
         ? ref

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { colors } from '../../data/themeOptions';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
+import { IInlineStyles } from '../../data/models';
 
 interface IProps {
     isFirstRender: boolean
@@ -16,7 +17,7 @@ export class ScreenSaver extends React.Component<IProps, IState> {
 
     mountTimeout;
 
-    @computed public get styles(): any {
+    @computed public get styles(): IInlineStyles {
         const { isMounted } = this.state;
         const { isFirstRender } = this.props;
         return {
@@ -37,8 +38,7 @@ export class ScreenSaver extends React.Component<IProps, IState> {
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -50%) scale(2)",
-            },
-            screenSaver__text: {}
+            }
         };
     }
 
@@ -62,9 +62,7 @@ export class ScreenSaver extends React.Component<IProps, IState> {
         return (
             <div style={this.styles.screenSaver}>
                 <div style={this.styles.screenSaver__inner}>
-                    <h1 style={this.styles.screenSaver__text}>
-                        BROSYN
-                    </h1>
+                    <h1>code bro</h1>
                 </div>
             </div>
         );
