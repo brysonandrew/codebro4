@@ -12,8 +12,8 @@ class App extends React.Component<any, any> {
     componentDidMount() {
         Fonts();
         setBodyStyle("margin", "0");
-        setBodyStyle("color", colors.wht);
-        setBodyStyle("background", colors.blk);
+        setBodyStyle("color", colors.blk);
+        setBodyStyle("background", colors.wht);
     }
 
     // renderDevTool() {

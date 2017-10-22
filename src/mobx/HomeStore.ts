@@ -1,6 +1,7 @@
 import { observable, action } from 'mobx';
 import { browserHistory } from 'react-router';
-import { IParams, buildMap, breakPointTests, IDictionary, pageList } from '../data';
+import { IParams, buildMap, breakPointTests, IDictionary } from '../data';
+import { PAGES } from '../containers/Body/Pages';
 
 export class HomeStore<Item> {
 
@@ -19,6 +20,7 @@ export class HomeStore<Item> {
     @observable projectOffsetList: number[];
     @observable projectOffsets: IDictionary<number>;
     @observable savedParams: Map<string, string>;
+    pageLength;
     timeoutId;
     timeoutStopDelay = 50;
 
@@ -30,11 +32,12 @@ export class HomeStore<Item> {
         this.isWheel = false;
         this.projectOffsetList = [];
         this.projectOffsets = {};
+        this.pageLength = PAGES.length;
         this.width = 0;
         this.height = 0;
         this.docScroll = 0;
         this.savedParams = buildMap({
-            activePagePath: ""
+            activePagePath: "intro"
         });
     }
 
@@ -70,8 +73,8 @@ export class HomeStore<Item> {
             ?   PagesInnerScrolledPastOffsets.length - 1
             :   -1;
 
-        if (currentIndex > -1 && pageList[currentIndex].path !== this.savedParams.get("activePagePath")) {
-            const nextPath = `/${pageList[currentIndex].path}`;
+        if (currentIndex > -1 && PAGES[currentIndex].path !== this.savedParams.get("activePagePath")) {
+            const nextPath = `/${PAGES[currentIndex].path}`;
             browserHistory.push(nextPath);
         }
     };
@@ -93,9 +96,9 @@ export class HomeStore<Item> {
         this.isMobile = breakPointTests.isMobile(width);
         this.isTablet = breakPointTests.isTablet(width);
         this.isLaptop = breakPointTests.isLaptop(width);
-        this.projectOffsetList = pageList.map((_, i) => i * width);
+        this.projectOffsetList = PAGES.map((_, i) => i * width);
         this.projectOffsets = this.projectOffsetList.reduce((acc, curr, i) => {
-            acc[pageList[i].path] = curr;
+            acc[PAGES[i].path] = curr;
             return acc;
         }, {});
     };
@@ -107,10 +110,10 @@ export class HomeStore<Item> {
 
     @action
     public onLoad = (nextParams: IParams) => {
-        setTimeout(() => {
-            this.isAppMounted = true;
-        }, 800);
+        if (nextParams.activePagePath.length > 0) {
+            this.savedParams = buildMap(nextParams);
+        }
         this.scrollY = () => (!!document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-        this.savedParams = buildMap(nextParams);
+        this.isAppMounted = true;
     };
 }

@@ -2,8 +2,33 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { computed } from 'mobx';
 import { PagesItem } from "./";
-import { pageList, IInlineStyles } from '../../data';
+import { Intro, Video, Work, Contact, IInlineStyles, IPage, toPath } from '../../data';
 import { HomeStore} from '../../mobx';
+
+function Page(name, component) {
+    this.name = name;
+    this.path = toPath(this.name);
+    this.component = component;
+}
+
+export const PAGES: IPage[] = [
+    new Page(
+        "Intro",
+        <Intro/>
+    ),
+    new Page(
+        "Video",
+        <Video/>
+    ),
+    new Page(
+        "Work",
+        <Work/>
+    ),
+    new Page(
+        "Contact",
+        <Contact/>
+    )
+];
 
 const STYLES: IInlineStyles = {
     pages: {
@@ -22,7 +47,6 @@ const STYLES: IInlineStyles = {
 };
 
 interface IProps {
-    docScroll: number
     store?: HomeStore<string>
 }
 
@@ -30,7 +54,17 @@ interface IProps {
 @observer
 export class Pages extends React.Component<IProps, {}> {
 
-    @computed public get widthMarginFactor(): any {
+    static calcWidthMarginFactor(isMobile, isTablet, isLaptop) {
+        return  isMobile
+            ?   0
+            :   isTablet
+                ?   -0.0675
+                :   isLaptop
+                    ?   -0.125
+                    :   -0.25;
+    }
+
+    @computed public get widthMarginFactor(): number {
         return Pages.calcWidthMarginFactor(
             this.props.store.isMobile,
             this.props.store.isTablet,
@@ -38,43 +72,35 @@ export class Pages extends React.Component<IProps, {}> {
         );
     }
 
-    @computed public get widthMargin(): any {
+    @computed public get widthMargin(): number {
         return this.widthMarginFactor * this.props.store.width
     }
 
-    @computed public get adjustedWidth(): any {
+    @computed public get adjustedScroll(): number {
+        return this.props.store.docScroll - (this.widthMarginFactor * this.props.store.docScroll * 2)
+    }
+
+    @computed public get scrollHeight(): number {
+        return this.props.store.height + this.props.store.width * (this.props.store.pageLength - 1)
+    }
+
+    @computed public get adjustedWidth(): number {
         return this.props.store.width - this.widthMargin * 2
     }
 
-    static calcWidthMarginFactor(isMobile, isTablet, isLaptop) {
-        return  isMobile
-                    ?   0
-                    :   isTablet
-                            ?   -0.0675
-                            :   isLaptop
-                                    ?   -0.125
-                                    :   -0.25;
-    }
-
     render(): JSX.Element {
-        const { height, width, isMobile, isTablet, isLaptop } = this.props.store;
-
-        const scrollHeight = width * (pageList.length - 1);
-        const widthMarginFactor = Pages.calcWidthMarginFactor(isMobile, isTablet, isLaptop);
-        const adjustedScroll = this.props.docScroll - (widthMarginFactor * this.props.docScroll * 2);
-
         return (
-            <div style={{...STYLES.pages, height: height + scrollHeight}}>
+            <div style={{...STYLES.pages, height: this.scrollHeight}}>
                 <div style={{...STYLES.pages__slider,
                     left: this.widthMargin,
-                    width: pageList.length * this.adjustedWidth
+                    width: this.props.store.pageLength * this.adjustedWidth
                 }}>
-                    {pageList.map((page, i) =>
+                    {PAGES.map((page, i) =>
                         <div key={`page-${i}`}
                              style={{...STYLES.pages__item,
                                  width: this.adjustedWidth,
-                                 height: height,
-                                 transform: `translate3d(${-adjustedScroll}px, 0, 0)`
+                                 height: this.props.store.height,
+                                 transform: `translate3d(${-this.adjustedScroll}px, 0, 0)`
                              }}>
                             <PagesItem
                                 index={i}

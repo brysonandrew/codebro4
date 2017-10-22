@@ -1,20 +1,19 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
-import { StaggeredMotion, spring } from 'react-motion';
 import { computed } from 'mobx';
-import { IPage, IInlineStyles, pageList } from '../../data';
+import { StaggeredMotion, spring } from 'react-motion';
+import { IPage, IInlineStyles } from '../../data';
 import { inject, observer } from 'mobx-react';
 import { HomeStore } from '../../mobx';
 
-const TEXT_ORIGIN = -40;
-const TEXT_TARGET = 40;
+const TEXT_ORIGIN = -8;
+const TEXT_TARGET = 0;
 
 const STYLES: IInlineStyles = {
     headerItem: {
         id: "header item",
         position: "relative",
         display: "inline-block",
-        width: `${100 / pageList.length}%`,
         cursor: "pointer"
     },
     headerItem__inner: {
@@ -36,48 +35,39 @@ export class HeaderItem extends React.Component<IProps, {}> {
 
     springConfig = { stiffness: 80, damping: 4 };
 
-    @computed public get isSelected(): boolean {
-        const { store, page } = this.props;
-        return store.savedParams.get("activePagePath") === page.path;
-    }
-
     handleClick = () => {
-        const { page } = this.props;
-        const { onAnimationStart } = this.props.store;
-
-        const path = `/${page.path}`;
+        const path = `/${this.props.page.path}`;
         browserHistory.push(path);
-        onAnimationStart();
+        this.props.store.onAnimationStart();
     };
 
     render(): JSX.Element {
-        const { page } = this.props;
-        const isSelected = this.isSelected;
+        const params = this.props.store.savedParams;
+        const path = this.props.page.path;
+
         return (
             <StaggeredMotion defaultStyles={[{x: TEXT_ORIGIN}, {x: TEXT_ORIGIN}, {x: TEXT_ORIGIN}, {x: TEXT_ORIGIN}, {x: TEXT_ORIGIN}]}
                 styles={prevInterpolatedStyles => prevInterpolatedStyles.map((_, i) => {
                     return i === 0
-                        ? {x: spring(isSelected ? TEXT_TARGET : -TEXT_ORIGIN, this.springConfig)}
+                        ? {x: spring(params.get("activePagePath") === path ? TEXT_TARGET : TEXT_ORIGIN, this.springConfig)}
                         : {x: spring(prevInterpolatedStyles[i - 1].x)}
                 })}>
-                {interpolatingStyles =>
-                    <div
-                        style={STYLES.headerItem}
-                        onClick={this.handleClick}
-                    >
-                        {interpolatingStyles.map((style, styleIndex) =>
+                {interpolatingStyles => {
+                    return  <div
+                                style={{...STYLES.headerItem, width: `${100 / this.props.store.pageLength}%`}}
+                                onClick={this.handleClick}
+                            >
+                            {interpolatingStyles.map((style, styleIndex) =>
                                 <h2 key={`style-${styleIndex}`}
                                     style={{...STYLES.headerItem__inner,
-                                        transform: `translateX(${style.x}px)`,
-                                        opacity: style.x + (TEXT_TARGET + 0.1)
+                                        transform: `translate3d(${style.x}px, 0, 0)`,
+                                        opacity: style.x + (TEXT_ORIGIN - 0.1) * -1
                                     }}
                                 >
-                                {page.name}
-                            </h2>
-                            )
-                        }
-                    </div>
-                }
+                                    {this.props.page.name}
+                                </h2>)}
+                            </div>
+                }}
             </StaggeredMotion>
         );
     }

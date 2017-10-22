@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
-import { computed } from 'mobx';
 import createHistory from 'history/createBrowserHistory';
 import { browserHistory } from 'react-router';
 import { Header, Pages } from './Body';
 import { ScreenSaver, MotionScroll } from '../widgets';
-import { toParams, listeners, resetIdle, pageList, IInlineStyles } from '../data';
+import { toParams, listeners, resetIdle, IInlineStyles } from '../data';
 import { HomeStore } from '../mobx';
 
 const STYLES: IInlineStyles = {
@@ -28,9 +27,8 @@ const STYLES: IInlineStyles = {
         id: "home title",
         position: "absolute",
         left: 0,
-        top: `${50 / pageList.length }$`,
         fontSize: 28,
-        transform: "rotate(-90deg) translate(-100%, 0)"
+        transform: "rotate(-90deg) translate(200%, 0)"
     }
 };
 
@@ -56,14 +54,6 @@ export class Home extends React.Component<IProps, IState> {
         this.state = {
             docScroll: 0
         };
-    }
-
-    @computed public get activePagePath(): string {
-        const { savedParams } = this.props.store;
-
-        return !!savedParams.get("activePagePath")
-            ?   savedParams.get("activePagePath")
-            :   pageList[0].path;
     }
 
     componentDidMount() {
@@ -94,7 +84,7 @@ export class Home extends React.Component<IProps, IState> {
     }
 
     render(): JSX.Element {
-        const { onAnimationEnd, isAnimating, isAppMounted, projectOffsets, docScroll } = this.props.store;
+        const { onAnimationEnd, isAnimating, isAppMounted, projectOffsets, docScroll, savedParams } = this.props.store;
 
         return (
             <div
@@ -102,15 +92,13 @@ export class Home extends React.Component<IProps, IState> {
                 style={ STYLES.home }
                 ref={el => el ? (this.parentRef = el) : null}
             >
-                <div style={ STYLES.home__title }>
+                <div style={{...STYLES.home__title, top: `${50 / this.props.store.pageLength}%`}}>
                     <h1>code bro</h1>
                 </div>
                 <div style={ STYLES.home__header }>
                     <Header/>
                 </div>
-                <Pages
-                    docScroll={docScroll}
-                />
+                <Pages/>
                 <ScreenSaver
                     isScreenSaver={!isAppMounted}
                 />
@@ -118,7 +106,7 @@ export class Home extends React.Component<IProps, IState> {
                     ?   <MotionScroll
                             docScroll={docScroll}
                             isAnimating={isAnimating}
-                            scrollTarget={projectOffsets[this.activePagePath]}
+                            scrollTarget={projectOffsets[savedParams.get("activePagePath")]}
                             onRest={onAnimationEnd}
                         />
                     :   null}
