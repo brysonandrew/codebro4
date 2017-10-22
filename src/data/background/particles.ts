@@ -1,10 +1,9 @@
 import THREE = require('three');
 const MAX = 100;
 
-export class Flame {
+export class Particles {
 
     cluster = new THREE.Group;
-    count = 0;
 
     addCluster() {
         const amount = 400;
@@ -66,7 +65,7 @@ export class Flame {
     }
 
     rotate() {
-        this.cluster.rotation.y += 0.0001;
+        this.cluster.rotation.y += 0.0002;
     }
 
     animate() {

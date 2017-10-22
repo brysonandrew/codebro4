@@ -1,7 +1,7 @@
 import * as React from 'react';
 import THREE = require('three');
 import {isGL} from '..';
-import {Flame} from './fire';
+import {Particles} from './particles';
 import {CenteredText} from '../../widgets';
 
 interface IProps {
@@ -21,10 +21,8 @@ export class Background extends React.Component<IProps, IState> {
     camera;
     renderer;
     animateLoop;
-    point;
-    particles: Flame = new Flame();
+    particles: Particles = new Particles();
     playerFocus = new THREE.Group;
-    circleLights;
 
     public constructor(props?: any, context?: any) {
         super(props, context);
@@ -45,6 +43,12 @@ export class Background extends React.Component<IProps, IState> {
         cancelAnimationFrame(this.animateLoop);
         if (isGL()) {
             this.props.parentEl.removeChild( this.renderer.domElement );
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.width !== this.props.width || nextProps.height !== this.props.height) {
+            this.renderer.setSize( nextProps.width, nextProps.height );
         }
     }
 
@@ -84,10 +88,8 @@ export class Background extends React.Component<IProps, IState> {
     }
 
     renderMotion() {
-        const inc = this.props.docScroll * 0.0001;
         this.particles.animate();
         this.camera.position.set(0, 0, (this.props.docScroll - 2100));
-        // this.camera.rotation.set(Math.cos(inc), Math.sin(inc), 0);
         this.renderer.render( this.scene, this.camera );
     }
 

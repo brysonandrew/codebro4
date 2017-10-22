@@ -23,10 +23,12 @@ export class WorkLink extends React.Component<IProps, IState> {
     STYLES: IInlineStyles = {
         workLink: {
             id: "work link",
-            position: "relative"
+            position: "relative",
+            padding: "4px 0"
         },
         workLink__text: {
             fontSize: 24,
+            fontFamily: "'Inconsolata', 'arial', sans-serif",
             color: colors.blk,
             textDecoration: "none"
         },
@@ -34,7 +36,8 @@ export class WorkLink extends React.Component<IProps, IState> {
             height: 4,
             position: "absolute",
             bottom: 0,
-            background: colors.blk
+            background: colors.blk,
+            transition: "400ms width"
         }
     };
 
@@ -66,6 +69,7 @@ export class WorkLink extends React.Component<IProps, IState> {
                 </a>
                 <div style={{
                     ...this.STYLES.workLink__underline,
+                    [this.state.isHovered ? "left" : "right"]: 0,
                     width: `${this.state.isHovered ? 100 : 0}%`
                 }}/>
             </div>

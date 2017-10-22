@@ -54,34 +54,34 @@ interface IProps {
 @observer
 export class Pages extends React.Component<IProps, {}> {
 
-    static calcWidthMarginFactor(isMobile, isTablet, isLaptop) {
-        return  isMobile
-            ?   0
-            :   isTablet
-                ?   -0.0675
-                :   isLaptop
-                    ?   -0.125
-                    :   -0.25;
-    }
-
-    @computed public get widthMarginFactor(): number {
-        return Pages.calcWidthMarginFactor(
-            this.props.store.isMobile,
-            this.props.store.isTablet,
-            this.props.store.isLaptop
-        );
-    }
+    // static calcWidthMarginFactor(isMobile, isTablet, isLaptop) {
+    //     return  isMobile
+    //         ?   0
+    //         :   isTablet
+    //             ?   -0.0675
+    //             :   isLaptop
+    //                 ?   -0.125
+    //                 :   -0.25;
+    // }
+    //
+    // @computed public get widthMarginFactor(): number {
+    //     return Pages.calcWidthMarginFactor(
+    //         this.props.store.isMobile,
+    //         this.props.store.isTablet,
+    //         this.props.store.isLaptop
+    //     );
+    // }
 
     @computed public get widthMargin(): number {
-        return this.widthMarginFactor * this.props.store.width
+        return -0.5 * this.props.store.width
     }
 
     @computed public get adjustedScroll(): number {
-        return this.props.store.docScroll - (this.widthMarginFactor * this.props.store.docScroll * 2)
+        return this.props.store.docScroll - (-0.5 * this.props.store.docScroll * 2)
     }
 
     @computed public get scrollHeight(): number {
-        return this.props.store.height + this.props.store.width * (this.props.store.pageLength - 1)
+        return this.props.store.height + this.props.store.width * (this.props.store.pagesLength - 1)
     }
 
     @computed public get adjustedWidth(): number {
@@ -93,7 +93,7 @@ export class Pages extends React.Component<IProps, {}> {
             <div style={{...STYLES.pages, height: this.scrollHeight}}>
                 <div style={{...STYLES.pages__slider,
                     left: this.widthMargin,
-                    width: this.props.store.pageLength * this.adjustedWidth
+                    width: this.props.store.pagesLength * this.adjustedWidth
                 }}>
                     {PAGES.map((page, i) =>
                         <div key={`page-${i}`}

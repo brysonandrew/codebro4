@@ -25,15 +25,31 @@ export class Header extends React.Component<IProps, {}> {
         header__bar: {
             position: "absolute",
             bottom: 0,
-            left: 0,
             height: 1,
+            background: colors.blk
+        },
+        header__dot: {
+            position: "absolute",
+            top: -3,
+            right: -24,
+            height: 6,
+            width: 24,
             background: colors.blk
         }
     };
 
     private posFromZero = () => ({
-        ...this.STYLES.header__bar
-        , width: this.props.store.docScroll / this.props.store.pageLength + this.props.store.width / this.props.store.pageLength * 0.5});
+        ...this.STYLES.header__bar,
+        width: this.props.store.docScroll / this.props.store.pagesLength,
+        left: this.props.store.width / this.props.store.pagesLength * 0.5
+    });
+
+    private dotScale = (): number => Math.abs(Math.cos((Math.PI * this.props.store.pagesLength) * (this.props.store.docScroll / this.props.store.width / this.props.store.pagesLength)));
+
+    private dotStyle = () => ({
+        ...this.STYLES.header__dot,
+        transform: `scale(${this.dotScale()})`
+    });
 
     render(): JSX.Element {
         return (
@@ -43,7 +59,9 @@ export class Header extends React.Component<IProps, {}> {
                         key={`page-${i}`}
                         page={page}
                     />)}
-                <div style={this.posFromZero()}/>
+                <div style={this.posFromZero()}>
+                    <div style={this.dotStyle()}/>
+                </div>
             </div>
         );
     }

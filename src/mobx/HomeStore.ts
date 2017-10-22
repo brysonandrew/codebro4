@@ -20,7 +20,7 @@ export class HomeStore<Item> {
     @observable projectOffsetList: number[];
     @observable projectOffsets: IDictionary<number>;
     @observable savedParams: Map<string, string>;
-    pageLength;
+    pagesLength;
     timeoutId;
     timeoutStopDelay = 50;
 
@@ -32,7 +32,7 @@ export class HomeStore<Item> {
         this.isWheel = false;
         this.projectOffsetList = [];
         this.projectOffsets = {};
-        this.pageLength = PAGES.length;
+        this.pagesLength = PAGES.length;
         this.width = 0;
         this.height = 0;
         this.docScroll = 0;
@@ -85,6 +85,7 @@ export class HomeStore<Item> {
 
     @action
     public onResizeViewport = (width: number, height: number) => {
+        this.onAnimationStart();
         this.width = width;
         this.height = height;
         this.isMobile = breakPointTests.isMobile(width);
@@ -107,6 +108,7 @@ export class HomeStore<Item> {
         if (nextParams.activePagePath.length > 0) {
             this.savedParams = buildMap(nextParams);
         }
+        this.onAnimationStart();
         this.scrollY = () => (!!document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
         this.isAppMounted = true;
     };

@@ -54,7 +54,7 @@ export class HeaderItem extends React.Component<IProps, {}> {
                 })}>
                 {interpolatingStyles => {
                     return  <div
-                                style={{...STYLES.headerItem, width: `${100 / this.props.store.pageLength}%`}}
+                                style={{...STYLES.headerItem, width: `${100 / this.props.store.pagesLength}%`}}
                                 onClick={this.handleClick}
                             >
                             {interpolatingStyles.map((style, styleIndex) =>

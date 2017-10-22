@@ -1,27 +1,35 @@
 import * as React from 'react';
-import { computed } from 'mobx';
 import { observer } from 'mobx-react';
-import { IInlineStyles } from '../models';
+import { IInlineStyles } from '..';
 
 @observer
 export class Intro extends React.Component<{}, {}> {
 
-    @computed static get styles(): IInlineStyles {
-        return {
-            intro: {
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                fontSize: 24,
-                transform: "translate(-50%, -50%)"
-            }
-        };
-    }
+    STYLES: IInlineStyles = {
+        intro: {
+            id: "intro",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            textAlign: "center",
+            transform: "translate(-50%, -50%)"
+        },
+        intro__text: {
+            display: "inline-block",
+            padding: 20,
+            background: "rgba(255,255,255, 0.88)",
+            fontSize: 24,
+            fontFamily: "'Inconsolata', 'arial', sans-serif",
+            width: "50%"
+        }
+    };
 
     render(): JSX.Element {
         return (
-            <div style={Intro.styles.intro}>
-                <p>Hi, my name is Andrew. and I make websites.</p>
+            <div style={this.STYLES.intro}>
+                <p style={this.STYLES.intro__text}>
+                    Hi, my name is Andrew and I make websites.
+                </p>
             </div>
         );
     }

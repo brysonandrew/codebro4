@@ -28,7 +28,7 @@ const STYLES: IInlineStyles = {
         position: "absolute",
         left: 0,
         fontSize: 28,
-        transform: "rotate(-90deg) translate(200%, 0)"
+        transform: "rotate(-90deg) translate(50%, -25%)"
     },
     home__background: {
         position: "fixed",
@@ -71,6 +71,7 @@ export class Home extends React.Component<IProps, {}> {
 
     componentWillUnmount() {
         const { onResizeViewport, onScroll, onWheel } = this.props.store;
+
         clearTimeout(this.idleTimeoutId);
         window.removeEventListener("scroll", onScroll);
         window.removeEventListener("wheel", onWheel);
@@ -99,7 +100,7 @@ export class Home extends React.Component<IProps, {}> {
                             />
                         :   null}
                 </div>
-                <div style={{...STYLES.home__title, top: `${50 / this.props.store.pageLength}%`}}>
+                <div style={{...STYLES.home__title, top: height * 0.5}}>
                     <h1>code bro</h1>
                 </div>
                 <div style={ STYLES.home__header }>

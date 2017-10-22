@@ -1,23 +1,26 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
-import { IInlineStyles, IWork, colors } from '..';
+import { IInlineStyles, IWork } from '..';
 import { WorkLink } from './WorkLink';
 
-const WORK: IWork[] = [
+const MY_WORK: IWork[] = [
     {
-        name: "Porizi Software",
+        name: "porizi.com",
         link: "http://www.porizi.com/"
     },
     {
-        name: "Co-workz Coworking Spaces",
+        name: "co-workz.de",
         link: "https://cb-coworking.herokuapp.com/"
     },
     {
-        name: "Roman Gulumjan Consulting",
+        name: "gulumjan-consulting.de",
         link: "http://www.gulumjan-consulting.de/home/de"
-    },
+    }
+];
+
+const TEAM_WORK: IWork[] = [
     {
-        name: "phonetradr",
+        name: "phonetradr.com",
         link: "https://www.phonetradr.com/"
     }
 ];
@@ -31,18 +34,38 @@ export class Work extends React.Component<{}, {}> {
             position: "absolute",
             top: "50%",
             left: "50%",
+            padding: 20,
+            background: "rgba(255,255,255, 0.88)",
             transform: "translate(-50%, -50%)"
+        },
+        work__title: {
+            margin: 0,
+            fontSize: 14
+        },
+        work__section: {
+            marginTop: 20
         }
     };
 
     render(): JSX.Element {
         return (
             <div style={this.STYLES.work}>
-                {WORK.map((work) =>
-                    <WorkLink
-                        key={work.name}
-                        work={work}
-                    />)}
+                <div>
+                    <h2 style={this.STYLES.work__title}>My work</h2>
+                    {MY_WORK.map((work) =>
+                        <WorkLink
+                            key={work.name}
+                            work={work}
+                        />)}
+                </div>
+                <div style={this.STYLES.work__section}>
+                    <h2 style={this.STYLES.work__title}>Team work</h2>
+                    {TEAM_WORK.map((work) =>
+                        <WorkLink
+                            key={work.name}
+                            work={work}
+                        />)}
+                </div>
             </div>
         );
     }
