@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
-import { IInlineStyles, IWork } from '..';
+import { IInlineStyles, IWork, prefixer } from '..';
 import { WorkLink } from './WorkLink';
 
 const MY_WORK: IWork[] = [
@@ -29,7 +29,7 @@ const TEAM_WORK: IWork[] = [
 export class Work extends React.Component<{}, {}> {
 
     STYLES: IInlineStyles = {
-        work: {
+        work: prefixer({
             id: "work",
             position: "absolute",
             top: "50%",
@@ -37,7 +37,7 @@ export class Work extends React.Component<{}, {}> {
             padding: 20,
             background: "rgba(255,255,255, 0.88)",
             transform: "translate(-50%, -50%)"
-        },
+        }),
         work__title: {
             margin: 0,
             fontSize: 14

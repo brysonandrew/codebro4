@@ -4,7 +4,7 @@ import createHistory from 'history/createBrowserHistory';
 import { browserHistory } from 'react-router';
 import { Header, Pages } from './Body';
 import { ScreenSaver, MotionScroll } from '../widgets';
-import { toParams, listeners, resetIdle, IInlineStyles, Background } from '../data';
+import { toParams, listeners, resetIdle, IInlineStyles, Background, prefixer } from '../data';
 import { HomeStore } from '../mobx';
 
 const STYLES: IInlineStyles = {
@@ -23,13 +23,13 @@ const STYLES: IInlineStyles = {
         width: "100%",
         zIndex: 10
     },
-    home__title: {
+    home__title: prefixer({
         id: "home title",
         position: "absolute",
         left: 0,
         fontSize: 28,
         transform: "rotate(-90deg) translate(50%, -25%)"
-    },
+    }),
     home__background: {
         position: "fixed",
         top: 0,
@@ -52,7 +52,7 @@ export class Home extends React.Component<IProps, {}> {
     isWheelRecorded = false;
 
     componentDidMount() {
-        const { onResizeViewport, onLocationListen, onLoad, onScroll, onWheel } = this.props.store;
+        const { onResizeViewport, onLocationListen, onLoad, onScroll } = this.props.store;
 
         const history = createHistory();
         onLoad(toParams(history.location.pathname));
@@ -64,17 +64,15 @@ export class Home extends React.Component<IProps, {}> {
 
         window.scroll(0, 0);
         window.addEventListener("scroll", onScroll);
-        window.addEventListener("wheel", onWheel);
         listeners(window, "resize", "addEventListener", () => onResizeViewport(window.innerWidth, window.innerHeight));
         listeners(this.parentRef, "interaction", "addEventListener", () => resetIdle(this));
     }
 
     componentWillUnmount() {
-        const { onResizeViewport, onScroll, onWheel } = this.props.store;
+        const { onResizeViewport, onScroll } = this.props.store;
 
         clearTimeout(this.idleTimeoutId);
         window.removeEventListener("scroll", onScroll);
-        window.removeEventListener("wheel", onWheel);
         listeners(window, "resize", "removeEventListener", () => onResizeViewport(window.innerWidth, window.innerHeight));
         listeners(this.parentRef, "interaction", "removeEventListener", () => resetIdle(this));
     }

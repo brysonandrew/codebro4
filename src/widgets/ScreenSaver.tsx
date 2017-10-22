@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {colors, IInlineStyles} from '../data';
+import {colors, IInlineStyles, prefixer} from '../data';
 
 interface IProps {
     isScreenSaver: boolean
@@ -25,13 +25,13 @@ export class ScreenSaver extends React.Component<IProps, IState> {
             transition: "opacity 1600ms",
             zIndex: 20
         },
-        screenSaver__text: {
+        screenSaver__text: prefixer({
             position: "absolute",
             top: "50%",
             left: "50%",
             fontSize: 24,
             transform: "translate(-50%, -50%)"
-        }
+        })
     };
 
     public constructor(props?: any, context?: any) {

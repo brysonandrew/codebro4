@@ -1,19 +1,19 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
-import { IInlineStyles, colors } from '..';
+import { IInlineStyles, colors, prefixer } from '..';
 
 @observer
 export class Video extends React.Component<{}, {}> {
 
     STYLES: IInlineStyles = {
-        video: {
+        video: prefixer({
             id: "video",
             position: "absolute",
             top: "50%",
             left: "50%",
             textAlign: "center",
             transform: "translate(-50%, -50%)"
-        },
+        }),
         video__link: {
             display: "inline-block",
             fontSize: 24,

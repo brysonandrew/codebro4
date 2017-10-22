@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { observer, inject } from 'mobx-react';
-import { IInlineStyles, colors } from '../../data';
+import { IInlineStyles, colors, prefixer } from '../../data';
 import { HeaderItem } from '.';
 import { HomeStore } from '../../mobx';
 import { PAGES } from './Pages';
@@ -46,10 +46,10 @@ export class Header extends React.Component<IProps, {}> {
 
     private dotScale = (): number => Math.abs(Math.cos((Math.PI * this.props.store.pagesLength) * (this.props.store.docScroll / this.props.store.width / this.props.store.pagesLength)));
 
-    private dotStyle = () => ({
+    private dotStyle = () => (prefixer({
         ...this.STYLES.header__dot,
         transform: `scale(${this.dotScale()})`
-    });
+    }));
 
     render(): JSX.Element {
         return (

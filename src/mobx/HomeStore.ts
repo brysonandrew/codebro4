@@ -6,16 +6,13 @@ import { PAGES } from '../containers/Body/Pages';
 export class HomeStore<Item> {
 
     // @observable items: Array<Item> = [];
-    @observable isWheelRecorded: boolean;
     @observable isAnimating: boolean;
     @observable isAppMounted: boolean;
-    @observable isWheel: boolean;
     @observable isMobile: boolean;
     @observable isTablet: boolean;
     @observable isLaptop: boolean;
     @observable width: number;
     @observable height: number;
-    @observable scrollY: () => number;
     @observable docScroll: number;
     @observable projectOffsetList: number[];
     @observable projectOffsets: IDictionary<number>;
@@ -26,10 +23,8 @@ export class HomeStore<Item> {
 
     constructor(initialState?: { homeStore: HomeStore<Item> }) {
         // this.items = initialState && initialState.homeStore && initialState.homeStore.items ? initialState.homeStore.items : [];
-        this.isWheelRecorded = false;
         this.isAnimating = false;
         this.isAppMounted = false;
-        this.isWheel = false;
         this.projectOffsetList = [];
         this.projectOffsets = {};
         this.pagesLength = PAGES.length;
@@ -37,25 +32,19 @@ export class HomeStore<Item> {
         this.height = 0;
         this.docScroll = 0;
         this.savedParams = buildMap({
-            activePagePath: "intro"
+            activePagePath: ""
         });
     }
 
     @action
     public onScroll = () => {
-        this.docScroll = this.scrollY();
-    };
-
-    @action
-    public onWheel = () => {
-        this.isWheel = true;
-        // detect wheel stop
+        this.docScroll = (!!document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
         clearTimeout(this.timeoutId);
         this.timeoutId = setTimeout(() => {
+            if (!this.isAnimating) {
                 this.changeProjectPathOnScroll();
-                this.isWheel = false;
-            },
-            this.timeoutStopDelay);
+            }
+        }, this.timeoutStopDelay);
     };
 
     @action
@@ -105,15 +94,15 @@ export class HomeStore<Item> {
 
     @action
     public onLoad = (nextParams: IParams) => {
-        if (nextParams.activePagePath) {
+        if (nextParams.activePagePath.length > 0) {
             this.savedParams = buildMap(nextParams);
         } else {
             this.savedParams = buildMap({
                 activePagePath: "intro"
             });
+            browserHistory.push("/intro");
         }
         this.onAnimationStart();
-        this.scrollY = () => (!!document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
         this.isAppMounted = true;
     };
 }

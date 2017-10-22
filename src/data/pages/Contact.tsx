@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
-import { IInlineStyles, colors } from '..';
+import { IInlineStyles, colors, prefixer } from '..';
 
 @observer
 export class Contact extends React.Component<{}, {}> {
 
     STYLES: IInlineStyles = {
-        contact: {
+        contact: prefixer({
             id: "contact",
             position: "absolute",
             top: "50%",
@@ -16,7 +16,7 @@ export class Contact extends React.Component<{}, {}> {
             background: "rgba(255,255,255, 0.88)",
             transform: "translate(-50%, -50%)",
             cursor: "pointer"
-        },
+        }),
         contact__text: {
             display: "inline-block",
             fontSize: 24,

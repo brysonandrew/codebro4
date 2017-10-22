@@ -16,7 +16,7 @@ export class Particles {
         const vertex = new THREE.Vector3();
         const color = new THREE.Color( 0x000000 );
 
-        positions.forEach((_, i) => {
+        positions.map((_, i) => {
             vertex.x = (Math.random() * 2 - 1) * radius;
             vertex.y = (Math.random() * 2 - 1) * radius;
             vertex.z = (Math.random() * 2 - 1) * radius;
@@ -26,6 +26,7 @@ export class Particles {
 
             color.setHSL(0.15 * ( i / amount ) - 0.005, 0.8, 0.6);
             (color as any).toArray(colors, i * 3);
+            return vertex
         });
 
         const geometry = new THREE.BufferGeometry();

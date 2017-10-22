@@ -1,19 +1,19 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
-import { IInlineStyles } from '..';
+import { IInlineStyles, prefixer } from '..';
 
 @observer
 export class Intro extends React.Component<{}, {}> {
 
     STYLES: IInlineStyles = {
-        intro: {
+        intro: prefixer({
             id: "intro",
             position: "absolute",
             top: "50%",
             left: "50%",
             textAlign: "center",
             transform: "translate(-50%, -50%)"
-        },
+        }),
         intro__text: {
             display: "inline-block",
             padding: 20,

@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
-import { computed } from 'mobx';
 import { StaggeredMotion, spring } from 'react-motion';
-import { IPage, IInlineStyles } from '../../data';
+import { IPage, IInlineStyles, prefixer } from '../../data';
 import { inject, observer } from 'mobx-react';
 import { HomeStore } from '../../mobx';
 
@@ -59,10 +58,10 @@ export class HeaderItem extends React.Component<IProps, {}> {
                             >
                             {interpolatingStyles.map((style, styleIndex) =>
                                 <h2 key={`style-${styleIndex}`}
-                                    style={{...STYLES.headerItem__inner,
+                                    style={prefixer({...STYLES.headerItem__inner,
                                         transform: `translate3d(${style.x}px, 0, 0)`,
                                         opacity: style.x + (TEXT_ORIGIN - 0.1) * -1
-                                    }}
+                                    })}
                                 >
                                     {this.props.page.name}
                                 </h2>)}

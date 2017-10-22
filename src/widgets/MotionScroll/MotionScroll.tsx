@@ -18,13 +18,17 @@ export class MotionScroll extends React.Component<IProps, any> {
     componentWillReceiveProps(nextProps) {
         if (nextProps.isAnimating !== this.props.isAnimating
             && nextProps.isAnimating
-            && nextProps.scrollTarget === nextProps.docScroll) {
+            && (nextProps.scrollTarget === nextProps.docScroll || typeof nextProps.scrollTarget === "undefined")) {
+            console.log("restin");
             nextProps.onRest();
         }
     }
 
     render(): JSX.Element {
         const { isAnimating, docScroll, scrollTarget, onRest } = this.props;
+        console.log(isAnimating);
+        console.log(docScroll);
+        console.log(scrollTarget);
 
         return  <Motion defaultStyle={{
                             scrollY: docScroll

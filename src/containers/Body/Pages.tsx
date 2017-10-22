@@ -2,7 +2,7 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { computed } from 'mobx';
 import { PagesItem } from "./";
-import { Intro, Video, Work, Contact, IInlineStyles, IPage, toPath } from '../../data';
+import { Intro, Video, Work, Contact, IInlineStyles, IPage, toPath, prefixer } from '../../data';
 import { HomeStore} from '../../mobx';
 
 function Page(name, component) {
@@ -97,11 +97,11 @@ export class Pages extends React.Component<IProps, {}> {
                 }}>
                     {PAGES.map((page, i) =>
                         <div key={`page-${i}`}
-                             style={{...STYLES.pages__item,
+                             style={prefixer({...STYLES.pages__item,
                                  width: this.adjustedWidth,
                                  height: this.props.store.height,
                                  transform: `translate3d(${-this.adjustedScroll}px, 0, 0)`
-                             }}>
+                             })}>
                             <PagesItem
                                 index={i}
                                 page={page}
