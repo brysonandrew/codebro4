@@ -43,11 +43,7 @@ export class HomeStore<Item> {
 
     @action
     public onScroll = () => {
-        if (!this.isAnimating) {
-            this.changeProjectPathOnScroll();
-        }
         this.docScroll = this.scrollY();
-        this.isWheel = true;
     };
 
     @action
@@ -56,12 +52,10 @@ export class HomeStore<Item> {
         // detect wheel stop
         clearTimeout(this.timeoutId);
         this.timeoutId = setTimeout(() => {
+                this.changeProjectPathOnScroll();
                 this.isWheel = false;
             },
             this.timeoutStopDelay);
-        if (this.isAnimating) {
-            this.docScroll = this.scrollY();
-        }
     };
 
     @action

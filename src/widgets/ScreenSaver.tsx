@@ -22,14 +22,14 @@ export class ScreenSaver extends React.Component<IProps, IState> {
             height: "100vh",
             color: colors.blk,
             background: colors.wht,
-            transition: "opacity 800ms",
+            transition: "opacity 1600ms",
             zIndex: 20
         },
         screenSaver__text: {
             position: "absolute",
             top: "50%",
             left: "50%",
-            fontSize: 28,
+            fontSize: 24,
             transform: "translate(-50%, -50%)"
         }
     };
@@ -52,7 +52,7 @@ export class ScreenSaver extends React.Component<IProps, IState> {
                     this.setState({
                         isShown: nextProps.isScreenSaver
                     }
-                ), 100);
+                ), 1600);
         }
     }
 

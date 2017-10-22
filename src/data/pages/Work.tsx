@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
 import { IInlineStyles, IWork, colors } from '..';
+import { WorkLink } from './WorkLink';
 
 const WORK: IWork[] = [
     {
@@ -31,10 +32,6 @@ export class Work extends React.Component<{}, {}> {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)"
-        },
-        work__link: {
-            color: colors.blk,
-            textDecoration: "none"
         }
     };
 
@@ -42,15 +39,10 @@ export class Work extends React.Component<{}, {}> {
         return (
             <div style={this.STYLES.work}>
                 {WORK.map((work) =>
-                    <div key={work.name}>
-                        <a
-                            style={this.STYLES.work__link}
-                            href={work.link}
-                            target="_blank"
-                        >
-                            {work.name}
-                    </a>
-                    </div>)}
+                    <WorkLink
+                        key={work.name}
+                        work={work}
+                    />)}
             </div>
         );
     }

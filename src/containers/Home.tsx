@@ -4,7 +4,7 @@ import createHistory from 'history/createBrowserHistory';
 import { browserHistory } from 'react-router';
 import { Header, Pages } from './Body';
 import { ScreenSaver, MotionScroll } from '../widgets';
-import { toParams, listeners, resetIdle, IInlineStyles } from '../data';
+import { toParams, listeners, resetIdle, IInlineStyles, Background } from '../data';
 import { HomeStore } from '../mobx';
 
 const STYLES: IInlineStyles = {
@@ -29,12 +29,13 @@ const STYLES: IInlineStyles = {
         left: 0,
         fontSize: 28,
         transform: "rotate(-90deg) translate(200%, 0)"
+    },
+    home__background: {
+        position: "fixed",
+        top: 0,
+        left: 0
     }
 };
-
-interface IState {
-    docScroll: number
-}
 
 interface IProps {
     store?: HomeStore<string>
@@ -42,19 +43,13 @@ interface IProps {
 
 @inject('store')
 @observer
-export class Home extends React.Component<IProps, IState> {
+export class Home extends React.Component<IProps, {}> {
 
     parentRef;
+    backgroundRef;
     idleTimeoutId;
     timeoutStopDelay = 50;
     isWheelRecorded = false;
-
-    public constructor(props?: any, context?: any) {
-        super(props, context);
-        this.state = {
-            docScroll: 0
-        };
-    }
 
     componentDidMount() {
         const { onResizeViewport, onLocationListen, onLoad, onScroll, onWheel } = this.props.store;
@@ -84,14 +79,26 @@ export class Home extends React.Component<IProps, IState> {
     }
 
     render(): JSX.Element {
-        const { onAnimationEnd, isAnimating, isAppMounted, projectOffsets, docScroll, savedParams } = this.props.store;
+        const { onAnimationEnd, isAnimating, isAppMounted, projectOffsets, docScroll, savedParams, width, height } = this.props.store;
 
         return (
             <div
-                className="cb-home"
                 style={ STYLES.home }
                 ref={el => el ? (this.parentRef = el) : null}
             >
+                <div
+                    style={{...STYLES.home__background}}
+                    ref={el => el ? (this.backgroundRef = el) : null}
+                >
+                    {!!this.backgroundRef && width > 0 && height > 0
+                        ?   <Background
+                                docScroll={docScroll}
+                                width={width}
+                                height={height}
+                                parentEl={this.backgroundRef}
+                            />
+                        :   null}
+                </div>
                 <div style={{...STYLES.home__title, top: `${50 / this.props.store.pageLength}%`}}>
                     <h1>code bro</h1>
                 </div>

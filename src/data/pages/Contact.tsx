@@ -7,8 +7,8 @@ const STYLES: IInlineStyles = {
         position: "absolute",
         top: "50%",
         left: "50%",
-        transform: "translate(-50%, -50%)",
-        fontSize: 40
+        fontSize: 24,
+        transform: "translate(-50%, -50%)"
     }
 };
 
