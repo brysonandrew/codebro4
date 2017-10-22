@@ -15,6 +15,14 @@ export class MotionScroll extends React.Component<IProps, any> {
         super(props, context);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.isAnimating !== this.props.isAnimating
+            && nextProps.isAnimating
+            && nextProps.scrollTarget === nextProps.docScroll) {
+            nextProps.onRest();
+        }
+    }
+
     render(): JSX.Element {
         const { isAnimating, docScroll, scrollTarget, onRest } = this.props;
 

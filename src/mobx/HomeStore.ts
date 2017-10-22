@@ -60,11 +60,11 @@ export class HomeStore<Item> {
 
     @action
     changeProjectPathOnScroll = () => {
-        const approachingProjectBuffer = 200;
-        const PagesInnerScrolledPastOffsets = this.projectOffsetList.filter(offset => (offset - approachingProjectBuffer) < window.scrollY);
+        const approachingPageBuffer = 200;
+        const pagesInnerScrolledPastOffsets = this.projectOffsetList.filter(offset => (offset - approachingPageBuffer) < window.scrollY);
 
-        const currentIndex = PagesInnerScrolledPastOffsets.length > 0
-            ?   PagesInnerScrolledPastOffsets.length - 1
+        const currentIndex = pagesInnerScrolledPastOffsets.length > 0
+            ?   pagesInnerScrolledPastOffsets.length - 1
             :   -1;
 
         if (currentIndex > -1 && PAGES[currentIndex].path !== this.savedParams.get("activePagePath")) {
@@ -105,8 +105,12 @@ export class HomeStore<Item> {
 
     @action
     public onLoad = (nextParams: IParams) => {
-        if (nextParams.activePagePath.length > 0) {
+        if (nextParams.activePagePath) {
             this.savedParams = buildMap(nextParams);
+        } else {
+            this.savedParams = buildMap({
+                activePagePath: "intro"
+            });
         }
         this.onAnimationStart();
         this.scrollY = () => (!!document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
