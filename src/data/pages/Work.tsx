@@ -22,6 +22,14 @@ const TEAM_WORK: IWork[] = [
     {
         name: "phonetradr.com",
         link: "https://www.phonetradr.com/"
+    },
+    {
+        name: "eventerprise.com",
+        link: "https://www.eventerprise.com/"
+    },
+    {
+        name: "urbancircus.com.au",
+        link: "http://urbancircus.com.au/"
     }
 ];
 

@@ -2,6 +2,8 @@ import { observable, action } from 'mobx';
 import { browserHistory } from 'react-router';
 import { IParams, buildMap, breakPointTests, IDictionary } from '../data';
 import { PAGES } from '../containers/Body/Pages';
+import {setBodyStyle} from '../data/helpers/setBodyStyle';
+import {inAC, inB, outAC, outB} from '../data/helpers/collapseMenuTransforms';
 
 export class HomeStore<Item> {
 
@@ -11,6 +13,7 @@ export class HomeStore<Item> {
     @observable isMobile: boolean;
     @observable isTablet: boolean;
     @observable isLaptop: boolean;
+    @observable isCollapseMenu: boolean;
     @observable width: number;
     @observable height: number;
     @observable docScroll: number;
@@ -25,6 +28,7 @@ export class HomeStore<Item> {
         // this.items = initialState && initialState.homeStore && initialState.homeStore.items ? initialState.homeStore.items : [];
         this.isAnimating = false;
         this.isAppMounted = false;
+        this.isCollapseMenu = false;
         this.projectOffsetList = [];
         this.projectOffsets = {};
         this.pagesLength = PAGES.length;
@@ -32,7 +36,7 @@ export class HomeStore<Item> {
         this.height = 0;
         this.docScroll = 0;
         this.savedParams = buildMap({
-            activePagePath: ""
+            activePagePath: ''
         });
     }
 
@@ -56,7 +60,7 @@ export class HomeStore<Item> {
             ?   pagesInnerScrolledPastOffsets.length - 1
             :   -1;
 
-        if (currentIndex > -1 && PAGES[currentIndex].path !== this.savedParams.get("activePagePath")) {
+        if (currentIndex > -1 && PAGES[currentIndex].path !== this.savedParams.get('activePagePath')) {
             const nextPath = `/${PAGES[currentIndex].path}`;
             browserHistory.push(nextPath);
         }
@@ -70,6 +74,20 @@ export class HomeStore<Item> {
     @action
     public onAnimationEnd = () => {
         this.isAnimating = false;
+    };
+
+    @action
+    public onCollapseMenuToggle = (isCollapseMenu: boolean, sA, sB, sC) => {
+        if (isCollapseMenu) {
+            inAC(sA);
+            inB(sB);
+            inAC(sC);
+        } else {
+            outAC(sA);
+            outB(sB);
+            outAC(sC);
+        }
+        this.isCollapseMenu = isCollapseMenu
     };
 
     @action
@@ -93,16 +111,22 @@ export class HomeStore<Item> {
     };
 
     @action
+    public onAppMount = (isMounted: boolean) => {
+        setBodyStyle('position', isMounted ? 'static' : 'fixed');
+        this.isAppMounted = isMounted;
+    };
+
+    @action
     public onLoad = (nextParams: IParams) => {
         if (nextParams.activePagePath.length > 0) {
             this.savedParams = buildMap(nextParams);
         } else {
             this.savedParams = buildMap({
-                activePagePath: "intro"
+                activePagePath: 'intro'
             });
-            browserHistory.push("/intro");
+            browserHistory.push('/intro');
         }
         this.onAnimationStart();
-        this.isAppMounted = true;
+        this.onAppMount(true);
     };
 }

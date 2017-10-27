@@ -1,4 +1,4 @@
-import { colors, setBodyStyle } from '../data';
+import { colors, setBodyStyle, setHtmlStyle } from '../data';
 
 const appConfig = require('../../config/main.js');
 
@@ -14,6 +14,7 @@ class App extends React.Component<any, any> {
         setBodyStyle("margin", "0");
         setBodyStyle("color", colors.blk);
         setBodyStyle("background", colors.wht);
+        setHtmlStyle("overflowY", "scroll");
     }
 
     // renderDevTool() {

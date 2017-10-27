@@ -2,7 +2,7 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { computed } from 'mobx';
 import { PagesItem } from "./";
-import { Intro, Video, Work, Contact, IInlineStyles, IPage, toPath, prefixer } from '../../data';
+import { Intro, Gallery, Video, Work, Contact, IInlineStyles, IPage, toPath, prefixer } from '../../data';
 import { HomeStore} from '../../mobx';
 
 function Page(name, component) {
@@ -15,6 +15,10 @@ export const PAGES: IPage[] = [
     new Page(
         "Intro",
         <Intro/>
+    ),
+    new Page(
+        "Gallery [NEW]",
+        <Gallery/>
     ),
     new Page(
         "Video",
@@ -53,24 +57,6 @@ interface IProps {
 @inject('store')
 @observer
 export class Pages extends React.Component<IProps, {}> {
-
-    // static calcWidthMarginFactor(isMobile, isTablet, isLaptop) {
-    //     return  isMobile
-    //         ?   0
-    //         :   isTablet
-    //             ?   -0.0675
-    //             :   isLaptop
-    //                 ?   -0.125
-    //                 :   -0.25;
-    // }
-    //
-    // @computed public get widthMarginFactor(): number {
-    //     return Pages.calcWidthMarginFactor(
-    //         this.props.store.isMobile,
-    //         this.props.store.isTablet,
-    //         this.props.store.isLaptop
-    //     );
-    // }
 
     @computed public get widthMargin(): number {
         return -0.5 * this.props.store.width

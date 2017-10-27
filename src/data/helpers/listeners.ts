@@ -1,6 +1,6 @@
 import {IDictionary} from '../models';
 
-export const listeners = (el: EventTarget, type: "interaction" | "resize", action: string, callback: () => any) => {
+export const listeners = (el: EventTarget, action: string, type: "interaction" | "resize", callback: () => any) => {
     const events: IDictionary<string[]> = {
         interaction: [
             "mousemove",

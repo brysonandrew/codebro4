@@ -14,7 +14,7 @@ export class ScreenSaver extends React.Component<IProps, IState> {
 
     openTimeoutId;
     STYLES: IInlineStyles = {
-        screenSaver: {
+        screenSaver: prefixer({
             position: "fixed",
             top: 0,
             left: 0,
@@ -24,14 +24,14 @@ export class ScreenSaver extends React.Component<IProps, IState> {
             background: colors.wht,
             transition: "opacity 1600ms",
             zIndex: 20
-        },
-        screenSaver__text: prefixer({
+        }),
+        screenSaver__text: {
             position: "absolute",
             top: "50%",
-            left: "50%",
+            right: "50%",
             fontSize: 24,
-            transform: "translate(-50%, -50%)"
-        })
+            transform: "translate(50%, -50%)",
+        }
     };
 
     public constructor(props?: any, context?: any) {
@@ -52,7 +52,7 @@ export class ScreenSaver extends React.Component<IProps, IState> {
                     this.setState({
                         isShown: nextProps.isScreenSaver
                     }
-                ), 1600);
+                ), nextProps.isScreenSaver ? 1600 : 800);
         }
     }
 
@@ -72,7 +72,10 @@ export class ScreenSaver extends React.Component<IProps, IState> {
         return (
             isMounted
                 ?   <div
-                        style={{...this.STYLES.screenSaver, opacity: isShown ? 1 : 0}}
+                        style={{
+                            ...this.STYLES.screenSaver,
+                            opacity: isShown ? 1 : 0
+                        }}
                         onTransitionEnd={this.handleTransitionEnd}
                     >
                         <div style={this.STYLES.screenSaver__text}>

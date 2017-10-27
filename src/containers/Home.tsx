@@ -2,9 +2,9 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import createHistory from 'history/createBrowserHistory';
 import { browserHistory } from 'react-router';
-import { Header, Pages } from './Body';
+import { CollapseHeader, WideHeader, Pages } from './Body';
 import { ScreenSaver, MotionScroll } from '../widgets';
-import { toParams, listeners, resetIdle, IInlineStyles, Background, prefixer } from '../data';
+import { toParams, listeners, resetIdle, IInlineStyles, Background, prefixer, breakPointTests } from '../data';
 import { HomeStore } from '../mobx';
 
 const STYLES: IInlineStyles = {
@@ -64,8 +64,8 @@ export class Home extends React.Component<IProps, {}> {
 
         window.scroll(0, 0);
         window.addEventListener("scroll", onScroll);
-        listeners(window, "resize", "addEventListener", () => onResizeViewport(window.innerWidth, window.innerHeight));
-        listeners(this.parentRef, "interaction", "addEventListener", () => resetIdle(this));
+        listeners(window, "addEventListener", "resize", () => onResizeViewport(window.innerWidth, window.innerHeight));
+        listeners(this.parentRef, "addEventListener", "interaction", () => resetIdle(this));
     }
 
     componentWillUnmount() {
@@ -73,8 +73,8 @@ export class Home extends React.Component<IProps, {}> {
 
         clearTimeout(this.idleTimeoutId);
         window.removeEventListener("scroll", onScroll);
-        listeners(window, "resize", "removeEventListener", () => onResizeViewport(window.innerWidth, window.innerHeight));
-        listeners(this.parentRef, "interaction", "removeEventListener", () => resetIdle(this));
+        listeners(window, "removeEventListener", "resize", () => onResizeViewport(window.innerWidth, window.innerHeight));
+        listeners(this.parentRef, "removeEventListener", "interaction", () => resetIdle(this));
     }
 
     render(): JSX.Element {
@@ -102,7 +102,9 @@ export class Home extends React.Component<IProps, {}> {
                     <h1>code bro</h1>
                 </div>
                 <div style={ STYLES.home__header }>
-                    <Header/>
+                    {breakPointTests.isTablet(width)
+                        ?   <CollapseHeader/>
+                        :   <WideHeader/>}
                 </div>
                 <Pages/>
                 <ScreenSaver
