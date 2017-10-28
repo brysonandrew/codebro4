@@ -1,34 +1,47 @@
 import { observable, action } from 'mobx';
 import { browserHistory } from 'react-router';
 import { IParams, buildMap, breakPointTests, IDictionary } from '../data';
-import { PAGES } from '../containers/Body/Pages';
-import {setBodyStyle} from '../data/helpers/setBodyStyle';
-import {inAC, inB, outAC, outB} from '../data/helpers/collapseMenuTransforms';
+import { PAGES, ITabData } from '../containers/Body';
+import { setBodyStyle } from '../data/helpers/setBodyStyle';
+import { inAC, inB, outAC, outB } from '../data/helpers/collapseMenuTransforms';
 
-export class HomeStore<Item> {
+export class HomeStore {
 
-    // @observable items: Array<Item> = [];
+    @observable isIntroMounted: boolean;
+    @observable isWideHeaderItemMounted: boolean;
     @observable isAnimating: boolean;
     @observable isAppMounted: boolean;
     @observable isMobile: boolean;
     @observable isTablet: boolean;
     @observable isLaptop: boolean;
-    @observable isCollapseMenu: boolean;
+    @observable isCollapseMenuOpen: boolean;
+    @observable isToggleMenuMounted: boolean;
+    @observable isResizing: boolean;
     @observable width: number;
     @observable height: number;
     @observable docScroll: number;
+    @observable currentIndex: number;
     @observable projectOffsetList: number[];
     @observable projectOffsets: IDictionary<number>;
     @observable savedParams: Map<string, string>;
+    tabDimensions: Array<ITabData> = [];
     pagesLength;
     timeoutId;
     timeoutStopDelay = 50;
+    sA;
+    sB;
+    sC;
 
-    constructor(initialState?: { homeStore: HomeStore<Item> }) {
+    constructor(initialState?: { homeStore: HomeStore }) {
         // this.items = initialState && initialState.homeStore && initialState.homeStore.items ? initialState.homeStore.items : [];
+        this.isIntroMounted = false;
+        this.isWideHeaderItemMounted = false;
         this.isAnimating = false;
         this.isAppMounted = false;
-        this.isCollapseMenu = false;
+        this.isCollapseMenuOpen = false;
+        this.isToggleMenuMounted = false;
+        this.isResizing = false;
+        this.currentIndex = 0;
         this.projectOffsetList = [];
         this.projectOffsets = {};
         this.pagesLength = PAGES.length;
@@ -60,10 +73,26 @@ export class HomeStore<Item> {
             ?   pagesInnerScrolledPastOffsets.length - 1
             :   -1;
 
+        this.onCurrentIndexChange(currentIndex);
+
         if (currentIndex > -1 && PAGES[currentIndex].path !== this.savedParams.get('activePagePath')) {
             const nextPath = `/${PAGES[currentIndex].path}`;
             browserHistory.push(nextPath);
         }
+    };
+
+    @action onMeasureTabByRef = (ref: HTMLDivElement, index: number) => {
+        if (ref) {
+            this.tabDimensions[index] = {
+                width: ref.clientWidth,
+                xOffset: ref.getBoundingClientRect().left
+            }
+        }
+    };
+
+    @action
+    public onCurrentIndexChange = (index: number) => {
+        this.currentIndex = index;
     };
 
     @action
@@ -77,21 +106,32 @@ export class HomeStore<Item> {
     };
 
     @action
-    public onCollapseMenuToggle = (isCollapseMenu: boolean, sA, sB, sC) => {
-        if (isCollapseMenu) {
-            inAC(sA);
-            inB(sB);
-            inAC(sC);
+    public addMenuToggleSegments = (sA, sB, sC) => {
+        this.sA = sA;
+        this.sB = sB;
+        this.sC = sC;
+        setTimeout(() => {
+            this.isToggleMenuMounted = true;
+        }, 2000);
+    };
+
+    @action
+    public onCollapseMenuToggle = (isCollapseMenuOpen: boolean) => {
+        if (isCollapseMenuOpen) {
+            inAC(this.sA);
+            inB(this.sB);
+            inAC(this.sC);
         } else {
-            outAC(sA);
-            outB(sB);
-            outAC(sC);
+            outAC(this.sA);
+            outB(this.sB);
+            outAC(this.sC);
         }
-        this.isCollapseMenu = isCollapseMenu
+        this.isCollapseMenuOpen = isCollapseMenuOpen
     };
 
     @action
     public onResizeViewport = (width: number, height: number) => {
+        this.isResizing = true;
         this.onAnimationStart();
         this.width = width;
         this.height = height;
@@ -103,6 +143,9 @@ export class HomeStore<Item> {
             acc[PAGES[i].path] = curr;
             return acc;
         }, {});
+        setTimeout(() => {
+            this.isResizing = false;
+        }, 200);
     };
 
     @action
@@ -114,6 +157,16 @@ export class HomeStore<Item> {
     public onAppMount = (isMounted: boolean) => {
         setBodyStyle('position', isMounted ? 'static' : 'fixed');
         this.isAppMounted = isMounted;
+    };
+
+    @action
+    public onIntroMount = (isMounted: boolean) => {
+        this.isIntroMounted = isMounted;
+    };
+
+    @action
+    public onWideHeaderItemMount = (isMounted: boolean) => {
+        this.isWideHeaderItemMounted = isMounted;
     };
 
     @action

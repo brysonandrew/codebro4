@@ -1,76 +1,74 @@
 import * as React from 'react';
-import { browserHistory } from 'react-router';
-import { StaggeredMotion, spring } from 'react-motion';
-import { IPage, IInlineStyles, prefixer } from '../../data';
+import { IPage, IInlineStyles } from '../../data';
 import { inject, observer } from 'mobx-react';
 import { HomeStore } from '../../mobx';
+import { GlitchText } from '../../widgets';
+import {colors} from '../../data/themeOptions';
 
-const TEXT_ORIGIN = -8;
-const TEXT_TARGET = 0;
-
-const STYLES: IInlineStyles = {
-    p: {
-        id: "header item",
-        position: "relative",
-        width: "100%",
-        display: "inline-block",
-        cursor: "pointer"
-    },
-    content: {
-        position: "absolute",
-        top: -16,
-        left: "50%",
-        margin: 0,
-        padding: "16px 0",
-        fontSize: 14
-    }
-};
+const FONT_SIZE = 24;
 
 interface IProps {
     page: IPage
-    store?: HomeStore<string>
+    store?: HomeStore
+}
+
+interface IState {
+    isHovered
 }
 
 @inject('store')
 @observer
-export class CollapseHeaderItem extends React.Component<IProps, {}> {
+export class CollapseHeaderItem extends React.Component<IProps, IState> {
 
-    springConfig = { stiffness: 80, damping: 4 };
+    public constructor(props?: any, context?: any) {
+        super(props, context);
+        this.state = {
+            isHovered: false
+        };
+    }
 
-    handleClick = () => {
-        const path = `/${this.props.page.path}`;
-        browserHistory.push(path);
-        this.props.store.onAnimationStart();
+    STYLES: IInlineStyles = {
+        p: {
+            top: -16,
+            left: "50%",
+            margin: 0,
+            padding: "16px 0",
+        },
+        font: {
+            fontSize: FONT_SIZE
+        }
+    };
+
+    handleMouseEnter = () => {
+        this.setState({
+            isHovered: true
+        })
+    };
+
+    handleMouseLeave = () => {
+        this.setState({
+            isHovered: false
+        })
     };
 
     render(): JSX.Element {
-        const params = this.props.store.savedParams;
-        const path = this.props.page.path;
-
         return (
-            <StaggeredMotion defaultStyles={[{x: TEXT_ORIGIN}, {x: TEXT_ORIGIN}, {x: TEXT_ORIGIN}, {x: TEXT_ORIGIN}, {x: TEXT_ORIGIN}]}
-                             styles={prevInterpolatedStyles => prevInterpolatedStyles.map((_, i) => {
-                                 return i === 0
-                                     ? {x: spring(params.get("activePagePath") === path ? TEXT_TARGET : TEXT_ORIGIN, this.springConfig)}
-                                     : {x: spring(prevInterpolatedStyles[i - 1].x)}
-                             })}>
-                {interpolatingStyles =>
-                    <div
-                        style={{...STYLES.p, width: `${100 / this.props.store.pagesLength}%`}}
-                        onClick={this.handleClick}
-                    >
-                        {interpolatingStyles.map((style, styleIndex) =>
-                            <h2 key={`style-${styleIndex}`}
-                                style={prefixer({...STYLES.content,
-                                    transform: `translate3d(${style.x}px, 0, 0)`,
-                                    opacity: style.x + (TEXT_ORIGIN - 0.1) * -1
-                                })}
-                            >
-                                {this.props.page.name}
-                            </h2>)}
-                    </div>
-                }}
-            </StaggeredMotion>
+            <div
+                key={this.props.page.name + 1}
+                style={this.STYLES.p}
+                onMouseEnter={this.handleMouseEnter}
+                onMouseLeave={this.handleMouseLeave}
+            >
+                <GlitchText
+                    fontSize={FONT_SIZE}
+                    width={280}
+                    height={50}
+                    isActive={this.state.isHovered}
+                    backgroundColor={colors.blk}
+                    textColor={colors.wht}
+                    textContent={this.props.page.name}
+                />
+            </div>
         );
     }
 }

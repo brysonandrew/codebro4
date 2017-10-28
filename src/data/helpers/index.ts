@@ -10,3 +10,4 @@ export { listeners } from "./listeners";
 export { resetIdle } from "./resetIdle";
 export { setBodyStyle, setHtmlStyle } from "./setBodyStyle";
 export { isGL } from "./isGL";
+export { Segment } from "./segment";

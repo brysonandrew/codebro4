@@ -6,7 +6,7 @@ import {HomeStore} from '../../mobx';
 interface IHtmlProps {
   manifest?: any
   markup?: string
-  store?: HomeStore<string>
+  store?: HomeStore
 }
 
 class Html extends React.Component<IHtmlProps, {}> {
@@ -50,9 +50,8 @@ class Html extends React.Component<IHtmlProps, {}> {
 
                     {renderStyles}
                     <meta name="author" content="Andrew Bryson" />
-                    <meta property="og:image" content="http://codebro.io/images/Home/logo.png"/>
-                    <meta property="og:image:secure_url" content="http://codebro.io/images/Home/logo.png"/>
-                    <link href="https://fonts.googleapis.com/css?family=Advent+Pro" rel="stylesheet" />
+                    <meta property="og:image" content="http://codebro.io/images/logo.png"/>
+                    <meta property="og:image:secure_url" content="http://codebro.io/images/logo.png"/>
                     <link rel="shortcut icon" href="/favicon.ico" />
                 </head>
                 <body>

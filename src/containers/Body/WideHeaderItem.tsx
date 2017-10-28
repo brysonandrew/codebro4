@@ -1,75 +1,93 @@
 import * as React from 'react';
-import { browserHistory } from 'react-router';
-import { StaggeredMotion, spring } from 'react-motion';
-import { IPage, IInlineStyles, prefixer } from '../../data';
 import { inject, observer } from 'mobx-react';
 import { HomeStore } from '../../mobx';
-
-const TEXT_ORIGIN = -8;
-const TEXT_TARGET = 0;
+import { IPage, IInlineStyles, colors } from '../../data';
+import { GlitchText } from '../../widgets';
+const FONT_SIZE = 14;
 
 const STYLES: IInlineStyles = {
     p: {
-        id: "header item",
-        position: "relative",
-        display: "inline-block",
-        cursor: "pointer"
-    },
-    content: {
+        id: "wide header item",
         position: "absolute",
         top: -16,
         left: "50%",
         margin: 0,
-        padding: "16px 0",
-        fontSize: 14
+        padding: "16px 0"
+    },
+    placeholder: {
+        fontSize: FONT_SIZE
     }
 };
 
+export interface ITabData {
+    width: number
+    xOffset: number
+}
+
 interface IProps {
+    index: number
     page: IPage
-    store?: HomeStore<string>
+    store?: HomeStore
+}
+
+interface IState {
+    isHovered
 }
 
 @inject('store')
 @observer
-export class WideHeaderItem extends React.Component<IProps, {}> {
+export class WideHeaderItem extends React.Component<IProps, IState> {
 
-    springConfig = { stiffness: 80, damping: 4 };
+    public constructor(props?: any, context?: any) {
+        super(props, context);
+        this.state = {
+            isHovered: false
+        };
+    }
 
-    handleClick = () => {
-        const path = `/${this.props.page.path}`;
-        browserHistory.push(path);
-        this.props.store.onAnimationStart();
+    componentDidMount() {
+        this.props.store.onWideHeaderItemMount(true);
+    }
+
+    handleMouseEnter = () => {
+        this.setState({
+            isHovered: true
+        })
+    };
+
+    handleMouseLeave = () => {
+        this.setState({
+            isHovered: false
+        })
     };
 
     render(): JSX.Element {
-        const params = this.props.store.savedParams;
-        const path = this.props.page.path;
+        const { tabDimensions, onMeasureTabByRef, currentIndex, isWideHeaderItemMounted } = this.props.store;
+        const { index, page } = this.props;
 
         return (
-            <StaggeredMotion defaultStyles={[{x: TEXT_ORIGIN}, {x: TEXT_ORIGIN}, {x: TEXT_ORIGIN}, {x: TEXT_ORIGIN}, {x: TEXT_ORIGIN}]}
-                styles={prevInterpolatedStyles => prevInterpolatedStyles.map((_, i) => {
-                    return i === 0
-                        ? {x: spring(params.get("activePagePath") === path ? TEXT_TARGET : TEXT_ORIGIN, this.springConfig)}
-                        : {x: spring(prevInterpolatedStyles[i - 1].x)}
-                })}>
-                {interpolatingStyles =>
-                    <div
-                        style={{...STYLES.p, width: `${100 / this.props.store.pagesLength}%`}}
-                        onClick={this.handleClick}
-                    >
-                    {interpolatingStyles.map((style, styleIndex) =>
-                        <h2 key={`style-${styleIndex}`}
-                            style={prefixer({...STYLES.content,
-                                transform: `translate3d(${style.x}px, 0, 0)`,
-                                opacity: style.x + (TEXT_ORIGIN - 0.1) * -1
-                            })}
-                        >
-                            {this.props.page.name}
-                        </h2>)}
-                    </div>
-                }}
-            </StaggeredMotion>
+            <div
+                key={page.name}
+                style={STYLES.p}
+                ref={(el) => onMeasureTabByRef(el, index)}
+                onMouseEnter={this.handleMouseEnter}
+                onMouseLeave={this.handleMouseLeave}
+            >
+                {isWideHeaderItemMounted
+                    ?   <GlitchText
+                            fontSize={FONT_SIZE}
+                            width={tabDimensions[index].width}
+                            height={FONT_SIZE * 1.5}
+                            isActive={this.state.isHovered || index === currentIndex}
+                            backgroundColor={colors.wht}
+                            textColor={colors.blk}
+                            textContent={page.name}
+                        />
+                    :   <div style={STYLES.placeholder}>
+                            {page.name}
+                        </div>}
+            </div>
+
         );
     }
 }

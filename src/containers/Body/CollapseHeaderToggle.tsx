@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { observer, inject } from 'mobx-react';
-const Segment = require("segment-js");
+import { computed } from 'mobx';
+import { Segment } from "../../data";
 import { IInlineStyles } from '../../data';
 import { HomeStore } from '../../mobx/HomeStore';
+import { colors } from '../../data/themeOptions';
 
 const STYLES: IInlineStyles = {
     p: {
@@ -14,7 +16,8 @@ const STYLES: IInlineStyles = {
         width: 34,
         height: 34,
         transition: 'all 200ms',
-        transform: 'translate(-50%, -50%)'
+        transform: 'translate(-50%, -50%)',
+        zIndex: 10
     },
     trigger: {
         position: "relative",
@@ -30,62 +33,77 @@ const STYLES: IInlineStyles = {
     },
     icon: {
         position: 'absolute',
+        width: 100,
+        height: 100,
         top: -33,
         left: -33,
     },
     line: {
-        stroke: '#000000',
-        strokeWidth: 6,
-        strokeLinecap: 'square',
-        fill: 'transparent'
+        strokeLinecap: "square",
+        fill: "transparent",
+        transition: "stroke-width 1000ms"
     }
 };
 
 interface IProps {
-    store?: HomeStore<string>
+    store?: HomeStore
 }
 
 @inject('store')
 @observer
 export class CollapseHeaderToggle extends React.Component<IProps, {}> {
 
-    isLoaded = false;
     segmentA;
     segmentB;
     segmentC;
+    mountTimeoutId;
+
+    @computed public get styles(): any {
+        return {
+            pagesItem: {
+                position: "relative",
+                height: this.props.store.height,
+                width: "100%",
+                zIndex: 0
+            }
+        };
+    }
 
     componentDidMount() {
-        this.isLoaded = true;
         const pathA = document.getElementById('pathA');
         const pathC = document.getElementById('pathC');
         const pathB = document.getElementById('pathB');
-        this.segmentA = new Segment(pathA, 8, 32);
-        this.segmentB = new Segment(pathB, 8, 32);
-        this.segmentC = new Segment(pathC, 8, 32);
+        this.props.store.addMenuToggleSegments(
+            new Segment(pathA, 8, 32),
+            new Segment(pathB, 8, 32),
+            new Segment(pathC, 8, 32)
+        );
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.mountTimeoutId);
     }
 
     private handleClick = () => {
-        if (this.isLoaded) {
+        if (this.props.store.isToggleMenuMounted) {
             this.props.store.onCollapseMenuToggle(
-                !this.props.store.isCollapseMenu,
-                this.segmentA,
-                this.segmentB,
-                this.segmentC
+                !this.props.store.isCollapseMenuOpen
             )
         }
     };
 
     render(): JSX.Element {
+        const { isCollapseMenuOpen, isToggleMenuMounted } = this.props.store;
+
+        const lineStyle = {...STYLES.line, strokeWidth: isToggleMenuMounted ? 6 : 2, stroke: isCollapseMenuOpen ? colors.wht : colors.blk};
         return (
             <div style={STYLES.p}>
-                <div style={STYLES.p}>
-                    <svg style={STYLES.icon} width="100px" height="100px">
-                        <path style={STYLES.line} id="pathA" d="M 30 40 L 70 40 C 90 40 90 75 60 85 A 40 40 0 0 1 20 20 L 80 80"/>
-                        <path style={STYLES.line} id="pathB" d="M 30 50 L 70 50"/>
-                        <path style={STYLES.line} id="pathC" d="M 70 60 L 30 60 C 10 60 10 20 40 15 A 40 38 0 1 1 20 80 L 80 20"/>
-                    </svg>
-                    <button style={STYLES.trigger} onClick={this.handleClick}/>
-                </div>
+                <svg style={STYLES.icon}>
+                    <path style={lineStyle} id="pathA" d="M 30 40 L 70 40 C 90 40 90 75 60 85 A 40 40 0 0 1 20 20 L 80 80"/>
+                    <path style={lineStyle} id="pathB" d="M 30 50 L 70 50"/>
+                    <path style={lineStyle} id="pathC" d="M 70 60 L 30 60 C 10 60 10 20 40 15 A 40 38 0 1 1 20 80 L 80 20"/>
+                </svg>
+                <button style={STYLES.trigger} onClick={this.handleClick}/>
             </div>
         );
     }

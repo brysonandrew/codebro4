@@ -8,13 +8,13 @@ import { toParams, listeners, resetIdle, IInlineStyles, Background, prefixer, br
 import { HomeStore } from '../mobx';
 
 const STYLES: IInlineStyles = {
-    home: {
+    p: {
         id: "home",
         position: "relative",
         fontFamily: "'Advent Pro', 'arial', sans-serif",
         overflow: "hidden"
     },
-    home__header: {
+    header: {
         id: "home header",
         position: "fixed",
         left: 0,
@@ -23,14 +23,14 @@ const STYLES: IInlineStyles = {
         width: "100%",
         zIndex: 10
     },
-    home__title: prefixer({
+    title: prefixer({
         id: "home title",
         position: "absolute",
         left: 0,
         fontSize: 28,
         transform: "rotate(-90deg) translate(50%, -25%)"
     }),
-    home__background: {
+    background: {
         position: "fixed",
         top: 0,
         left: 0
@@ -38,13 +38,14 @@ const STYLES: IInlineStyles = {
 };
 
 interface IProps {
-    store?: HomeStore<string>
+    store?: HomeStore
 }
 
 @inject('store')
 @observer
 export class Home extends React.Component<IProps, {}> {
 
+    isHomeMounted = false;
     parentRef;
     backgroundRef;
     idleTimeoutId;
@@ -53,6 +54,8 @@ export class Home extends React.Component<IProps, {}> {
 
     componentDidMount() {
         const { onResizeViewport, onLocationListen, onLoad, onScroll } = this.props.store;
+
+        this.isHomeMounted = true;
 
         const history = createHistory();
         onLoad(toParams(history.location.pathname));
@@ -82,11 +85,11 @@ export class Home extends React.Component<IProps, {}> {
 
         return (
             <div
-                style={ STYLES.home }
+                style={ STYLES.p }
                 ref={el => el ? (this.parentRef = el) : null}
             >
                 <div
-                    style={{...STYLES.home__background}}
+                    style={{...STYLES.background}}
                     ref={el => el ? (this.backgroundRef = el) : null}
                 >
                     {!!this.backgroundRef && width > 0 && height > 0
@@ -98,11 +101,11 @@ export class Home extends React.Component<IProps, {}> {
                             />
                         :   null}
                 </div>
-                <div style={{...STYLES.home__title, top: height * 0.5}}>
+                <div style={{...STYLES.title, top: height * 0.5}}>
                     <h1>code bro</h1>
                 </div>
-                <div style={ STYLES.home__header }>
-                    {breakPointTests.isTablet(width)
+                <div style={ STYLES.header }>
+                    {this.isHomeMounted && breakPointTests.isTablet(width)
                         ?   <CollapseHeader/>
                         :   <WideHeader/>}
                 </div>

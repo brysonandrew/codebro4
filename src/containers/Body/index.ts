@@ -1,6 +1,6 @@
 export { WideHeader } from "./WideHeader";
-export { WideHeaderItem } from "./WideHeaderItem";
+export { WideHeaderItem, ITabData } from "./WideHeaderItem";
 export { CollapseHeaderToggle } from "./CollapseHeaderToggle";
 export { CollapseHeader } from "./CollapseHeader";
-export { Pages } from "./Pages";
+export { Pages, PAGES } from "./Pages";
 export { PagesItem } from "./PagesItem";

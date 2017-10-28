@@ -1,45 +1,74 @@
 import * as React from 'react';
+import { browserHistory } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import { PAGES } from './Pages';
 import { IInlineStyles } from '../../data/models';
-import {colors} from '../../data/themeOptions';
-import {HomeStore} from '../../mobx';
-import {CollapseHeaderItem} from './CollapseHeaderItem';
-
-const STYLES: IInlineStyles = {
-    p: {
-        position: 'relative',
-        width: "100%",
-        height: "100vh",
-        background: colors.blk,
-        color: colors.wht,
-        transition: "transform 400ms"
-    }
-};
+import { colors } from '../../data/themeOptions';
+import { HomeStore } from '../../mobx';
+import { CollapseHeaderItem } from './CollapseHeaderItem';
 
 interface IProps {
-    store?: HomeStore<string>
+    store?: HomeStore
 }
 
 @inject('store')
 @observer
 export class CollapseHeaderMenu extends React.Component<IProps, {}> {
 
+    STYLES: IInlineStyles = {
+        p: {
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100vh",
+            background: colors.blk,
+            color: colors.wht,
+            transitionOrigin: "0% 0%",
+            transition: "transform 400ms"
+        },
+        items: {
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            width: 280,
+            transform: "translate(-50%, -50%)"
+        },
+        item: {
+            position: "relative",
+            width: "100%",
+            cursor: "pointer"
+        }
+    };
+
+    handleClick = (path: string, index: number) => {
+        browserHistory.push(`/${path}`);
+        this.props.store.onCurrentIndexChange(index);
+        this.props.store.onAnimationStart();
+        this.props.store.onCollapseMenuToggle(false);
+    };
+
     render(): JSX.Element {
-        const { isCollapseMenu } = this.props.store;
+        const { isCollapseMenuOpen } = this.props.store;
 
         return (
             <div style={{
-                ...STYLES.p,
-                transform: `scaleY(${isCollapseMenu ? 1 : 0})`
+                ...this.STYLES.p,
+                transform: `scaleY(${isCollapseMenuOpen ? 1 : 0})`
             }}>
-                {isCollapseMenu
-                    ?   PAGES.map((page, i) =>
-                            <div key={`page-${i}`}>
-                                <CollapseHeaderItem
-                                    page={page}
-                                />
-                            </div>)
+                {isCollapseMenuOpen
+                    ?   <div style={this.STYLES.items}>
+                            {PAGES.map((page, i) =>
+                                <div
+                                    key={`page-${i}`}
+                                    style={this.STYLES.item}
+                                    onClick={() => this.handleClick(page.path, i)}
+                                >
+                                    <CollapseHeaderItem
+                                        page={page}
+                                    />
+                                </div>)}
+                        </div>
                     :   null}
             </div>
         );

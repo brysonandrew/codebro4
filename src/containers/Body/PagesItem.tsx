@@ -8,7 +8,7 @@ import { HomeStore } from '../../mobx';
 interface IProps {
     index: number
     page: IPage
-    store?: HomeStore<string>
+    store?: HomeStore
     previewWidth?: number
     offsetTop?: number
 }

@@ -51,7 +51,7 @@ const STYLES: IInlineStyles = {
 };
 
 interface IProps {
-    store?: HomeStore<string>
+    store?: HomeStore
 }
 
 @inject('store')
