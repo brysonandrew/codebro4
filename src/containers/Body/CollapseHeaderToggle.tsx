@@ -2,9 +2,10 @@ import * as React from 'react';
 import { observer, inject } from 'mobx-react';
 import { computed } from 'mobx';
 import { IInlineStyles, Segment, Store, colors } from "../../data";
+import {prefixer} from '../../data/helpers/prefixer';
 
 const STYLES: IInlineStyles = {
-    p: {
+    p: prefixer({
         id: 'collapse header toggle',
         position: 'absolute',
         top: '50%',
@@ -15,7 +16,7 @@ const STYLES: IInlineStyles = {
         transition: 'all 200ms',
         transform: 'translate(-50%, -50%)',
         zIndex: 10
-    },
+    }),
     trigger: {
         position: "relative",
         width: "100%",

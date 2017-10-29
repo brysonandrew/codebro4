@@ -4,6 +4,7 @@ import { observer, inject } from 'mobx-react';
 import { PAGES } from './Pages';
 import { IInlineStyles, colors, Store } from '../../data';
 import { CollapseHeaderItem } from './CollapseHeaderItem';
+import {prefixer} from '../../data/helpers/prefixer';
 
 interface IProps {
     store?: Store
@@ -25,13 +26,13 @@ export class CollapseHeaderMenu extends React.Component<IProps, {}> {
             transitionOrigin: "0% 0%",
             transition: "transform 400ms"
         },
-        items: {
+        items: prefixer({
             position: "absolute",
             top: "50%",
             left: "50%",
             width: 280,
             transform: "translate(-50%, -50%)"
-        },
+        }),
         item: {
             position: "relative",
             width: "100%",

@@ -28,13 +28,13 @@ export class ScreenSaver extends React.Component<IProps, IState> {
             transition: "opacity 1600ms",
             zIndex: 20
         }),
-        textLogo: {
+        textLogo: prefixer({
             position: "absolute",
             top: "50%",
             right: "50%",
             fontSize: 120,
             transform: "translate(50%, -50%)",
-        }
+        })
     };
 
     public constructor(props?: any, context?: any) {

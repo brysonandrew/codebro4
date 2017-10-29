@@ -26,13 +26,13 @@ export class NotFound extends React.Component<IProps, {}> {
             background: colors.wht,
             zIndex: 20
         }),
-        content: {
+        content: prefixer({
             position: "absolute",
             top: "50%",
             right: "50%",
             fontSize: 24,
             transform: "translate(50%, -50%)",
-        },
+        }),
         text: {
             margin: "10px 0"
         },
