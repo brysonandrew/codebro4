@@ -2,13 +2,12 @@ import * as React from 'react';
 import { browserHistory } from 'react-router';
 import { computed } from 'mobx';
 import { inject, observer } from 'mobx-react';
-import { IParams, IPage, colors } from "../../data";
-import { HomeStore } from '../../mobx';
+import { IPage, Store } from "../../data";
 
 interface IProps {
     index: number
     page: IPage
-    store?: HomeStore
+    store?: Store
     previewWidth?: number
     offsetTop?: number
 }

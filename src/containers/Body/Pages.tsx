@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { computed } from 'mobx';
-import { PagesItem } from "./";
-import { Intro, Gallery, Video, Work, Contact, IInlineStyles, IPage, toPath, prefixer } from '../../data';
-import { HomeStore} from '../../mobx';
+import { PagesItem } from ".";
+import { Intro, Gallery, Video, Work, Contact, IInlineStyles, IPage, toPath, prefixer, Store } from '../../data';
 
 function Page(name, component) {
     this.name = name;
@@ -51,7 +50,7 @@ const STYLES: IInlineStyles = {
 };
 
 interface IProps {
-    store?: HomeStore
+    store?: Store
 }
 
 @inject('store')

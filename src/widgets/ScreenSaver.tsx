@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {colors, IInlineStyles, prefixer} from '../data';
+import {TextLogo} from './TextLogo';
 
-export const WAKE_UP_DURATION = 800;
+export const WAKE_UP_DURATION = 3200;
 
 interface IProps {
     isScreenSaver: boolean
@@ -16,7 +17,8 @@ export class ScreenSaver extends React.Component<IProps, IState> {
 
     openTimeoutId;
     STYLES: IInlineStyles = {
-        screenSaver: prefixer({
+        p: prefixer({
+            id: "screen saver",
             position: "fixed",
             top: 0,
             left: 0,
@@ -27,11 +29,11 @@ export class ScreenSaver extends React.Component<IProps, IState> {
             transition: "opacity 1600ms",
             zIndex: 20
         }),
-        screenSaver__text: {
+        textLogo: {
             position: "absolute",
             top: "50%",
             right: "50%",
-            fontSize: 24,
+            fontSize: 120,
             transform: "translate(50%, -50%)",
         }
     };
@@ -75,13 +77,13 @@ export class ScreenSaver extends React.Component<IProps, IState> {
             isMounted
                 ?   <div
                         style={{
-                            ...this.STYLES.screenSaver,
+                            ...this.STYLES.p,
                             opacity: isShown ? 1 : 0
                         }}
                         onTransitionEnd={this.handleTransitionEnd}
                     >
-                        <div style={this.STYLES.screenSaver__text}>
-                            code bro
+                        <div style={this.STYLES.textLogo}>
+                            <TextLogo/>
                         </div>
                     </div>
                 :   null

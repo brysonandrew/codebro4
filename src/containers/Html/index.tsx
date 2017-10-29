@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { Helmet } from 'react-helmet';
 import * as serialize from 'serialize-javascript';
-import {HomeStore} from '../../mobx';
+import { Helmet } from 'react-helmet';
+import { Store } from '../../data';
 
 interface IHtmlProps {
   manifest?: any
   markup?: string
-  store?: HomeStore
+  store?: Store
 }
 
 class Html extends React.Component<IHtmlProps, {}> {

@@ -4,8 +4,8 @@ import createHistory from 'history/createBrowserHistory';
 import { browserHistory } from 'react-router';
 import { CollapseHeader, WideHeader, Pages } from './Body';
 import { ScreenSaver, MotionScroll } from '../widgets';
-import { toParams, listeners, resetIdle, IInlineStyles, Background, prefixer, breakPointTests } from '../data';
-import { HomeStore } from '../mobx';
+import { toParams, listeners, resetIdle, IInlineStyles, Background, prefixer, breakPointTests, Store } from '../data';
+import {  } from '../mobx';
 
 const STYLES: IInlineStyles = {
     p: {
@@ -38,7 +38,7 @@ const STYLES: IInlineStyles = {
 };
 
 interface IProps {
-    store?: HomeStore
+    store?: Store
 }
 
 @inject('store')

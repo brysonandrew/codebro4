@@ -1,15 +1,14 @@
 import * as React from 'react';
-import { IPage, IInlineStyles } from '../../data';
+import { IPage, IInlineStyles, Store, colors } from '../../data';
 import { inject, observer } from 'mobx-react';
-import { HomeStore } from '../../mobx';
 import { GlitchText } from '../../widgets';
-import {colors} from '../../data/themeOptions';
 
 const FONT_SIZE = 24;
+const LINE_HEIGHT = 48;
 
 interface IProps {
     page: IPage
-    store?: HomeStore
+    store?: Store
 }
 
 interface IState {
@@ -29,13 +28,9 @@ export class CollapseHeaderItem extends React.Component<IProps, IState> {
 
     STYLES: IInlineStyles = {
         p: {
-            top: -16,
             left: "50%",
             margin: 0,
             padding: "16px 0",
-        },
-        font: {
-            fontSize: FONT_SIZE
         }
     };
 
@@ -62,7 +57,7 @@ export class CollapseHeaderItem extends React.Component<IProps, IState> {
                 <GlitchText
                     fontSize={FONT_SIZE}
                     width={280}
-                    height={50}
+                    height={LINE_HEIGHT}
                     isActive={this.state.isHovered}
                     backgroundColor={colors.blk}
                     textColor={colors.wht}

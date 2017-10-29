@@ -1,16 +1,15 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
 import { observer, inject } from 'mobx-react';
-import { IInlineStyles, colors, prefixer } from '../../data';
+import { IInlineStyles, colors, prefixer, Store } from '../../data';
 import { WideHeaderItem } from '.';
-import { HomeStore } from '../../mobx';
 import { PAGES } from './Pages';
 
 const TEXT_HEIGHT = 38;
 const DEFAULT_TAB_WIDTH = 24;
 
 interface IProps {
-    store?: HomeStore
+    store?: Store
 }
 
 @inject('store')
@@ -65,11 +64,6 @@ export class WideHeader extends React.Component<IProps, {}> {
 
     private underlineStyle = () => {
         const { tabDimensions, currentIndex } = this.props.store;
-        if (tabDimensions[currentIndex]) {
-            console.log(tabDimensions[currentIndex].width)
-
-        }
-
         return prefixer({
             ...this.STYLES.underline,
             width: tabDimensions[currentIndex] ? tabDimensions[currentIndex].width : DEFAULT_TAB_WIDTH,
@@ -78,8 +72,8 @@ export class WideHeader extends React.Component<IProps, {}> {
     };
 
     handleClick = (path: string, index: number) => {
-        this.props.store.onCurrentIndexChange(index);
         browserHistory.push(`/${path}`);
+        this.props.store.onCurrentIndexChange(index);
         this.props.store.onAnimationStart();
     };
 

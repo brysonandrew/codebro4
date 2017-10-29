@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
-import {IInlineStyles} from '../../data';
-import {CollapseHeaderToggle} from './CollapseHeaderToggle';
-import {CollapseHeaderMenu} from './CollapseHeaderMenu';
+import { IInlineStyles } from '../../data';
+import { CollapseHeaderToggle } from './CollapseHeaderToggle';
+import { CollapseHeaderMenu } from './CollapseHeaderMenu';
 
 const STYLES: IInlineStyles = {
     p: {

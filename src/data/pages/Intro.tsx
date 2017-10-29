@@ -2,13 +2,13 @@ import * as React from 'react';
 import { observer, inject } from 'mobx-react';
 import { IInlineStyles, prefixer } from '..';
 import { TypingText } from '../../widgets/TypingText';
-import { HomeStore } from '../../mobx/HomeStore';
+import { Store } from '../Store';
 import { WAKE_UP_DURATION } from '../../widgets/ScreenSaver';
 const ANIMATION_DELAY = 2000;
 const ANIMATION_DURATION = 1000;
 
 interface IProps {
-    store?: HomeStore
+    store?: Store
 }
 
 @inject('store')
@@ -31,7 +31,8 @@ export class Intro extends React.Component<IProps, {}> {
             padding: 20,
             fontFamily: "'Inconsolata', 'arial', sans-serif",
             background: "rgba(255,255,255, 0.88)",
-            width: "50%"
+            width: "50%",
+            minWidth: 260
         }
     };
 

@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { observer, inject } from 'mobx-react';
 import { computed } from 'mobx';
-import { Segment } from "../../data";
-import { IInlineStyles } from '../../data';
-import { HomeStore } from '../../mobx/HomeStore';
-import { colors } from '../../data/themeOptions';
+import { IInlineStyles, Segment, Store, colors } from "../../data";
 
 const STYLES: IInlineStyles = {
     p: {
@@ -46,7 +43,7 @@ const STYLES: IInlineStyles = {
 };
 
 interface IProps {
-    store?: HomeStore
+    store?: Store
 }
 
 @inject('store')

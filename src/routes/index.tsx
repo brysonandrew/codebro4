@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { IndexRoute, Route } from 'react-router';
-import { App } from '../containers/index';
-import { Home } from '../containers/Home';
-import { PAGES } from '../containers/Body/Pages';
+import { App, Home } from '../containers/index';
+import { PAGES } from '../containers/Body';
+import { NotFound } from '../widgets/NotFound';
 
 export default (
     <Route path="/" component={App}>
@@ -10,9 +10,10 @@ export default (
 
         {/*pages*/}
         {PAGES.map((page, i) =>
-        <Route
-            key={`pages-${i}`}
-            path={page.path}
-            component={Home} />)}
+            <Route
+                key={`pages-${i}`}
+                path={page.path}
+                component={Home} />
+        )}
     </Route>
 );

@@ -1,14 +1,11 @@
 import { observable, action } from 'mobx';
 import { browserHistory } from 'react-router';
-import { IParams, buildMap, breakPointTests, IDictionary } from '../data';
+import { IParams, buildMap, breakPointTests, IDictionary, setBodyStyle, inAC, inB, outAC, outB } from '.';
 import { PAGES, ITabData } from '../containers/Body';
-import { setBodyStyle } from '../data/helpers/setBodyStyle';
-import { inAC, inB, outAC, outB } from '../data/helpers/collapseMenuTransforms';
 
-export class HomeStore {
-
+export class Store {
+    isWideHeaderItemMounted: boolean;
     @observable isIntroMounted: boolean;
-    @observable isWideHeaderItemMounted: boolean;
     @observable isAnimating: boolean;
     @observable isAppMounted: boolean;
     @observable isMobile: boolean;
@@ -32,8 +29,7 @@ export class HomeStore {
     sB;
     sC;
 
-    constructor(initialState?: { homeStore: HomeStore }) {
-        // this.items = initialState && initialState.homeStore && initialState.homeStore.items ? initialState.homeStore.items : [];
+    constructor(initialState?: { store: Store }) {
         this.isIntroMounted = false;
         this.isWideHeaderItemMounted = false;
         this.isAnimating = false;
@@ -92,6 +88,7 @@ export class HomeStore {
 
     @action
     public onCurrentIndexChange = (index: number) => {
+        console.log(index);
         this.currentIndex = index;
     };
 
@@ -182,4 +179,26 @@ export class HomeStore {
         this.onAnimationStart();
         this.onAppMount(true);
     };
+
+    @action
+    public reset = () => {
+        this.isIntroMounted = false;
+        this.isWideHeaderItemMounted = false;
+        this.isAnimating = false;
+        this.isAppMounted = true;
+        this.isCollapseMenuOpen = false;
+        this.isToggleMenuMounted = false;
+        this.isResizing = false;
+        this.currentIndex = 0;
+        this.projectOffsetList = [];
+        this.projectOffsets = {};
+        this.pagesLength = PAGES.length;
+        this.width = 0;
+        this.height = 0;
+        this.docScroll = 0;
+        this.savedParams = buildMap({
+            activePagePath: ''
+        });
+    };
+
 }

@@ -11,3 +11,5 @@ export { resetIdle } from "./resetIdle";
 export { setBodyStyle, setHtmlStyle } from "./setBodyStyle";
 export { isGL } from "./isGL";
 export { Segment } from "./segment";
+export { inAC, inB, outAC, outB } from "./collapseMenuTransforms";
+export { createArrayOf } from "./createArrayOf";

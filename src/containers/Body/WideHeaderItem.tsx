@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
-import { HomeStore } from '../../mobx';
-import { IPage, IInlineStyles, colors } from '../../data';
+import { IPage, IInlineStyles, colors, Store } from '../../data';
 import { GlitchText } from '../../widgets';
 const FONT_SIZE = 14;
 
@@ -27,7 +26,7 @@ export interface ITabData {
 interface IProps {
     index: number
     page: IPage
-    store?: HomeStore
+    store?: Store
 }
 
 interface IState {

@@ -2,13 +2,11 @@ import * as React from 'react';
 import { browserHistory } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import { PAGES } from './Pages';
-import { IInlineStyles } from '../../data/models';
-import { colors } from '../../data/themeOptions';
-import { HomeStore } from '../../mobx';
+import { IInlineStyles, colors, Store } from '../../data';
 import { CollapseHeaderItem } from './CollapseHeaderItem';
 
 interface IProps {
-    store?: HomeStore
+    store?: Store
 }
 
 @inject('store')
