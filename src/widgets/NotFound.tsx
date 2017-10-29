@@ -79,6 +79,7 @@ export class NotFound extends React.Component<IProps, {}> {
                             fontSize={50}
                             width={600}
                             height={75}
+                            intensity={75 / 100}
                             isActive={true}
                             textColor={colors.blk}
                             backgroundColor={colors.wht}

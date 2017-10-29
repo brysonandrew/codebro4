@@ -75,6 +75,7 @@ export class WideHeaderItem extends React.Component<IProps, IState> {
                 {isWideHeaderItemMounted
                     ?   <GlitchText
                             fontSize={FONT_SIZE}
+                            intensity={FONT_SIZE / 100}
                             width={tabDimensions[index].width}
                             height={FONT_SIZE * 1.5}
                             isActive={this.state.isHovered || index === currentIndex}

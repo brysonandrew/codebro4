@@ -56,6 +56,7 @@ export class CollapseHeaderItem extends React.Component<IProps, IState> {
             >
                 <GlitchText
                     fontSize={FONT_SIZE}
+                    intensity={FONT_SIZE / 100}
                     width={280}
                     height={LINE_HEIGHT}
                     isActive={this.state.isHovered}

@@ -72,7 +72,8 @@ export class TextLogo extends React.Component<{}, IState> {
                 }}>
                 <defs>
                     {glitchFilter({
-                        backgroundColor: colors.wht
+                        backgroundColor: colors.wht,
+                        intensity: 32 / 100
                     })}
                 </defs>
                 <g>
