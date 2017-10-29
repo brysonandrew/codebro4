@@ -3,7 +3,6 @@ import { observer, inject } from 'mobx-react';
 import { IInlineStyles, prefixer } from '..';
 import { TypingText } from '../../widgets/TypingText';
 import { Store } from '../Store';
-import { WAKE_UP_DURATION } from '../../widgets/ScreenSaver';
 const ANIMATION_DELAY = 2000;
 const ANIMATION_DURATION = 1000;
 
@@ -37,7 +36,7 @@ export class Intro extends React.Component<IProps, {}> {
     };
 
     componentDidMount() {
-        setTimeout(() => this.props.store.onIntroMount(true), (WAKE_UP_DURATION + ANIMATION_DELAY) / 2);
+        setTimeout(() => this.props.store.onIntroMount(true), (this.props.store.wakeUpDuration + ANIMATION_DELAY) / 2);
     }
 
     componentWillUnmount() {
@@ -50,7 +49,7 @@ export class Intro extends React.Component<IProps, {}> {
                 <p style={{
                     ...this.STYLES.intro__text,
                     transform: `scaleY(${this.props.store.isIntroMounted ? 1 : 0})`,
-                    transition: `transform ${WAKE_UP_DURATION}ms`}}>
+                    transition: `transform ${this.props.store.wakeUpDuration}ms`}}>
                     <TypingText
                         animationConfig={{
                             dur: `${ANIMATION_DURATION}ms`,
