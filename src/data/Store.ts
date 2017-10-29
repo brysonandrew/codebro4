@@ -90,7 +90,6 @@ export class Store {
 
     @action
     public onCurrentIndexChange = (index: number) => {
-        console.log(index);
         this.currentIndex = index;
     };
 
