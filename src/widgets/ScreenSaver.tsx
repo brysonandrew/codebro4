@@ -2,10 +2,9 @@ import * as React from 'react';
 import {colors, IInlineStyles, prefixer} from '../data';
 import {TextLogo} from './TextLogo';
 
-export const WAKE_UP_DURATION = 3200;
-
 interface IProps {
     isScreenSaver: boolean
+    wakeUpDuration: number
 }
 
 interface IState {
@@ -56,7 +55,7 @@ export class ScreenSaver extends React.Component<IProps, IState> {
                     this.setState({
                         isShown: nextProps.isScreenSaver
                     }
-                ), nextProps.isScreenSaver ? 1600 : WAKE_UP_DURATION);
+                ), nextProps.isScreenSaver ? 1600 : this.props.wakeUpDuration);
         }
     }
 

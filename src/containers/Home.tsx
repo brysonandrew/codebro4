@@ -5,7 +5,6 @@ import { browserHistory } from 'react-router';
 import { CollapseHeader, WideHeader, Pages } from './Body';
 import { ScreenSaver, MotionScroll } from '../widgets';
 import { toParams, listeners, resetIdle, IInlineStyles, Background, prefixer, breakPointTests, Store } from '../data';
-import {  } from '../mobx';
 
 const STYLES: IInlineStyles = {
     p: {
@@ -112,6 +111,7 @@ export class Home extends React.Component<IProps, {}> {
                 <Pages/>
                 <ScreenSaver
                     isScreenSaver={!isAppMounted}
+                    wakeUpDuration={this.props.store.wakeUpDuration}
                 />
                 {!!projectOffsets
                     ?   <MotionScroll

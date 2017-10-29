@@ -14,6 +14,7 @@ export class Store {
     @observable isCollapseMenuOpen: boolean;
     @observable isToggleMenuMounted: boolean;
     @observable isResizing: boolean;
+    @observable wakeUpDuration: number;
     @observable width: number;
     @observable height: number;
     @observable docScroll: number;
@@ -37,6 +38,7 @@ export class Store {
         this.isCollapseMenuOpen = false;
         this.isToggleMenuMounted = false;
         this.isResizing = false;
+        this.wakeUpDuration = 2400;
         this.currentIndex = 0;
         this.projectOffsetList = [];
         this.projectOffsets = {};
@@ -154,6 +156,7 @@ export class Store {
     public onAppMount = (isMounted: boolean) => {
         setBodyStyle('position', isMounted ? 'static' : 'fixed');
         this.isAppMounted = isMounted;
+        this.wakeUpDuration = 600;
     };
 
     @action
