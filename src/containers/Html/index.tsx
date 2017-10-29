@@ -50,8 +50,8 @@ class Html extends React.Component<IHtmlProps, {}> {
 
                     {renderStyles}
                     <meta name="author" content="Andrew Bryson" />
-                    <meta property="og:image" content="http://codebro.io/images/logo.png"/>
-                    <meta property="og:image:secure_url" content="http://codebro.io/images/logo.png"/>
+                    <meta property="og:image" content="http://codebro.io/images/logo.JPG"/>
+                    <meta property="og:image:secure_url" content="http://codebro.io/images/logo.JPG"/>
                     <link rel="shortcut icon" href="/favicon.ico" />
                 </head>
                 <body>
