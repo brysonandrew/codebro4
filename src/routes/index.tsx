@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { IndexRoute, Route } from 'react-router';
-import { App, Home } from '../containers/index';
+import { IndexRoute, Route, Redirect } from 'react-router';
+import { App, Home } from '../containers';
 import { PAGES } from '../containers/Body';
-import { NotFound } from '../widgets/NotFound';
+import { NotFound } from '../widgets';
 
 export default (
     <Route path="/" component={App}>
@@ -15,5 +15,7 @@ export default (
                 path={page.path}
                 component={Home} />
         )}
+        <Route path='/404' component={NotFound} />
+        <Redirect from='*' to='/404' />
     </Route>
 );
