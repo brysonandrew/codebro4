@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { observer, inject } from 'mobx-react';
 import { IInlineStyles, prefixer, Store } from '..';
-import { TypingText } from '../../widgets';
+import { TypingTextInterval } from '../../widgets';
 
 const ANIMATION_DELAY = 2000;
-const ANIMATION_DURATION = 1000;
 
 interface IProps {
     store?: Store
@@ -28,10 +27,13 @@ export class Intro extends React.Component<IProps, {}> {
         intro__text: {
             display: "inline-block",
             padding: 20,
+            fontSize: 26,
+            lineHeight: 2,
+            minHeight: 100,
             fontFamily: "'Inconsolata', 'arial', sans-serif",
             background: "rgba(255,255,255, 0.88)",
             width: "50%",
-            minWidth: 260
+            minWidth: 280
         }
     };
 
@@ -44,28 +46,19 @@ export class Intro extends React.Component<IProps, {}> {
     }
 
     render(): JSX.Element {
+        const { isIntroMounted, wakeUpDuration } = this.props.store;
         return (
             <div style={this.STYLES.intro}>
                 <p style={prefixer({
                     ...this.STYLES.intro__text,
-                    transform: `scaleY(${this.props.store.isIntroMounted ? 1 : 0})`,
-                    transition: `transform ${this.props.store.wakeUpDuration}ms`})}>
-                    <TypingText
-                        animationConfig={{
-                            dur: `${ANIMATION_DURATION}ms`,
-                            begin: `${ANIMATION_DELAY}ms`,
-                            repeatCount: "0"
-                        }}
-                        textContent="Hi, my name is Andrew"
-                    />
-                    <TypingText
-                        animationConfig={{
-                            dur: `${ANIMATION_DURATION}ms`,
-                            begin: `${ANIMATION_DELAY + ANIMATION_DURATION}ms`,
-                            repeatCount: "0"
-                        }}
-                        textContent="and I make websites."
-                    />
+                    transform: `scaleY(${isIntroMounted ? 1 : 0})`,
+                    transition: `transform ${wakeUpDuration}ms`})}
+                >
+                    {isIntroMounted
+                        ?   <TypingTextInterval
+                                textContent="Hi, my name is Andrew and I make websites."
+                            />
+                        :   null}
                 </p>
             </div>
         );

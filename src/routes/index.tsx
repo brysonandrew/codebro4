@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IndexRoute, Route, Redirect } from 'react-router';
-import { App, Home } from '../containers';
-import { PAGES } from '../containers/Body';
+import { App, Home } from '../content';
+import { PAGES } from '../content/Body';
 import { NotFound } from '../widgets';
 
 export default (

@@ -4,5 +4,5 @@ export { Fonts } from "./Fonts";
 export { CenteredText } from "./CenteredText";
 export { GlitchText, glitchFilter } from "./GlitchText";
 export { NotFound } from "./NotFound";
-export { TypingText } from "./TypingText";
+export { TypingTextInterval } from "./TypingTextInterval";
 export { TextLogo } from "./TextLogo";

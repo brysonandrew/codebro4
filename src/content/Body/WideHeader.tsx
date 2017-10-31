@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
 import { observer, inject } from 'mobx-react';
-import { IInlineStyles, colors, prefixer, Store } from '../../data';
+import { computed } from 'mobx';
+import { IInlineStyles, colors, prefixer, Store, IEVersion } from '../../data';
 import { WideHeaderItem } from '.';
 import { PAGES } from './Pages';
+import { ITabData } from './WideHeaderItem';
 
 const TEXT_HEIGHT = 38;
 const DEFAULT_TAB_WIDTH = 24;
@@ -28,20 +30,21 @@ export class WideHeader extends React.Component<IProps, {}> {
             display: "inline-block",
             cursor: "pointer"
         },
-        line: {
+        line: prefixer({
             position: "absolute",
             bottom: 0,
             height: 1,
+            transformOrigin: "50% 50%",
             background: colors.blk
-        },
-        underline: {
+        }),
+        underline: prefixer({
             position: "absolute",
-            left: 0,
             bottom: -3,
             height: 6,
             background: colors.blk,
+            transformOrigin: "50% 50%",
             transition: "transform 200ms"
-        }
+        })
     };
 
 // line style
@@ -54,20 +57,27 @@ export class WideHeader extends React.Component<IProps, {}> {
 
 // underline style
 
-    private underlineScale = (): number =>
-        Math.abs(
-            Math.cos(
-                (Math.PI * this.props.store.pagesLength)
-                * (this.props.store.docScroll / this.props.store.width / this.props.store.pagesLength)
-            )
-        );
+    private underlineTransform = (tabDimension: ITabData): string => {
+        return `${IEVersion() <= 11
+            ? "none"
+            : `translate3d(${tabDimension ? tabDimension.xOffset : 0}px, 0, 0)`} scale(${this.underlineScale})`
+    };
 
-    private underlineStyle = () => {
+    @computed public get underlineScale(): number {
+        return  Math.abs(
+                    Math.cos(
+                        (Math.PI * this.props.store.pagesLength)
+                        * (this.props.store.docScroll / this.props.store.width / this.props.store.pagesLength)
+                    )
+        )
+    };
+
+    @computed public get underlineStyle() {
         const { tabDimensions, currentIndex } = this.props.store;
         return prefixer({
             ...this.STYLES.underline,
             width: tabDimensions[currentIndex] ? tabDimensions[currentIndex].width : DEFAULT_TAB_WIDTH,
-            transform: `translate3d(${tabDimensions[currentIndex] ? tabDimensions[currentIndex].xOffset : 0}px, 0, 0) scale(${this.underlineScale()})`,
+            transform: this.underlineTransform(tabDimensions[currentIndex]),
         })
     };
 
@@ -94,7 +104,7 @@ export class WideHeader extends React.Component<IProps, {}> {
                             </div>)
                     :   null}
                 <div style={this.lineStyle()}/>
-                <div style={this.underlineStyle()}/>
+                <div style={this.underlineStyle}/>
             </div>
         );
     }

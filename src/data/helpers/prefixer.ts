@@ -11,6 +11,16 @@ export const prefixer = (obj: IDictionary<string | number>): IDictionary<string 
         }
     }
 
+    if ("transformOrigin" in obj) {
+        const value = obj["transform"];
+        obj = {
+            ...obj,
+            WebkitTransformOrigin: value,
+            MozTransformOrigin: value,
+            MsTransformOrigin: value
+        }
+    }
+
     if ("filter" in obj) {
         const value = obj["filter"];
         obj = {

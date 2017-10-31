@@ -3,6 +3,7 @@ import { inject, observer } from 'mobx-react';
 import { computed } from 'mobx';
 import { PagesItem } from ".";
 import { Intro, Gallery, Video, Work, Contact, IInlineStyles, IPage, toPath, prefixer, Store } from '../../data';
+import {IEVersion} from '../../data/helpers/IEVersion';
 
 function Page(name, component) {
     this.name = name;
@@ -73,6 +74,12 @@ export class Pages extends React.Component<IProps, {}> {
         return this.props.store.width - this.widthMargin * 2
     }
 
+    @computed public get pageTransform(): string {
+        return IEVersion() <= 11
+            ? `translateX(${-this.adjustedScroll}px)`
+            : `translate3d(${-this.adjustedScroll}px, 0, 0)`
+    }
+
     render(): JSX.Element {
         return (
             <div style={{...STYLES.pages, height: this.scrollHeight}}>
@@ -85,7 +92,7 @@ export class Pages extends React.Component<IProps, {}> {
                              style={prefixer({...STYLES.pages__item,
                                  width: this.adjustedWidth,
                                  height: this.props.store.height,
-                                 transform: `translate3d(${-this.adjustedScroll}px, 0, 0)`
+                                 transform: this.pageTransform
                              })}>
                             <PagesItem
                                 index={i}

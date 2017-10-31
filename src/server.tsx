@@ -12,7 +12,7 @@ import { createMemoryHistory, match, RouterContext } from 'react-router';
 import { MobxAsyncConnect, loadOnServer, store as mobxAsyncConnect } from 'mobx-async-connect';
 import routes from './routes';
 
-import { Html } from './containers';
+import { Html } from './content';
 import {Store} from './data/Store';
 const manifest = require('../build/manifest.json');
 

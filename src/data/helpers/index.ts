@@ -1,7 +1,7 @@
 export { breakPoints, breakPointTests } from "./breakPoints";
 export { buildMap } from "./buildMap";
 export { IEVersion } from "./IEVersion";
-export { linearize} from "./linearize";
+export { linearize, interval } from "./animateUtils";
 export { scrollTopMax} from "./scrollTopMax";
 export { prefixer } from "./prefixer";
 export { toParams } from "./toParams";
