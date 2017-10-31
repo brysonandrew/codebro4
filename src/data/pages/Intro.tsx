@@ -46,10 +46,10 @@ export class Intro extends React.Component<IProps, {}> {
     render(): JSX.Element {
         return (
             <div style={this.STYLES.intro}>
-                <p style={{
+                <p style={prefixer({
                     ...this.STYLES.intro__text,
                     transform: `scaleY(${this.props.store.isIntroMounted ? 1 : 0})`,
-                    transition: `transform ${this.props.store.wakeUpDuration}ms`}}>
+                    transition: `transform ${this.props.store.wakeUpDuration}ms`})}>
                     <TypingText
                         animationConfig={{
                             dur: `${ANIMATION_DURATION}ms`,

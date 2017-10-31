@@ -51,10 +51,10 @@ export class CollapseHeaderMenu extends React.Component<IProps, {}> {
         const { isCollapseMenuOpen } = this.props.store;
 
         return (
-            <div style={{
+            <div style={prefixer({
                 ...this.STYLES.p,
                 transform: `scaleY(${isCollapseMenuOpen ? 1 : 0})`
-            }}>
+            })}>
                 {isCollapseMenuOpen
                     ?   <div style={this.STYLES.items}>
                             {PAGES.map((page, i) =>

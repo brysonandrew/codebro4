@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { prefixer } from '../data/helpers/prefixer';
 
 interface IProps extends IFilterProps {
     fontSize: number
@@ -115,13 +116,14 @@ export const GlitchText = (props: IProps) => {
                 <text
                     x="0"
                     y={props.height * 0.75}
-                    style={{
+                    style={prefixer({
                         filter: props.isActive ? "url(#filter)" : "none",
                         fill: props.textColor,
                         fontSize: props.fontSize,
+                        fontSmooth: "always",
                         WebkitFontSmoothing: "antialiased",
                         MozOsxFontSmoothing: "grayscale"
-                    }}
+                    })}
                 >
                     {props.textContent}
                 </text>
