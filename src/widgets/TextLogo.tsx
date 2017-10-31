@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as Immutable from 'immutable';
 import { observer } from 'mobx-react';
 import { colors, createArrayOf } from '../data';
-import { glitchFilter } from './GlitchText';
+import { glitchFilter } from '.';
 
 enum EAnimationPhase {
     Init,

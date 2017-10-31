@@ -1,8 +1,8 @@
 import * as React from 'react';
 import THREE = require('three');
-import {isGL} from '..';
-import {Particles} from './particles';
-import {CenteredText} from '../../widgets';
+import { Particles } from '.';
+import { isGL } from '..';
+import { CenteredText } from '../../widgets';
 
 interface IProps {
     docScroll?: number

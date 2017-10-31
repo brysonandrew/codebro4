@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { observer, inject } from 'mobx-react';
-import { IInlineStyles, prefixer } from '..';
-import { TypingText } from '../../widgets/TypingText';
-import { Store } from '../Store';
+import { IInlineStyles, prefixer, Store } from '..';
+import { TypingText } from '../../widgets';
+
 const ANIMATION_DELAY = 2000;
 const ANIMATION_DURATION = 1000;
 

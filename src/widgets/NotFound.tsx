@@ -2,7 +2,7 @@ import * as React from 'react';
 import { browserHistory } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import { IInlineStyles, prefixer, colors, Store } from '../data';
-import { GlitchText } from './GlitchText';
+import { GlitchText } from '.';
 
 interface IProps {
     store?: Store

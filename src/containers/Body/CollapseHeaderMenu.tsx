@@ -2,9 +2,8 @@ import * as React from 'react';
 import { browserHistory } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import { PAGES } from './Pages';
-import { IInlineStyles, colors, Store } from '../../data';
+import { IInlineStyles, colors, Store, prefixer } from '../../data';
 import { CollapseHeaderItem } from './CollapseHeaderItem';
-import {prefixer} from '../../data/helpers/prefixer';
 
 interface IProps {
     store?: Store

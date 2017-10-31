@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {colors, IInlineStyles, prefixer} from '../data';
-import {TextLogo} from './TextLogo';
+import { colors, IInlineStyles, prefixer } from '../data';
+import { TextLogo } from '.';
 
 interface IProps {
     isScreenSaver: boolean

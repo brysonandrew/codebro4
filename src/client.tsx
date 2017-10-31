@@ -10,7 +10,7 @@ import 'isomorphic-fetch';
 import routes from './routes';
 import {Store} from './data';
 
-declare var window: {
+declare const window: {
     __INITIAL_STATE__: any,
     location: {
         pathname: string

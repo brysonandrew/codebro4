@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { observer, inject } from 'mobx-react';
 import { computed } from 'mobx';
-import { IInlineStyles, Segment, Store, colors } from "../../data";
-import {prefixer} from '../../data/helpers/prefixer';
+import { IInlineStyles, Segment, Store, colors, prefixer } from "../../data";
 
 const STYLES: IInlineStyles = {
     p: prefixer({

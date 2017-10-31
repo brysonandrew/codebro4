@@ -2,6 +2,7 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { IPage, IInlineStyles, colors, Store } from '../../data';
 import { GlitchText } from '../../widgets';
+
 const FONT_SIZE = 14;
 
 const STYLES: IInlineStyles = {
