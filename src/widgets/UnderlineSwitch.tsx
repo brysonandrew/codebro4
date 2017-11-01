@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
-import { IInlineStyles, IWork, colors } from '..';
+import { IInlineStyles, colors } from '../data';
 
 interface IProps {
-    work: IWork
+    height: number
 }
 
 interface IState {
@@ -11,7 +11,7 @@ interface IState {
 }
 
 @observer
-export class WorkLink extends React.Component<IProps, IState> {
+export class UnderlineSwitch extends React.Component<IProps, IState> {
 
     public constructor(props?: any, context?: any) {
         super(props, context);
@@ -21,19 +21,13 @@ export class WorkLink extends React.Component<IProps, IState> {
     }
 
     STYLES: IInlineStyles = {
-        workLink: {
-            id: "work link",
+        p: {
+            id: "underline switch",
             position: "relative",
             padding: "4px 0"
         },
-        workLink__text: {
-            fontSize: 24,
-            fontFamily: "'Inconsolata', 'arial', sans-serif",
-            color: colors.blk,
-            textDecoration: "none"
-        },
-        workLink__underline: {
-            height: 4,
+        underline: {
+            height: this.props.height,
             position: "absolute",
             bottom: 0,
             background: colors.blk,
@@ -56,19 +50,13 @@ export class WorkLink extends React.Component<IProps, IState> {
     render(): JSX.Element {
         return (
             <div
-                style={this.STYLES.workLink}
+                style={this.STYLES.p}
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
             >
-                <a
-                    style={this.STYLES.workLink__text}
-                    href={this.props.work.link}
-                    target="_blank"
-                >
-                    {this.props.work.name}
-                </a>
+                {this.props.children}
                 <div style={{
-                    ...this.STYLES.workLink__underline,
+                    ...this.STYLES.underline,
                     [this.state.isHovered ? "left" : "right"]: 0,
                     width: `${this.state.isHovered ? 100 : 0}%`
                 }}/>

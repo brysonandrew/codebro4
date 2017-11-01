@@ -7,3 +7,4 @@ export { NotFound } from "./NotFound";
 export { TypingTextInterval } from "./TypingTextInterval";
 export { TextLogo } from "./TextLogo";
 export { InternalLink } from "./InternalLink";
+export { UnderlineSwitch } from "./UnderlineSwitch";

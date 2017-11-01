@@ -15,7 +15,7 @@ export class InternalLink extends React.Component<IProps, {}> {
         p: {
             display: "inline-block",
             cursor: "pointer",
-            margin: "10px 0",
+            padding: 10,
             textDecoration: "none",
             color: colors.blk,
             maxWidth: 320

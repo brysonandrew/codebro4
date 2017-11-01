@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
-import { IInlineStyles, IWork, prefixer } from '..';
-import { WorkLink } from './WorkLink';
+import { IInlineStyles, IWork, prefixer, colors } from '..';
+import { UnderlineSwitch } from '../../widgets';
 
 const MY_WORK: IWork[] = [
     {
@@ -50,6 +50,12 @@ export class Work extends React.Component<{}, {}> {
             margin: 0,
             fontSize: 14
         },
+        text: {
+            fontSize: 24,
+            fontFamily: "'Inconsolata', 'arial', sans-serif",
+            color: colors.blk,
+            textDecoration: "none"
+        },
         work__section: {
             marginTop: 20
         }
@@ -61,18 +67,35 @@ export class Work extends React.Component<{}, {}> {
                 <div>
                     <h2 style={this.STYLES.work__title}>My work</h2>
                     {MY_WORK.map((work) =>
-                        <WorkLink
+                        <UnderlineSwitch
                             key={work.name}
-                            work={work}
-                        />)}
+                            height={1}
+                        >
+                            <a
+                                style={this.STYLES.text}
+                                href={work.link}
+                                target="_blank"
+                            >
+                                {work.name}
+                            </a>
+                        </UnderlineSwitch>)}
                 </div>
                 <div style={this.STYLES.work__section}>
                     <h2 style={this.STYLES.work__title}>Team work</h2>
                     {TEAM_WORK.map((work) =>
-                        <WorkLink
+                        <UnderlineSwitch
                             key={work.name}
-                            work={work}
-                        />)}
+                            height={1}
+                        >
+                            <a
+                                style={this.STYLES.text}
+                                href={work.link}
+                                target="_blank"
+                            >
+                                {work.name}
+                            </a>
+                        </UnderlineSwitch>
+                    )}
                 </div>
             </div>
         );

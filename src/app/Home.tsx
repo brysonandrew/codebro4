@@ -31,11 +31,9 @@ export class Home extends React.Component<IProps, {}> {
     componentDidMount() {
         const { onMeasureViewport, onLocationListen, onLoad, onScroll } = this.props.store;
         const history = createHistory();
-        console.log("mounting");
+
         onLoad(toParams(history.location.pathname));
         browserHistory.listen( location =>  {
-            console.log(location);
-
             onLocationListen(
                 toParams(location.pathname)
             );
@@ -59,8 +57,6 @@ export class Home extends React.Component<IProps, {}> {
     private renderHome = () => {
         const activePage = this.props.store.savedParams.get("activePagePath");
         const isLab = EXPERIMENTS_PATHS.indexOf(activePage) > -1;
-        console.log(activePage);
-        console.log(isLab);
 
         if (isLab) {
             return  <Lab activePage={activePage}/>

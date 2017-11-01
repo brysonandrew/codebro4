@@ -42,6 +42,10 @@ export class Main extends React.Component<IProps, {}> {
 
     backgroundRef;
 
+    componentDidMount() {
+        this.props.store.onMainMount(true);
+    }
+
     render(): JSX.Element {
         const { width, height, docScroll, isMainMounted, projectOffsets, isAnimating, savedParams
             , onAnimationEnd } = this.props.store;

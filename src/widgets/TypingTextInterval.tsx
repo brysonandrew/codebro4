@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { observer } from 'mobx-react';
 import * as Immutable from 'immutable';
+import { observer } from 'mobx-react';
 import { interval } from '../data';
 
 interface IProps {

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {MascotArmLeft} from './MascotArmLeft';
-import {MascotArmRight} from './MascotArmRight';
-import {MascotBody} from './MascotBody';
+import {MascotArmLeft} from '../MascotArmLeft';
+import {MascotArmRight} from '../MascotArmRight';
+import {MascotBody} from '../MascotBody';
 
 interface IProps {}
 

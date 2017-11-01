@@ -12,6 +12,7 @@ export class LabMenu extends React.Component<{}, {}> {
     STYLES: IInlineStyles = {
         p: {
             position: "relative",
+            textAlign: "center",
             width: 320
         }
     };

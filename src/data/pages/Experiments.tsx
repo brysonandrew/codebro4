@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
 import { IInlineStyles, colors, prefixer } from '..';
-import { InternalLink } from '../../widgets';
+import { InternalLink, UnderlineSwitch } from '../../widgets';
 
 @observer
 export class Experiments extends React.Component<{}, {}> {
@@ -24,6 +24,9 @@ export class Experiments extends React.Component<{}, {}> {
             verticalAlign: "middle",
             height: 24,
             width: "auto"
+        },
+        midPoint: {
+            fontSize: 14
         }
     };
 
@@ -34,21 +37,29 @@ export class Experiments extends React.Component<{}, {}> {
                     path="https://codepen.io/codebro/"
                     isNewPage={true}
                 >
-                    <span>Check out my </span>
-                    <img
-                        style={this.STYLES.image}
-                        src="/images/codepen.png"
-                        alt="Codepen Link"
-                    />
-                    <span>channel for code experiments.</span>
+                    <UnderlineSwitch
+                        height={1}
+                    >
+                        <span>Check out my </span>
+                        <img
+                            style={this.STYLES.image}
+                            src="/images/codepen.png"
+                            alt="Codepen Link"
+                        />
+                        <span>channel for code experiments.</span>
+                    </UnderlineSwitch>
                 </InternalLink>
-                <div>
+                <div style={this.STYLES.midPoint}>
                     - OR -
                 </div>
                 <InternalLink
                     path="lab-menu"
                 >
-                    Click here to see some work in progress.
+                    <UnderlineSwitch
+                        height={1}
+                    >
+                        Click here to see some work in progress.
+                    </UnderlineSwitch>
                 </InternalLink>
             </div>
         );
