@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx';
 import { browserHistory } from 'react-router';
 import { IParams, buildMap, breakPointTests, IDictionary, setBodyStyle, inAC, inB, outAC, outB } from '.';
-import { ITabData } from '../app/Body';
+import { ITabData } from 'Main';
 import { MAIN_PAGES } from './pages';
 import {toParams} from './helpers/toParams';
 

@@ -13,7 +13,6 @@ export interface IParams {
 export interface IPage {
     name: string
     path: string
-    backgroundImagePath?: string
     component?: JSX.Element
 }
 

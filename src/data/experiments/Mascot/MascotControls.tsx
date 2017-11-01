@@ -1,11 +1,13 @@
 import * as React from 'react';
-import {Mascot} from './Mascot';
-import {EMascotMood} from './mascotSteps';
+import { observer } from 'mobx-react';
+import { Mascot } from './Mascot';
+import { EMascotMood } from './mascotSteps';
 
 interface IState {
     currentStep: EMascotMood
 }
 
+@observer
 export class MascotControls extends React.Component<{}, IState> {
 
     public constructor(props?: any, context?: any) {
@@ -24,7 +26,7 @@ export class MascotControls extends React.Component<{}, IState> {
     render(): JSX.Element {
         return (
             <div>
-                <div style={{width: "100%", textAlign: "center"}}>
+                <div style={{width: "100%", height: "100vh", textAlign: "center"}}>
                     <input
                         style={{display: "inline-block"}}
                         type="range"

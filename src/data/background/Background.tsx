@@ -89,7 +89,7 @@ export class Background extends React.Component<IProps, IState> {
 
     renderMotion() {
         this.particles.animate();
-        this.camera.position.set(0, 0, (this.props.docScroll - 2100));
+        this.camera.position.set(0, 0, 4200 - this.props.docScroll * 0.66);
         this.renderer.render( this.scene, this.camera );
     }
 

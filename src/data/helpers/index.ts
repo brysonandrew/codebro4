@@ -12,5 +12,5 @@ export { setBodyStyle, setHtmlStyle } from "./setBodyStyle";
 export { isGL } from "./isGL";
 export { Segment } from "./segment";
 export { inAC, inB, outAC, outB } from "./collapseMenuTransforms";
-export { createArrayOf } from "./createArrayOf";
+export { createArrayOf, arrayToDictionary } from "./arrayUtils";
 export { PageMaker } from "./constructors";

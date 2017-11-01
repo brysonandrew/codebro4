@@ -11,15 +11,16 @@ export default (
         {MAIN_PAGES.map((page, i) =>
             <Route
                 key={`pages-${i}`}
-                path={page.path}
+                path={`/${page.path}`}
                 component={Home} />
         )}
-        {/*sub-pages*/}
+        {/*lab-pages*/}
         {EXPERIMENTS.map((experiment, i) =>
             <Route
                 key={`experiment-${i}`}
-                path={experiment.path}
-                component={Home} />
+                path={`/${experiment.path}`}
+                component={Home}
+            />
         )}
         <Route path='/404' component={NotFound} />
         <Redirect from='*' to='/404' />
