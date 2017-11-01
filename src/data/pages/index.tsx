@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Intro } from './Intro';
 import { Video } from './Video';
-import { Lab } from './Lab';
+import { Experiments } from './Experiments';
 import { Work } from './Work';
 import { Contact } from './Contact';
 import { IPage, PageMaker, IDictionary, arrayToDictionary } from '..';
@@ -12,8 +12,8 @@ export const MAIN_PAGES: IPage[] = [
         <Intro/>
     ),
     new PageMaker(
-        "Lab",
-        <Lab/>
+        "Experiments",
+        <Experiments/>
     ),
     new PageMaker(
         "Video",
@@ -34,6 +34,6 @@ export const MAIN_PAGES_DICT: IDictionary<IPage> = arrayToDictionary(MAIN_PAGES,
 
 export { Intro };
 export { Video };
-export { Lab };
+export { Experiments };
 export { Work };
 export { Contact };

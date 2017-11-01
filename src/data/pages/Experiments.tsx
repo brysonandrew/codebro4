@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
 import { IInlineStyles, colors, prefixer } from '..';
+import { InternalLink } from '../../widgets';
 
 @observer
-export class Lab extends React.Component<{}, {}> {
+export class Experiments extends React.Component<{}, {}> {
 
     STYLES: IInlineStyles = {
         p: prefixer({
@@ -12,18 +13,12 @@ export class Lab extends React.Component<{}, {}> {
             top: "50%",
             left: "50%",
             textAlign: "center",
+            padding: 20,
+            fontSize: 24,
+            color: colors.blk,
+            background: "rgba(255,255,255, 0.88)",
             transform: "translate(-50%, -50%)"
         }),
-        link: {
-            display: "inline-block",
-            fontSize: 24,
-            fontFamily: "'Inconsolata', 'arial', sans-serif",
-            width: "50%",
-            padding: 20,
-            background: "rgba(255,255,255, 0.88)",
-            color: colors.blk,
-            textDecoration: "none"
-        },
         image: {
             display: "inline-block",
             verticalAlign: "middle",
@@ -35,10 +30,9 @@ export class Lab extends React.Component<{}, {}> {
     render(): JSX.Element {
         return (
             <div style={this.STYLES.p}>
-                <a
-                    href="https://codepen.io/codebro/"
-                    style={this.STYLES.link}
-                    target="_blank"
+                <InternalLink
+                    path="https://codepen.io/codebro/"
+                    isNewPage={true}
                 >
                     <span>Check out my </span>
                     <img
@@ -46,8 +40,16 @@ export class Lab extends React.Component<{}, {}> {
                         src="/images/codepen.png"
                         alt="Codepen Link"
                     />
-                    <span> channel for code experiments.</span>
-                </a>
+                    <span>channel for code experiments.</span>
+                </InternalLink>
+                <div>
+                    - OR -
+                </div>
+                <InternalLink
+                    path="lab-menu"
+                >
+                    Click here to see some work in progress.
+                </InternalLink>
             </div>
         );
     }

@@ -104,7 +104,9 @@ export class WideHeader extends React.Component<IProps, {}> {
                             </div>)
                     :   null}
                 <div style={this.lineStyle()}/>
-                <div style={this.underlineStyle}/>
+                {this.props.store.isTabsMeasured
+                    ?   <div style={this.underlineStyle}/>
+                    :   null}
             </div>
         );
     }

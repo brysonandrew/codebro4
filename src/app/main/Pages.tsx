@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { computed } from 'mobx';
-import { PagesItem } from ".";
 import { IInlineStyles, prefixer, Store, MAIN_PAGES, IEVersion } from '../../data';
 
 const STYLES: IInlineStyles = {
@@ -64,11 +63,7 @@ export class Pages extends React.Component<IProps, {}> {
                                  height: this.props.store.height,
                                  transform: this.pageTransform
                              })}>
-                            <PagesItem
-                                index={i}
-                                page={page}
-                                previewWidth={this.adjustedWidth}
-                            />
+                            {page.component}
                         </div>)}
                 </div>
             </div>

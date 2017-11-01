@@ -5,7 +5,6 @@ import { WideHeaderItem, ITabData } from "./WideHeaderItem";
 import { CollapseHeaderToggle } from "./CollapseHeaderToggle";
 import { CollapseHeader } from "./CollapseHeader";
 import { Pages } from "./Pages";
-import { PagesItem } from "./PagesItem";
 import { prefixer, Background, Store, breakPointTests, IInlineStyles } from '../../data';
 import { ScreenSaver, MotionScroll } from '../../widgets';
 
@@ -37,16 +36,15 @@ interface IProps {
     store?: Store
 }
 
-interface IState {}
-
 @inject('store')
 @observer
-export class Main extends React.Component<IProps, IState> {
+export class Main extends React.Component<IProps, {}> {
 
     backgroundRef;
 
     render(): JSX.Element {
-        const { width, height, docScroll, isAppMounted, projectOffsets, isAnimating, savedParams, onAnimationEnd } = this.props.store;
+        const { width, height, docScroll, isAppMounted, projectOffsets, isAnimating, savedParams, isTabsMeasured
+            , onAnimationEnd } = this.props.store;
 
         return (
             <div>
@@ -94,4 +92,3 @@ export { WideHeaderItem, ITabData };
 export { CollapseHeaderToggle };
 export { CollapseHeader };
 export { Pages };
-export { PagesItem };

@@ -36,5 +36,5 @@ class App extends React.Component<any, any> {
 }
 
 export { App }
-export { Html } from './Html';
+export { Html } from 'html';
 export { Home } from './Home';

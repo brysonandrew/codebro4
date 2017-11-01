@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
 import { observer, inject } from 'mobx-react';
-import { IInlineStyles, prefixer, colors, Store } from '../data';
+import { IInlineStyles, prefixer, colors, Store, toParams } from '../data';
 import { GlitchText } from '.';
-import {toParams} from '../data/helpers/toParams';
 
 interface IProps {
     store?: Store

@@ -50,21 +50,7 @@ interface IProps {
 @observer
 export class CollapseHeaderToggle extends React.Component<IProps, {}> {
 
-    segmentA;
-    segmentB;
-    segmentC;
     mountTimeoutId;
-
-    @computed public get styles(): any {
-        return {
-            pagesItem: {
-                position: "relative",
-                height: this.props.store.height,
-                width: "100%",
-                zIndex: 0
-            }
-        };
-    }
 
     componentDidMount() {
         const pathA = document.getElementById('pathA');

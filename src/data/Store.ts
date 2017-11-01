@@ -1,9 +1,8 @@
 import { observable, action } from 'mobx';
 import { browserHistory } from 'react-router';
-import { IParams, buildMap, breakPointTests, IDictionary, setBodyStyle, inAC, inB, outAC, outB } from '.';
-import { ITabData } from 'Main';
+import { IParams, buildMap, breakPointTests, IDictionary, setBodyStyle, inAC, inB, outAC, outB, toParams } from '.';
+import { ITabData } from '../app/main';
 import { MAIN_PAGES } from './pages';
-import {toParams} from './helpers/toParams';
 
 export class Store {
     isWideHeaderItemMounted: boolean;
@@ -16,6 +15,7 @@ export class Store {
     @observable isCollapseMenuOpen: boolean;
     @observable isToggleMenuMounted: boolean;
     @observable isResizing: boolean;
+    @observable isTabsMeasured: boolean;
     @observable wakeUpDuration: number;
     @observable width: number;
     @observable height: number;
@@ -40,6 +40,7 @@ export class Store {
         this.isCollapseMenuOpen = false;
         this.isToggleMenuMounted = false;
         this.isResizing = false;
+        this.isTabsMeasured = false;
         this.wakeUpDuration = 2400;
         this.currentIndex = 0;
         this.projectOffsetList = [];
@@ -82,11 +83,13 @@ export class Store {
     };
 
     @action onMeasureTabByRef = (ref: HTMLDivElement, index: number) => {
+
         if (ref) {
             this.tabDimensions[index] = {
                 width: ref.clientWidth,
                 xOffset: ref.getBoundingClientRect().left
-            }
+            };
+            this.isTabsMeasured = true;
         }
     };
 
@@ -191,7 +194,7 @@ export class Store {
             this.isIntroMounted = false;
             this.isWideHeaderItemMounted = false;
             this.isAnimating = false;
-            this.isAppMounted = true;
+            this.isAppMounted = false;
             this.isCollapseMenuOpen = false;
             this.isToggleMenuMounted = false;
             this.isResizing = false;

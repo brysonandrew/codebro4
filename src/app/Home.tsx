@@ -3,9 +3,9 @@ import { inject, observer } from 'mobx-react';
 import createHistory from 'history/createBrowserHistory';
 import { browserHistory } from 'react-router';
 import { toParams, listeners, resetIdle, IInlineStyles, Store
-    , MAIN_PAGES_PATHS, EXPERIMENTS_DICT, EXPERIMENTS_PATHS } from '../data';
-import { Main } from './Main';
-import {NotFound} from '../widgets/NotFound';
+    , EXPERIMENTS_PATHS } from '../data';
+import { Main } from './main';
+import { Lab } from './lab';
 
 const STYLES: IInlineStyles = {
     p: {
@@ -31,9 +31,11 @@ export class Home extends React.Component<IProps, {}> {
     componentDidMount() {
         const { onMeasureViewport, onLocationListen, onLoad, onScroll } = this.props.store;
         const history = createHistory();
-
+        console.log("mounting");
         onLoad(toParams(history.location.pathname));
         browserHistory.listen( location =>  {
+            console.log(location);
+
             onLocationListen(
                 toParams(location.pathname)
             );
@@ -54,19 +56,16 @@ export class Home extends React.Component<IProps, {}> {
         listeners(this.parentRef, "removeEventListener", "interaction", () => resetIdle(this));
     }
 
-    renderHome = () => {
+    private renderHome = () => {
         const activePage = this.props.store.savedParams.get("activePagePath");
-        const isMain = MAIN_PAGES_PATHS.indexOf(activePage) > -1;
         const isLab = EXPERIMENTS_PATHS.indexOf(activePage) > -1;
+        console.log(activePage);
+        console.log(isLab);
 
-        if (isMain) {
-            return  <Main/>
-        } else if (isLab) {
-            return  <div>
-                        {EXPERIMENTS_DICT[activePage].component}
-                    </div>
+        if (isLab) {
+            return  <Lab activePage={activePage}/>
         } else {
-            return <NotFound/>
+            return  <Main/>
         }
 
     };

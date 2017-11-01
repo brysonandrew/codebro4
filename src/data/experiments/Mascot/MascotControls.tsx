@@ -26,7 +26,7 @@ export class MascotControls extends React.Component<{}, IState> {
     render(): JSX.Element {
         return (
             <div>
-                <div style={{width: "100%", height: "100vh", textAlign: "center"}}>
+                <div style={{width: "100%", textAlign: "center"}}>
                     <input
                         style={{display: "inline-block"}}
                         type="range"
