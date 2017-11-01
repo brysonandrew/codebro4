@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx';
 import { browserHistory } from 'react-router';
 import { IParams, buildMap, breakPointTests, IDictionary, setBodyStyle, inAC, inB, outAC, outB } from '.';
-import { PAGES, ITabData } from '../content/Body';
+import { PAGES, ITabData } from '../app/Body';
 
 export class Store {
     isWideHeaderItemMounted: boolean;
