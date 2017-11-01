@@ -3,10 +3,10 @@ import { observer } from 'mobx-react';
 import { IInlineStyles, colors, prefixer } from '..';
 
 @observer
-export class Gallery extends React.Component<{}, {}> {
+export class Lab extends React.Component<{}, {}> {
 
     STYLES: IInlineStyles = {
-        gallery: prefixer({
+        p: prefixer({
             id: "gallery",
             position: "absolute",
             top: "50%",
@@ -14,7 +14,7 @@ export class Gallery extends React.Component<{}, {}> {
             textAlign: "center",
             transform: "translate(-50%, -50%)"
         }),
-        gallery__link: {
+        link: {
             display: "inline-block",
             fontSize: 24,
             fontFamily: "'Inconsolata', 'arial', sans-serif",
@@ -24,7 +24,7 @@ export class Gallery extends React.Component<{}, {}> {
             color: colors.blk,
             textDecoration: "none"
         },
-        gallery__image: {
+        image: {
             display: "inline-block",
             verticalAlign: "middle",
             height: 24,
@@ -34,19 +34,19 @@ export class Gallery extends React.Component<{}, {}> {
 
     render(): JSX.Element {
         return (
-            <div style={this.STYLES.gallery}>
+            <div style={this.STYLES.p}>
                 <a
-                    href="https://www.instagram.com/codebrolab"
-                    style={this.STYLES.gallery__link}
+                    href="https://codepen.io/codebro/"
+                    style={this.STYLES.link}
                     target="_blank"
                 >
                     <span>Check out my </span>
                     <img
-                        style={this.STYLES.gallery__image}
-                        src="/images/instagram.svg"
-                        alt="Instagram Link"
+                        style={this.STYLES.image}
+                        src="/images/codepen.png"
+                        alt="Codepen Link"
                     />
-                    <span> channel for coding tips and tutorials.</span>
+                    <span> channel for code experiments.</span>
                 </a>
             </div>
         );

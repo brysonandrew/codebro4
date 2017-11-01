@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
 import { observer, inject } from 'mobx-react';
-import { PAGES } from './Pages';
-import { IInlineStyles, colors, Store, prefixer } from '../../data';
+import { MAIN_PAGES, IInlineStyles, colors, Store, prefixer } from '../../data';
 import { CollapseHeaderItem } from './CollapseHeaderItem';
 
 interface IProps {
@@ -56,7 +55,7 @@ export class CollapseHeaderMenu extends React.Component<IProps, {}> {
             })}>
                 {isCollapseMenuOpen
                     ?   <div style={this.STYLES.items}>
-                            {PAGES.map((page, i) =>
+                            {MAIN_PAGES.map((page, i) =>
                                 <div
                                     key={`page-${i}`}
                                     style={this.STYLES.item}

@@ -1,7 +1,8 @@
 import { observable, action } from 'mobx';
 import { browserHistory } from 'react-router';
 import { IParams, buildMap, breakPointTests, IDictionary, setBodyStyle, inAC, inB, outAC, outB } from '.';
-import { PAGES, ITabData } from '../app/Body';
+import { ITabData } from '../app/Body';
+import { MAIN_PAGES } from './pages';
 
 export class Store {
     isWideHeaderItemMounted: boolean;
@@ -42,7 +43,7 @@ export class Store {
         this.currentIndex = 0;
         this.projectOffsetList = [];
         this.projectOffsets = {};
-        this.pagesLength = PAGES.length;
+        this.pagesLength = MAIN_PAGES.length;
         this.width = 0;
         this.height = 0;
         this.docScroll = 0;
@@ -73,8 +74,8 @@ export class Store {
 
         this.onCurrentIndexChange(currentIndex);
 
-        if (currentIndex > -1 && PAGES[currentIndex].path !== this.savedParams.get('activePagePath')) {
-            const nextPath = `/${PAGES[currentIndex].path}`;
+        if (currentIndex > -1 && MAIN_PAGES[currentIndex].path !== this.savedParams.get('activePagePath')) {
+            const nextPath = `/${MAIN_PAGES[currentIndex].path}`;
             browserHistory.push(nextPath);
         }
     };
@@ -136,9 +137,9 @@ export class Store {
         this.isMobile = breakPointTests.isMobile(width);
         this.isTablet = breakPointTests.isTablet(width);
         this.isLaptop = breakPointTests.isLaptop(width);
-        this.projectOffsetList = PAGES.map((_, i) => i * width);
+        this.projectOffsetList = MAIN_PAGES.map((_, i) => i * width);
         this.projectOffsets = this.projectOffsetList.reduce((acc, curr, i) => {
-            acc[PAGES[i].path] = curr;
+            acc[MAIN_PAGES[i].path] = curr;
             return acc;
         }, {});
         setTimeout(() => {
@@ -194,7 +195,7 @@ export class Store {
         this.currentIndex = 0;
         this.projectOffsetList = [];
         this.projectOffsets = {};
-        this.pagesLength = PAGES.length;
+        this.pagesLength = MAIN_PAGES.length;
         this.width = 0;
         this.height = 0;
         this.docScroll = 0;

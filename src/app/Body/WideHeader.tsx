@@ -4,8 +4,8 @@ import { observer, inject } from 'mobx-react';
 import { computed } from 'mobx';
 import { IInlineStyles, colors, prefixer, Store, IEVersion } from '../../data';
 import { WideHeaderItem } from '.';
-import { PAGES } from './Pages';
 import { ITabData } from './WideHeaderItem';
+import {MAIN_PAGES} from '../../data/pages/index';
 
 const TEXT_HEIGHT = 38;
 const DEFAULT_TAB_WIDTH = 24;
@@ -91,10 +91,10 @@ export class WideHeader extends React.Component<IProps, {}> {
         return (
             <div style={this.STYLES.p}>
                 {!this.props.store.isResizing
-                    ?   PAGES.map((page, i) =>
+                    ?   MAIN_PAGES.map((page, i) =>
                             <div
                                 key={`page-${i}`}
-                                style={{...this.STYLES.item, width: `${100 / PAGES.length}%`}}
+                                style={{...this.STYLES.item, width: `${100 / MAIN_PAGES.length}%`}}
                                 onClick={() => this.handleClick(page.path, i)}
                             >
                                 <WideHeaderItem
