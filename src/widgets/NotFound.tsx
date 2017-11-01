@@ -3,6 +3,7 @@ import { browserHistory } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import { IInlineStyles, prefixer, colors, Store } from '../data';
 import { GlitchText } from '.';
+import {toParams} from '../data/helpers/toParams';
 
 interface IProps {
     store?: Store
@@ -48,6 +49,7 @@ export class NotFound extends React.Component<IProps, {}> {
 
     handleBackClick = () => {
         browserHistory.push("/");
+        this.props.store.reset();
     };
 
     render(): JSX.Element {

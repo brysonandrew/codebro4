@@ -3,6 +3,7 @@ import { browserHistory } from 'react-router';
 import { IParams, buildMap, breakPointTests, IDictionary, setBodyStyle, inAC, inB, outAC, outB } from '.';
 import { ITabData } from '../app/Body';
 import { MAIN_PAGES } from './pages';
+import {toParams} from './helpers/toParams';
 
 export class Store {
     isWideHeaderItemMounted: boolean;
@@ -129,7 +130,7 @@ export class Store {
     };
 
     @action
-    public onResizeViewport = (width: number, height: number) => {
+    public onMeasureViewport = (width: number, height: number) => {
         this.isResizing = true;
         this.onAnimationStart();
         this.width = width;
@@ -179,29 +180,33 @@ export class Store {
             });
             browserHistory.push('/intro');
         }
+        this.onMeasureViewport(window.innerWidth, window.innerHeight);
         this.onAnimationStart();
         this.onAppMount(true);
     };
 
     @action
     public reset = () => {
-        this.isIntroMounted = false;
-        this.isWideHeaderItemMounted = false;
-        this.isAnimating = false;
-        this.isAppMounted = true;
-        this.isCollapseMenuOpen = false;
-        this.isToggleMenuMounted = false;
-        this.isResizing = false;
-        this.currentIndex = 0;
-        this.projectOffsetList = [];
-        this.projectOffsets = {};
-        this.pagesLength = MAIN_PAGES.length;
-        this.width = 0;
-        this.height = 0;
-        this.docScroll = 0;
-        this.savedParams = buildMap({
-            activePagePath: ''
-        });
+        setTimeout(() => {
+            this.isIntroMounted = false;
+            this.isWideHeaderItemMounted = false;
+            this.isAnimating = false;
+            this.isAppMounted = true;
+            this.isCollapseMenuOpen = false;
+            this.isToggleMenuMounted = false;
+            this.isResizing = false;
+            this.currentIndex = 0;
+            this.projectOffsetList = [];
+            this.projectOffsets = {};
+            this.pagesLength = MAIN_PAGES.length;
+            this.width = 0;
+            this.height = 0;
+            this.docScroll = 0;
+            this.savedParams = buildMap({
+                activePagePath: ''
+            });
+            this.onLoad(toParams("/"));
+        }, 0);
     };
 
 }

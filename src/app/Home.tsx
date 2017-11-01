@@ -52,7 +52,7 @@ export class Home extends React.Component<IProps, {}> {
     isWheelRecorded = false;
 
     componentDidMount() {
-        const { onResizeViewport, onLocationListen, onLoad, onScroll } = this.props.store;
+        const { onMeasureViewport, onLocationListen, onLoad, onScroll } = this.props.store;
 
         this.isHomeMounted = true;
 
@@ -66,16 +66,16 @@ export class Home extends React.Component<IProps, {}> {
 
         window.scroll(0, 0);
         window.addEventListener("scroll", onScroll);
-        listeners(window, "addEventListener", "resize", () => onResizeViewport(window.innerWidth, window.innerHeight));
+        window.addEventListener("resize", () => onMeasureViewport(window.innerWidth, window.innerHeight));
         listeners(this.parentRef, "addEventListener", "interaction", () => resetIdle(this));
     }
 
     componentWillUnmount() {
-        const { onResizeViewport, onScroll } = this.props.store;
+        const { onMeasureViewport, onScroll } = this.props.store;
 
         clearTimeout(this.idleTimeoutId);
         window.removeEventListener("scroll", onScroll);
-        listeners(window, "removeEventListener", "resize", () => onResizeViewport(window.innerWidth, window.innerHeight));
+        window.removeEventListener("resize", () => onMeasureViewport(window.innerWidth, window.innerHeight));
         listeners(this.parentRef, "removeEventListener", "interaction", () => resetIdle(this));
     }
 
