@@ -4,13 +4,13 @@ let isIdle = false;
 export const resetIdle = (that) => {
     if (isIdle) {
         // wake up!
-        that.props.store.onAppMount(true);
+        that.props.store.onMainMount(true);
     }
     isIdle = false;
     clearTimeout(that.idleTimeoutId);
     that.idleTimeoutId = setTimeout(() => {
         // go to sleep...
         isIdle = true;
-        that.props.store.onAppMount(false);
+        that.props.store.onMainMount(false);
     }, TIME_UNTIL_IDLE);
 };

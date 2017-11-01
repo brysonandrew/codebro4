@@ -8,7 +8,7 @@ export class Store {
     isWideHeaderItemMounted: boolean;
     @observable isIntroMounted: boolean;
     @observable isAnimating: boolean;
-    @observable isAppMounted: boolean;
+    @observable isMainMounted: boolean;
     @observable isMobile: boolean;
     @observable isTablet: boolean;
     @observable isLaptop: boolean;
@@ -36,7 +36,7 @@ export class Store {
         this.isIntroMounted = false;
         this.isWideHeaderItemMounted = false;
         this.isAnimating = false;
-        this.isAppMounted = false;
+        this.isMainMounted = false;
         this.isCollapseMenuOpen = false;
         this.isToggleMenuMounted = false;
         this.isResizing = false;
@@ -157,9 +157,9 @@ export class Store {
     };
 
     @action
-    public onAppMount = (isMounted: boolean) => {
+    public onMainMount = (isMounted: boolean) => {
         setBodyStyle('position', isMounted ? 'static' : 'fixed');
-        this.isAppMounted = isMounted;
+        this.isMainMounted = isMounted;
         this.wakeUpDuration = 600;
     };
 
@@ -185,7 +185,7 @@ export class Store {
         }
         this.onMeasureViewport(window.innerWidth, window.innerHeight);
         this.onAnimationStart();
-        this.onAppMount(true);
+        this.onMainMount(true);
     };
 
     @action
@@ -194,7 +194,7 @@ export class Store {
             this.isIntroMounted = false;
             this.isWideHeaderItemMounted = false;
             this.isAnimating = false;
-            this.isAppMounted = false;
+            this.isMainMounted = false;
             this.isCollapseMenuOpen = false;
             this.isToggleMenuMounted = false;
             this.isResizing = false;

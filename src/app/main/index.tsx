@@ -43,7 +43,7 @@ export class Main extends React.Component<IProps, {}> {
     backgroundRef;
 
     render(): JSX.Element {
-        const { width, height, docScroll, isAppMounted, projectOffsets, isAnimating, savedParams, isTabsMeasured
+        const { width, height, docScroll, isMainMounted, projectOffsets, isAnimating, savedParams
             , onAnimationEnd } = this.props.store;
 
         return (
@@ -71,7 +71,7 @@ export class Main extends React.Component<IProps, {}> {
                 </div>
                 <Pages/>
                 <ScreenSaver
-                    isScreenSaver={!isAppMounted}
+                    isScreenSaver={!isMainMounted}
                     wakeUpDuration={this.props.store.wakeUpDuration}
                 />
                 {!!projectOffsets

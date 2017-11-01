@@ -14,6 +14,8 @@ interface IState {
 @observer
 export class TypingTextInterval extends React.Component<IProps, IState> {
 
+    intervalId;
+
     public constructor(props?: any, context?: any) {
         super(props, context);
         this.state = {
@@ -29,8 +31,11 @@ export class TypingTextInterval extends React.Component<IProps, IState> {
                 textShown: Immutable.List(this.state.textShown).push(textArray[count]).toArray()
             });
             count++;
-        });
+        }, (intervalId => (this.intervalId = intervalId)));
+    }
 
+    componentWillUnmount() {
+        clearInterval(this.intervalId);
     }
 
     render(): JSX.Element {
