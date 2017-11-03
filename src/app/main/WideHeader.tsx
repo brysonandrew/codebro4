@@ -1,13 +1,10 @@
 import * as React from 'react';
-import { browserHistory } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import { computed } from 'mobx';
-import { IInlineStyles, colors, prefixer, Store, IEVersion } from '../../data';
+import { IInlineStyles, colors, prefixer, Store, IEVersion, MAIN_PAGES } from '../../data';
 import { WideHeaderItem } from '.';
 import { ITabData } from './WideHeaderItem';
-import {MAIN_PAGES} from '../../data/pages/index';
 
-const TEXT_HEIGHT = 38;
 const DEFAULT_TAB_WIDTH = 24;
 
 interface IProps {
@@ -22,7 +19,7 @@ export class WideHeader extends React.Component<IProps, {}> {
         p: {
             id: "wide header",
             position: "relative",
-            height: TEXT_HEIGHT,
+            height: 28,
             color: colors.blk
         },
         item: {
@@ -34,16 +31,16 @@ export class WideHeader extends React.Component<IProps, {}> {
             position: "absolute",
             bottom: 0,
             height: 1,
-            transformOrigin: "50% 50%",
-            background: colors.blk
+            background: colors.faint,
+            transformOrigin: "50% 50%"
         }),
         underline: prefixer({
             position: "absolute",
-            bottom: -3,
-            height: 6,
+            bottom: 0,
+            height: 2,
             background: colors.blk,
             transformOrigin: "50% 50%",
-            transition: "transform 200ms"
+            transition: "width 2000ms, transform 2000ms"
         })
     };
 
@@ -60,16 +57,7 @@ export class WideHeader extends React.Component<IProps, {}> {
     private underlineTransform = (tabDimension: ITabData): string => {
         return `${IEVersion() <= 11
             ? "none"
-            : `translate3d(${tabDimension ? tabDimension.xOffset : 0}px, 0, 0)`} scale(${this.underlineScale})`
-    };
-
-    @computed public get underlineScale(): number {
-        return  Math.abs(
-                    Math.cos(
-                        (Math.PI * this.props.store.pagesLength)
-                        * (this.props.store.docScroll / this.props.store.width / this.props.store.pagesLength)
-                    )
-        )
+            : `translate3d(${tabDimension ? tabDimension.xOffset : 0}px, 0, 0)`}`
     };
 
     @computed public get underlineStyle() {
@@ -81,12 +69,6 @@ export class WideHeader extends React.Component<IProps, {}> {
         })
     };
 
-    handleClick = (path: string, index: number) => {
-        browserHistory.push(`/${path}`);
-        this.props.store.onCurrentIndexChange(index);
-        this.props.store.onAnimationStart();
-    };
-
     render(): JSX.Element {
         return (
             <div style={this.STYLES.p}>
@@ -95,7 +77,6 @@ export class WideHeader extends React.Component<IProps, {}> {
                             <div
                                 key={`page-${i}`}
                                 style={{...this.STYLES.item, width: `${100 / MAIN_PAGES.length}%`}}
-                                onClick={() => this.handleClick(page.path, i)}
                             >
                                 <WideHeaderItem
                                     index={i}

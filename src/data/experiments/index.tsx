@@ -1,6 +1,8 @@
 import * as React from "react";
 import { observer } from 'mobx-react';
 import { MascotControls } from './Mascot';
+import { Hamburgers } from './Hamburgers';
+
 import { PageMaker, IPage, IInlineStyles, IDictionary, arrayToDictionary } from '..';
 import { InternalLink } from '../../widgets';
 
@@ -44,6 +46,10 @@ export const EXPERIMENTS: IPage[] = [
     new PageMaker(
         "Mascot",
         <MascotControls/>
+    ),
+    new PageMaker(
+        "Hamburgers",
+        <Hamburgers/>
     )
 ];
 

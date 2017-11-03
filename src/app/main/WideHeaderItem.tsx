@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { browserHistory } from 'react-router';
 import { inject, observer } from 'mobx-react';
 import { IPage, IInlineStyles, colors, Store } from '../../data';
-import { GlitchText } from '../../widgets';
 
 const FONT_SIZE = 14;
 
@@ -9,13 +9,11 @@ const STYLES: IInlineStyles = {
     p: {
         id: "wide header item",
         position: "absolute",
-        top: -16,
+        top: -6,
         left: "50%",
-        margin: 0,
-        padding: "16px 0"
-    },
-    placeholder: {
-        fontSize: FONT_SIZE
+        color: colors.blk,
+        fontSize: FONT_SIZE,
+        transition: "transform ease 1000ms"
     }
 };
 
@@ -30,63 +28,47 @@ interface IProps {
     store?: Store
 }
 
-interface IState {
-    isHovered
-}
-
 @inject('store')
 @observer
-export class WideHeaderItem extends React.Component<IProps, IState> {
+export class WideHeaderItem extends React.Component<IProps, {}> {
 
-    public constructor(props?: any, context?: any) {
-        super(props, context);
-        this.state = {
-            isHovered: false
-        };
-    }
+    prevCurrentIndex = 0;
 
     componentDidMount() {
         this.props.store.onWideHeaderItemMount(true);
     }
 
     handleMouseEnter = () => {
-        this.setState({
-            isHovered: true
-        })
+        this.prevCurrentIndex = this.props.store.currentIndex;
+        this.props.store.onCurrentIndexChange(this.props.index);
     };
 
     handleMouseLeave = () => {
-        this.setState({
-            isHovered: false
-        })
+        this.props.store.onCurrentIndexChange(this.prevCurrentIndex);
+    };
+
+    handleClick = (path: string) => {
+        browserHistory.push(`/${path}`);
+        this.props.store.onCurrentIndexChange(this.props.index);
+        this.props.store.onAnimationStart();
+        this.prevCurrentIndex = this.props.index;
     };
 
     render(): JSX.Element {
-        const { tabDimensions, onMeasureTabByRef, currentIndex, isWideHeaderItemMounted } = this.props.store;
+        const { onMeasureTabByRef } = this.props.store;
         const { index, page } = this.props;
 
         return (
             <div
                 key={page.name}
-                style={STYLES.p}
+                style={{...STYLES.p, transform: `translate3d(0, ${this.props.store.currentIndex === this.props.index ? "-4px" : 0}, 0)`}}
                 ref={(el) => onMeasureTabByRef(el, index)}
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
+                onClick={() => this.handleClick(page.path)}
+
             >
-                {isWideHeaderItemMounted
-                    ?   <GlitchText
-                            fontSize={FONT_SIZE}
-                            intensity={FONT_SIZE / 100}
-                            width={tabDimensions[index].width}
-                            height={FONT_SIZE * 1.5}
-                            isActive={this.state.isHovered || index === currentIndex}
-                            backgroundColor={colors.wht}
-                            textColor={colors.blk}
-                            textContent={page.name}
-                        />
-                    :   <div style={STYLES.placeholder}>
-                            {page.name}
-                        </div>}
+                {page.name}
             </div>
 
         );

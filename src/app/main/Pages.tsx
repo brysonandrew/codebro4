@@ -43,10 +43,19 @@ export class Pages extends React.Component<IProps, {}> {
         return this.props.store.width - this.widthMargin * 2
     }
 
+    @computed public get underlineScale(): number {
+        return  Math.abs(
+            Math.cos(
+                (Math.PI * this.props.store.pagesLength)
+                * (this.props.store.docScroll / this.props.store.width / this.props.store.pagesLength)
+            )
+        )
+    };
+
     @computed public get pageTransform(): string {
         return IEVersion() <= 11
             ? `translateX(${-this.adjustedScroll}px)`
-            : `translate3d(${-this.adjustedScroll}px, 0, 0)`
+            : `translate3d(${-this.adjustedScroll}px, 0, 0) scale(${this.underlineScale})`
     }
 
     render(): JSX.Element {

@@ -1,0 +1,82 @@
+.cb-nav-bar-toggle {
+    position: relative;
+    height: 50px;
+    width: 50px;
+    flex:0 0 auto;
+}
+
+.cb-nav-bar-toggle__hamburger, .cb-nav-bar-toggle__cross {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.cb-nav-bar-toggle__hamburger .cb-nav-bar-toggle__bar {
+    display: block;
+    position: relative;
+    width: 18px;
+    height: 2px;
+    margin-bottom: 3px;
+    overflow: hidden;
+}
+
+.cb-nav-bar-toggle__hamburger .cb-nav-bar-toggle__bar:last-child {
+    margin: 0;
+}
+
+.cb-nav-bar-toggle__hamburger .cb-nav-bar-toggle__bar:before,
+.cb-nav-bar-toggle__hamburger .cb-nav-bar-toggle__bar:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #FFFFFF;
+    transform: scale(1);
+    transition: transform ease 300ms;
+}
+
+.cb-nav-bar-toggle__hamburger .cb-nav-bar-toggle__bar:after{
+    transform: scale(1);
+}
+
+.cb-nav-bar-toggle__hamburger .cb-nav-bar-toggle__bar:nth-child(2):before,
+.cb-nav-bar-toggle__hamburger .cb-nav-bar-toggle__bar:nth-child(2):after {
+    transition-delay: 75ms;
+}
+
+.cb-nav-bar-toggle__hamburger .cb-nav-bar-toggle__bar:last-child:before,
+.cb-nav-bar-toggle__hamburger .cb-nav-bar-toggle__bar:last-child:after {
+    transition-delay: 150ms;
+}
+
+.cb-nav-bar-toggle.-cb-active .cb-nav-bar-toggle__hamburger .cb-nav-bar-toggle__bar:before{
+    transform: scale(0);
+}
+
+.cb-nav-bar-toggle.-cb-active .cb-nav-bar-toggle__hamburger .cb-nav-bar-toggle__bar:after {
+    transform: scale(0);
+}
+
+.cb-nav-bar-toggle__cross .cb-nav-bar-toggle__bar {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background-color: #FFFFFF;
+    transform: translateY(50%) rotate(45deg) scaleX(0);
+    transition: transform ease 200ms;
+}
+
+.cb-nav-bar-toggle__cross .cb-nav-bar-toggle__bar:last-child {
+    transform: translateY(-50%) rotate(-45deg) scaleX(0);
+}
+
+.cb-nav-bar-toggle.-cb-active .cb-nav-bar-toggle__cross .cb-nav-bar-toggle__bar {
+    transition-delay: 450ms;
+    transform: translateY(50%) rotate(45deg) scaleX(1);
+}
+
+.cb-nav-bar-toggle.-cb-active .cb-nav-bar-toggle__cross .cb-nav-bar-toggle__bar:last-child {
+    transform: translateY(-50%) rotate(-45deg) scaleX(1);
+}
