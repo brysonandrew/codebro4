@@ -4,6 +4,7 @@ import { IInlineStyles, colors } from '../data';
 
 interface IProps {
     height: number
+    underlineColor: string
 }
 
 interface IState {

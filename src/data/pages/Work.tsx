@@ -70,6 +70,7 @@ export class Work extends React.Component<{}, {}> {
                         <UnderlineSwitch
                             key={work.name}
                             height={1}
+                            underlineColor={colors.blk}
                         >
                             <a
                                 style={this.STYLES.text}
@@ -86,6 +87,7 @@ export class Work extends React.Component<{}, {}> {
                         <UnderlineSwitch
                             key={work.name}
                             height={1}
+                            underlineColor={colors.blk}
                         >
                             <a
                                 style={this.STYLES.text}

@@ -39,6 +39,7 @@ export class Experiments extends React.Component<{}, {}> {
                 >
                     <UnderlineSwitch
                         height={1}
+                        underlineColor={colors.blk}
                     >
                         <span>Check out my </span>
                         <img
@@ -57,6 +58,7 @@ export class Experiments extends React.Component<{}, {}> {
                 >
                     <UnderlineSwitch
                         height={1}
+                        underlineColor={colors.blk}
                     >
                         Click here to see some work in progress.
                     </UnderlineSwitch>

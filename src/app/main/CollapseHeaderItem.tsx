@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IPage, IInlineStyles, Store, colors } from '../../data';
 import { inject, observer } from 'mobx-react';
-import { GlitchText } from '../../widgets';
+import {UnderlineSwitch} from '../../widgets/UnderlineSwitch';
 
 const FONT_SIZE = 24;
 const LINE_HEIGHT = 48;
@@ -31,6 +31,8 @@ export class CollapseHeaderItem extends React.Component<IProps, IState> {
             left: "50%",
             margin: 0,
             padding: "16px 0",
+            color: colors.wht,
+            fontSize: FONT_SIZE
         }
     };
 
@@ -54,16 +56,12 @@ export class CollapseHeaderItem extends React.Component<IProps, IState> {
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
             >
-                <GlitchText
-                    fontSize={FONT_SIZE}
-                    intensity={FONT_SIZE / 100}
-                    width={280}
-                    height={LINE_HEIGHT}
-                    isActive={this.state.isHovered}
-                    backgroundColor={colors.blk}
-                    textColor={colors.wht}
-                    textContent={this.props.page.name}
-                />
+                <UnderlineSwitch
+                    height={4}
+                    underlineColor={colors.wht}
+                >
+                    {this.props.page.name}
+                </UnderlineSwitch>
             </div>
         );
     }
