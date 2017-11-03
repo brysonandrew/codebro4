@@ -41,7 +41,7 @@ export class Store {
         this.isToggleMenuMounted = false;
         this.isResizing = false;
         this.isTabsMeasured = false;
-        this.wakeUpDuration = 2400;
+        this.wakeUpDuration = 800;
         this.currentIndex = 0;
         this.projectOffsetList = [];
         this.projectOffsets = {};
@@ -115,7 +115,7 @@ export class Store {
         this.sC = sC;
         setTimeout(() => {
             this.isToggleMenuMounted = true;
-        }, 2000);
+        }, 400);
     };
 
     @action
@@ -160,7 +160,7 @@ export class Store {
     public onMainMount = (isMounted: boolean) => {
         setBodyStyle('position', isMounted ? 'static' : 'fixed');
         this.isMainMounted = isMounted;
-        this.wakeUpDuration = 600;
+        this.wakeUpDuration = 400;
     };
 
     @action

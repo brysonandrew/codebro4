@@ -7,10 +7,13 @@ const FONT_SIZE = 14;
 
 const STYLES: IInlineStyles = {
     p: {
-        id: "wide header item",
         position: "absolute",
-        top: -6,
-        left: "50%",
+        bottom: 0,
+        paddingBottom: 4,
+        left: "50%"
+    },
+    text: {
+        id: "wide header item",
         color: colors.blk,
         fontSize: FONT_SIZE,
         transition: "transform ease 1000ms"
@@ -61,14 +64,17 @@ export class WideHeaderItem extends React.Component<IProps, {}> {
         return (
             <div
                 key={page.name}
-                style={{...STYLES.p, transform: `translate3d(0, ${this.props.store.currentIndex === this.props.index ? "-4px" : 0}, 0)`}}
+                style={STYLES.p}
                 ref={(el) => onMeasureTabByRef(el, index)}
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
                 onClick={() => this.handleClick(page.path)}
-
             >
-                {page.name}
+                <div
+                    style={{...STYLES.text, transform: `translate3d(0, ${this.props.store.currentIndex === this.props.index ? "-4px" : 0}, 0)`}}
+                >
+                    {page.name}
+                </div>
             </div>
 
         );

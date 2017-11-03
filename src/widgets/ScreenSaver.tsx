@@ -55,7 +55,7 @@ export class ScreenSaver extends React.Component<IProps, IState> {
                     this.setState({
                         isShown: nextProps.isScreenSaver
                     }
-                ), nextProps.isScreenSaver ? 1600 : this.props.wakeUpDuration);
+                ), nextProps.isScreenSaver ? 400 : this.props.wakeUpDuration);
         }
     }
 

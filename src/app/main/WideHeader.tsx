@@ -19,12 +19,13 @@ export class WideHeader extends React.Component<IProps, {}> {
         p: {
             id: "wide header",
             position: "relative",
-            height: 28,
+            height: 32,
             color: colors.blk
         },
         item: {
             position: "relative",
             display: "inline-block",
+            height: "100%",
             cursor: "pointer"
         },
         line: prefixer({
