@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IndexRoute, Route, Redirect } from 'react-router';
 import { App, Home } from '../app';
 import { NotFound } from '../widgets';
-import { MAIN_PAGES, EXPERIMENTS } from '../data';
+import { MAIN_PAGES, EXPERIMENTS, PARTICLES } from '../data';
 
 export default (
     <Route path="/" component={App}>
@@ -19,6 +19,13 @@ export default (
             <Route
                 key={`experiment-${i}`}
                 path={`/${experiment.path}`}
+                component={Home}
+            />
+        )}
+        {PARTICLES.map((particle, i) =>
+            <Route
+                key={`experiment-${i}`}
+                path={`/particles/${particle.path}`}
                 component={Home}
             />
         )}

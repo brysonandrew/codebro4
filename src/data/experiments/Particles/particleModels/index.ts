@@ -1,5 +1,5 @@
 import { toPath, IDictionary, ILabProject } from "../../../../data";
-import {Fire, FireBlade, Frost, Rain, Snow} from "./elements";
+import {Fire, FireBlade, Frost, Rain, Snow, Tornado} from "./elements";
 import {BasicExplosion, RandomSparks} from "./explosions";
 import {MultidirectionalBullets, VisualBullets} from "./projectiles";
 
@@ -37,14 +37,18 @@ export const PARTICLES: ILabProject[] = [
     new Project(
         "Frost",
         new Frost
+    ),
+    new Project(
+        "Tornado",
+        new Tornado
     )
 ];
 
 export const PARTICLES_DICT: IDictionary<ILabProject> = PARTICLES.reduce((acc, curr) => {
-    acc[toPath(curr.name)] = curr;
+    acc[curr.path] = curr;
     return acc;
 }, {});
 
-export {Fire, FireBlade, Frost, Rain, Snow};
+export {Fire, FireBlade, Frost, Rain, Snow, Tornado};
 export {BasicExplosion, RandomSparks};
 export {MultidirectionalBullets, VisualBullets};

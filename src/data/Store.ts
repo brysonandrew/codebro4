@@ -49,7 +49,8 @@ export class Store {
         this.height = 0;
         this.docScroll = 0;
         this.savedParams = buildMap({
-            activePagePath: ''
+            activePagePath: "",
+            activeViewPath: ""
         });
     }
 
@@ -171,6 +172,7 @@ export class Store {
             this.savedParams = buildMap({
                 activePagePath: 'intro'
             });
+            console.log("yo intro");
             browserHistory.push('/intro');
         }
         this.onMeasureViewport(window.innerWidth, window.innerHeight);

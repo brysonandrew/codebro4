@@ -1,13 +1,12 @@
 import * as React from 'react';
 import * as Immutable from 'immutable';
 import THREE = require('three');
+import { browserHistory } from 'react-router';
 import { inject, observer } from 'mobx-react';
-import { isGL, Store, IInlineStyles } from "../../../data";
+import { isGL, IInlineStyles, colors } from "../../../data";
 import { playerPositionX, playerPositionZ, playerRotationY, playerRotationX } from "../helpers";
-import { CenteredText } from "../../../widgets";
-import {PARTICLES, PARTICLES_DICT} from './particleModels';
-import {UnderlineSwitch} from '../../../widgets/UnderlineSwitch';
-import {colors} from '../../themeOptions';
+import { CenteredText, UnderlineSwitch } from "../../../widgets";
+import { PARTICLES, PARTICLES_DICT } from './particleModels';
 
 interface IState {
     isFallback: boolean
@@ -17,8 +16,10 @@ interface IState {
 }
 
 interface IProps {
-    store?: Store
     parentEl?: HTMLDivElement
+    width: number
+    height: number
+    savedParams: Map<string, string>;
 }
 
 @inject('store')
@@ -79,7 +80,7 @@ export class Particles extends React.Component<IProps, IState> {
     }
 
     componentWillReceiveProps(nextProps) {
-        const { height, width } = this.props.store;
+        const { height, width, savedParams } = this.props;
 
         const isHeightChanged = nextProps.height !== height;
         const isWidthChanged = nextProps.width !== width;
@@ -89,11 +90,17 @@ export class Particles extends React.Component<IProps, IState> {
             this.camera.aspect = nextProps.width / nextProps.height;
             this.camera.updateProjectionMatrix();
         }
+
+        const isParamsChanged = nextProps.savedParams.get("activeViewPath") !== savedParams.get("activeViewPath");
+
+        if (isParamsChanged) {
+            this.removeByName("particles");
+            this.initParticles(PARTICLES_DICT[nextProps.savedParams.get("activeViewPath")].component);
+        }
     }
 
     handleMenuClick = (i) => {
-        this.removeByName("particles");
-        this.initParticles(PARTICLES[i].component);
+        browserHistory.push(`/particles/${PARTICLES[i].path}`)
     };
 
     handleKeyPress = (e) => {
@@ -134,7 +141,7 @@ export class Particles extends React.Component<IProps, IState> {
     }
 
     initRenderer() {
-        const { height, width } = this.props.store;
+        const { height, width } = this.props;
 
         this.renderer = new THREE.WebGLRenderer();
         this.renderer.setSize( width, height );
@@ -142,7 +149,7 @@ export class Particles extends React.Component<IProps, IState> {
     }
 
     initCamera() {
-        const { height, width } = this.props.store;
+        const { height, width } = this.props;
 
         this.camera = new THREE.PerspectiveCamera(
             45,
@@ -169,7 +176,11 @@ export class Particles extends React.Component<IProps, IState> {
         this.playerFocus.rotation.order = "YXZ";
         this.scene.add(this.playerFocus);
 
-        this.initParticles(PARTICLES[0].component);
+        const component = this.props.savedParams.get("activeViewPath")
+            ? PARTICLES_DICT[this.props.savedParams.get("activeViewPath")].component
+            : PARTICLES[0].component;
+
+        this.initParticles(component);
 
         // Promise.all([
         //     loadGround(),
@@ -184,9 +195,9 @@ export class Particles extends React.Component<IProps, IState> {
         this.scene.remove(obj);
     }
 
-    initParticles(compoenent) {
+    initParticles(component) {
 
-        this.particles = compoenent;
+        this.particles = component;
         const particlesObj = this.particles.render();
         particlesObj.name =  "particles";
 
@@ -221,8 +232,8 @@ export class Particles extends React.Component<IProps, IState> {
     render(): JSX.Element {
         return (
             this.state.isFallback
-                ?  <CenteredText
-                        content={"Unable to view due to browser or browser settings. Try another browser or reconfigure your current browser."}
+                ?   <CenteredText
+                        content="Unable to view due to browser or browser settings. Try another browser or reconfigure your current browser."
                     />
                 :   <div style={this.STYLES.menu}>
                     {PARTICLES.map((particle, i) =>
@@ -241,3 +252,5 @@ export class Particles extends React.Component<IProps, IState> {
         );
     }
 }
+
+export {PARTICLES, PARTICLES_DICT}

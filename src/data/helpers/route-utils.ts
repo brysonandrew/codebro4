@@ -1,6 +1,7 @@
 const params = [
     "/",
-    "activePagePath"
+    "activePagePath",
+    "activeViewPath"
 ];
 
 export const toParams =

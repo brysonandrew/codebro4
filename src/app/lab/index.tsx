@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { observer } from 'mobx-react';
-import { EXPERIMENTS_DICT, IInlineStyles } from '../../data';
+import { observer, inject } from 'mobx-react';
+import { EXPERIMENTS_DICT, IInlineStyles, Store } from '../../data';
 
 interface IProps {
+    store?: Store
     activePage: string
 }
 
@@ -10,6 +11,7 @@ interface IState {
     isMounted: boolean
 }
 
+@inject('store')
 @observer
 export class Lab extends React.Component<IProps, IState> {
 
@@ -52,6 +54,9 @@ export class Lab extends React.Component<IProps, IState> {
                                 EXPERIMENTS_DICT[this.props.activePage].component,
                                 {
                                     parentEl: this.parentRef,
+                                    width: this.props.store.width,
+                                    height: this.props.store.height,
+                                    savedParams: this.props.store.savedParams
                                 }
                             )
                         :   null}

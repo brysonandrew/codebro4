@@ -2,7 +2,7 @@ import * as React from "react";
 import { observer } from 'mobx-react';
 import { MascotControls } from './Mascot';
 import { Hamburgers } from './Hamburgers';
-import { Particles } from './Particles';
+import { Particles, PARTICLES, PARTICLES_DICT } from './Particles';
 
 import { PageMaker, IPage, IInlineStyles, IDictionary, arrayToDictionary, colors } from '..';
 import { InternalLink, UnderlineSwitch } from '../../widgets';
@@ -66,4 +66,5 @@ export const EXPERIMENTS: IPage[] = [
 export const EXPERIMENTS_PATHS: string[] = EXPERIMENTS.map(experiment => experiment.path);
 export const EXPERIMENTS_DICT: IDictionary<IPage> = arrayToDictionary(EXPERIMENTS, "path");
 
-export { MascotControls }
+export { MascotControls };
+export { Particles, PARTICLES, PARTICLES_DICT };

@@ -8,6 +8,7 @@ export interface IInlineStyles {
 
 export interface IParams {
     activePagePath?: string
+    activeViewPath?: string
 }
 
 export interface IPage {
