@@ -2,10 +2,12 @@ import * as React from 'react';
 import * as Immutable from 'immutable';
 import THREE = require('three');
 import { inject, observer } from 'mobx-react';
-import { isGL, Store } from "../../../data";
+import { isGL, Store, IInlineStyles } from "../../../data";
 import { playerPositionX, playerPositionZ, playerRotationY, playerRotationX } from "../helpers";
 import { CenteredText } from "../../../widgets";
-import { particlesMenuDictionary } from "./particlesMenu/particlesMenu";
+import {PARTICLES, PARTICLES_DICT} from './particleModels';
+import {UnderlineSwitch} from '../../../widgets/UnderlineSwitch';
+import {colors} from '../../themeOptions';
 
 interface IState {
     isFallback: boolean
@@ -31,6 +33,17 @@ export class Particles extends React.Component<IProps, IState> {
     point;
     playerFocus = new THREE.Group;
     particles;
+
+    STYLES: IInlineStyles = {
+        menu: {
+            position: "absolute",
+            top: 0,
+            left: 0,
+            padding: 20,
+            background: colors.wht,
+            cursor: "pointer"
+        }
+    };
 
     public constructor(props?: any, context?: any) {
         super(props, context);
@@ -66,7 +79,7 @@ export class Particles extends React.Component<IProps, IState> {
     }
 
     componentWillReceiveProps(nextProps) {
-        const { height, width, savedParams } = this.props.store;
+        const { height, width } = this.props.store;
 
         const isHeightChanged = nextProps.height !== height;
         const isWidthChanged = nextProps.width !== width;
@@ -76,14 +89,12 @@ export class Particles extends React.Component<IProps, IState> {
             this.camera.aspect = nextProps.width / nextProps.height;
             this.camera.updateProjectionMatrix();
         }
-
-        // const isViewPathChanged = nextProps.savedParams.activeViewPath !== savedParams.activeViewPath;
-
-        // if (isViewPathChanged) {
-        //     this.removeByName("particles");
-        //     this.initParticles(nextProps.savedParams.activeViewPath);
-        // }
     }
+
+    handleMenuClick = (i) => {
+        this.removeByName("particles");
+        this.initParticles(PARTICLES[i].component);
+    };
 
     handleKeyPress = (e) => {
         const keysPressed = Immutable.List(this.state.keysPressed).push(e.key);
@@ -158,7 +169,7 @@ export class Particles extends React.Component<IProps, IState> {
         this.playerFocus.rotation.order = "YXZ";
         this.scene.add(this.playerFocus);
 
-        this.initParticles(null);
+        this.initParticles(PARTICLES[0].component);
 
         // Promise.all([
         //     loadGround(),
@@ -173,13 +184,9 @@ export class Particles extends React.Component<IProps, IState> {
         this.scene.remove(obj);
     }
 
-    initParticles(viewPath) {
+    initParticles(compoenent) {
 
-        const key = viewPath
-                        ?   viewPath
-                        :   "fire";
-
-        this.particles = particlesMenuDictionary[key].component;
+        this.particles = compoenent;
         const particlesObj = this.particles.render();
         particlesObj.name =  "particles";
 
@@ -214,9 +221,23 @@ export class Particles extends React.Component<IProps, IState> {
     render(): JSX.Element {
         return (
             this.state.isFallback
-                &&  <CenteredText
+                ?  <CenteredText
                         content={"Unable to view due to browser or browser settings. Try another browser or reconfigure your current browser."}
                     />
+                :   <div style={this.STYLES.menu}>
+                    {PARTICLES.map((particle, i) =>
+                        <div
+                            key={`particle-${i}`}
+                            onClick={() => this.handleMenuClick(i)}
+                        >
+                            <UnderlineSwitch
+                                height={1}
+                                underlineColor={colors.blk}
+                            >
+                                {particle.name}
+                            </UnderlineSwitch>
+                        </div>)}
+                    </div>
         );
     }
 }

@@ -1,6 +1,6 @@
 import {IDictionary} from '../models';
 
-export const listeners = (el: EventTarget, action: string, type: "interaction" | "resize", callback: () => any) => {
+export const listeners = (el: EventTarget, action: string, type: "interaction" | "resize" | "game", callback: () => any) => {
     const events: IDictionary<string[]> = {
         interaction: [
             "mousemove",
@@ -11,6 +11,11 @@ export const listeners = (el: EventTarget, action: string, type: "interaction" |
         resize: [
             "resize",
             "load"
+        ],
+        game: [
+            "keypress",
+            "keyup",
+            "mousemove"
         ]
     };
     events[type].map(type => {
