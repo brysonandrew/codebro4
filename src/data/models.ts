@@ -20,3 +20,11 @@ export interface IWork {
     name: string
     link: string
 }
+
+export interface ILabProject {
+    name: string
+    path: string
+    technologies: string[] | null
+    component: JSX.Element
+    subComponents?: any[]
+}

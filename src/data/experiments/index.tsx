@@ -2,9 +2,10 @@ import * as React from "react";
 import { observer } from 'mobx-react';
 import { MascotControls } from './Mascot';
 import { Hamburgers } from './Hamburgers';
+import { Particles } from './Particles';
 
-import { PageMaker, IPage, IInlineStyles, IDictionary, arrayToDictionary } from '..';
-import { InternalLink } from '../../widgets';
+import { PageMaker, IPage, IInlineStyles, IDictionary, arrayToDictionary, colors } from '..';
+import { InternalLink, UnderlineSwitch } from '../../widgets';
 
 const MENU_NAME = "Lab Menu";
 
@@ -25,11 +26,16 @@ export class LabMenu extends React.Component<{}, {}> {
                 {EXPERIMENTS.map((experiment, i) =>
                     (experiment.name !== MENU_NAME
                         ?   <div key={`link-${i}`}>
-                                <InternalLink
-                                    path={experiment.path}
+                                <UnderlineSwitch
+                                    height={1}
+                                    underlineColor={colors.blk}
                                 >
-                                    {experiment.name}
-                                </InternalLink>
+                                    <InternalLink
+                                        path={experiment.path}
+                                    >
+                                        {experiment.name}
+                                    </InternalLink>
+                                </UnderlineSwitch>
                             </div>
                         :   null)
                 )}
@@ -50,6 +56,10 @@ export const EXPERIMENTS: IPage[] = [
     new PageMaker(
         "Hamburgers",
         <Hamburgers/>
+    ),
+    new PageMaker(
+        "Particles",
+        <Particles/>
     )
 ];
 

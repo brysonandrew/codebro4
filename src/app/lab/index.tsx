@@ -6,8 +6,14 @@ interface IProps {
     activePage: string
 }
 
+interface IState {
+    isMounted: boolean
+}
+
 @observer
-export class Lab extends React.Component<IProps, {}> {
+export class Lab extends React.Component<IProps, IState> {
+
+    parentRef: HTMLDivElement;
 
     STYLES: IInlineStyles = {
         p: {
@@ -24,11 +30,31 @@ export class Lab extends React.Component<IProps, {}> {
         }
     };
 
+    public constructor(props?: any, context?: any) {
+        super(props, context);
+        this.state = {
+            isMounted: false
+        };
+    }
+
+    componentDidMount() {
+        this.setState({
+            isMounted: true
+        })
+    }
+
     render(): JSX.Element {
         return (
             <div style={this.STYLES.p}>
-                <div style={this.STYLES.wrapper}>
-                    {EXPERIMENTS_DICT[this.props.activePage].component}
+                <div style={this.STYLES.wrapper} ref={(el) => this.parentRef = el}>
+                    {this.state.isMounted
+                        ?  React.cloneElement(
+                                EXPERIMENTS_DICT[this.props.activePage].component,
+                                {
+                                    parentEl: this.parentRef,
+                                }
+                            )
+                        :   null}
                 </div>
             </div>
         );

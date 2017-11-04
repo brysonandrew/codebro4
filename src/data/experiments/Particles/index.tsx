@@ -1,0 +1,222 @@
+import * as React from 'react';
+import * as Immutable from 'immutable';
+import THREE = require('three');
+import { inject, observer } from 'mobx-react';
+import { isGL, Store } from "../../../data";
+import { playerPositionX, playerPositionZ, playerRotationY, playerRotationX } from "../helpers";
+import { CenteredText } from "../../../widgets";
+import { particlesMenuDictionary } from "./particlesMenu/particlesMenu";
+
+interface IState {
+    isFallback: boolean
+    keysPressed?: string[]
+    mx?: number
+    my?: number
+}
+
+interface IProps {
+    store?: Store
+    parentEl?: HTMLDivElement
+}
+
+@inject('store')
+@observer
+export class Particles extends React.Component<IProps, IState> {
+
+    scene;
+    camera;
+    renderer;
+    animateLoop;
+    texture;
+    point;
+    playerFocus = new THREE.Group;
+    particles;
+
+    public constructor(props?: any, context?: any) {
+        super(props, context);
+        this.state = {
+            isFallback: false,
+            keysPressed: [],
+            mx: 0,
+            my: 0
+        };
+    }
+
+    componentDidMount() {
+        window.addEventListener('keypress', this.handleKeyPress);
+        window.addEventListener('keyup', this.handleKeyUp);
+        window.addEventListener('mousemove', this.handleMouseMove);
+        if (isGL())  {
+            this.initGL();
+        } else {
+            this.initGLFallback();
+        }
+    }
+
+    componentWillUnmount() {
+        cancelAnimationFrame(this.animateLoop);
+
+        window.removeEventListener('keypress', this.handleKeyPress);
+        window.removeEventListener('keyup', this.handleKeyUp);
+        window.removeEventListener('mousemove', this.handleMouseMove);
+
+        if (isGL()) {
+            this.props.parentEl.removeChild( this.renderer.domElement );
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const { height, width, savedParams } = this.props.store;
+
+        const isHeightChanged = nextProps.height !== height;
+        const isWidthChanged = nextProps.width !== width;
+
+        if (isHeightChanged || isWidthChanged) {
+            this.renderer.setSize( nextProps.width, nextProps.height );
+            this.camera.aspect = nextProps.width / nextProps.height;
+            this.camera.updateProjectionMatrix();
+        }
+
+        // const isViewPathChanged = nextProps.savedParams.activeViewPath !== savedParams.activeViewPath;
+
+        // if (isViewPathChanged) {
+        //     this.removeByName("particles");
+        //     this.initParticles(nextProps.savedParams.activeViewPath);
+        // }
+    }
+
+    handleKeyPress = (e) => {
+        const keysPressed = Immutable.List(this.state.keysPressed).push(e.key);
+
+        this.setState({
+            keysPressed: (this.state.keysPressed.indexOf(e.key) > -1) ? this.state.keysPressed : keysPressed.toArray()
+        });
+    };
+
+    handleKeyUp = (e) => {
+        const keysPressedList = Immutable.List(this.state.keysPressed);
+        const nextKeysPressedList = keysPressedList.filter(item => !(item === e.key));
+
+        this.setState({
+            keysPressed: nextKeysPressedList.toArray()
+        });
+    };
+
+    handleMouseMove = (e) => {
+        this.setState({
+            mx: e.pageX,
+            my: e.pageY
+        });
+    };
+
+    initGL() {
+        this.initRenderer();
+        this.initScene();
+        this.initCamera();
+        this.initLighting();
+        this.initAssets();
+        this.animate();
+    }
+
+    initGLFallback() {
+        this.setState({ isFallback: true });
+    }
+
+    initRenderer() {
+        const { height, width } = this.props.store;
+
+        this.renderer = new THREE.WebGLRenderer();
+        this.renderer.setSize( width, height );
+        this.props.parentEl.appendChild( this.renderer.domElement );
+    }
+
+    initCamera() {
+        const { height, width } = this.props.store;
+
+        this.camera = new THREE.PerspectiveCamera(
+            45,
+            width / height,
+            1,
+            4000
+        );
+    }
+
+    initScene() {
+        this.scene = new THREE.Scene();
+    }
+
+    initLighting() {
+        this.point = new THREE.PointLight( 0xffffff, 0.5 );
+        this.playerFocus.add(this.point);
+        this.scene.add(new THREE.AmbientLight( 0xffffff, 0.1 ));
+    }
+
+    initAssets() {
+
+        this.playerFocus.add(this.camera);
+        this.playerFocus.position.set(0, 10, 100);
+        this.playerFocus.rotation.order = "YXZ";
+        this.scene.add(this.playerFocus);
+
+        this.initParticles(null);
+
+        // Promise.all([
+        //     loadGround(),
+        //     loadBackground()
+        // ]).then((meshes) => {
+        //     meshes.map(mesh => this.scene.add(mesh));
+        // });
+    }
+
+    removeByName(name) {
+        const obj = this.scene.getObjectByName(name);
+        this.scene.remove(obj);
+    }
+
+    initParticles(viewPath) {
+
+        const key = viewPath
+                        ?   viewPath
+                        :   "fire";
+
+        this.particles = particlesMenuDictionary[key].component;
+        const particlesObj = this.particles.render();
+        particlesObj.name =  "particles";
+
+        this.scene.add(particlesObj);
+    }
+
+    animate() {
+        this.animateLoop = requestAnimationFrame( this.animate.bind(this) );
+        this.renderMotion();
+    }
+
+    renderMotion() {
+        const { keysPressed } = this.state;
+
+        const rotX = playerRotationX(keysPressed);
+        const rotY = playerRotationY(keysPressed);
+
+        const posX = playerPositionX(keysPressed, this.playerFocus.rotation.y);
+        const posZ = playerPositionZ(keysPressed, this.playerFocus.rotation.y);
+
+        this.playerFocus.rotation.x += rotX;
+        this.playerFocus.rotation.y += rotY;
+
+        this.playerFocus.position.x += posX;
+        this.playerFocus.position.z += posZ;
+
+        this.particles.animate();
+
+        this.renderer.render( this.scene, this.camera );
+    }
+
+    render(): JSX.Element {
+        return (
+            this.state.isFallback
+                &&  <CenteredText
+                        content={"Unable to view due to browser or browser settings. Try another browser or reconfigure your current browser."}
+                    />
+        );
+    }
+}
