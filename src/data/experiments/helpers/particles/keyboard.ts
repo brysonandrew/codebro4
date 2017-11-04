@@ -10,8 +10,8 @@ const keys = {
 
 const speeds = {
     walking: 10,
-    turningY: Math.PI * 0.125,
-    turningX: Math.PI * 0.0125
+    turningY: Math.PI * 0.0125,
+    turningX: Math.PI * 0.00125
 };
 
 const isKey = (keyList, key) =>  keyList.indexOf(key) > -1;
@@ -26,7 +26,7 @@ export const isMove = {
     left: (keysPressed) => (isKey(keysPressed, keys.left)),
     right: (keysPressed) => (isKey(keysPressed, keys.right)),
     up: (keysPressed) => (isKey(keysPressed, keys.up)),
-    down: (keysPressed) => (isKey(keysPressed, keys.down))
+    down: (keysPressed) => (isKey(keysPressed, keys.down)),
 };
 
 export const playerPositionX = (keysPressed, playerRotationY) => {

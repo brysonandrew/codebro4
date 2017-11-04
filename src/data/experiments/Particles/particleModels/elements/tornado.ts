@@ -1,14 +1,15 @@
 import THREE = require('three');
+import {isFiring} from '../../../helpers/particles/keyboard';
 
 export class Tornado {
 
     particleImagePath = "/images/spark3.png";
     cluster = new THREE.Group;
-    maxLife = 200;
+    maxLife = 400;
 
     addCluster() {
-        const amount = 1000;
-        const radius = 100;
+        const amount = 400;
+        const radius = 20;
 
         const positions = new Float32Array( amount * 3 );
         const colors = new Float32Array( amount * 3 );
@@ -19,7 +20,7 @@ export class Tornado {
 
         positions.forEach((_, i) => {
             vertex.x = (Math.random() * 2 - 1) * radius;
-            vertex.y = (Math.random() * 2 - 1) * radius;
+            vertex.y = (Math.random() * 2 - 1) * radius * 0.2;
             vertex.z = (Math.random() * 2 - 1) * radius;
             (vertex as any).toArray(positions, i);
 
@@ -64,21 +65,31 @@ export class Tornado {
 
         const cluster = new THREE.Points( geometry, material );
 
-        cluster.position.x = Math.random() * 120;
-        cluster.position.y = 160;
-        cluster.position.z = Math.random() * 120;
+        cluster.position.x = Math.random() * 120 - 60;
+        cluster.position.y = Math.random() * 10;
+        cluster.position.z = Math.random() * 120 - 60;
 
         cluster["life"] = 0;
 
         this.cluster.add(cluster);
     }
 
-    fire() {
+    RADIUS = 10;
+    RADIUS_LOW = 50;
+    RADIUS_HIGH = 160;
+    THROTTLE = 0.1;
+    EASE = 0.01;
+    Z_FACTOR = 0.2;
 
+    idle() {
         this.cluster.children.forEach((spark, i) => {
 
-            spark.position.x += Math.cos(spark["life"] * 0.0001) * 100;
-            spark.position.z += Math.sin(spark["life"] * 0.0001) * 100;
+            if (this.RADIUS > this.RADIUS_LOW) {
+                this.RADIUS -= this.EASE;
+            }
+
+            spark.position.x = Math.sin(spark["life"] * this.THROTTLE) * this.RADIUS;
+            spark.position.z = Math.cos(spark["life"] * this.THROTTLE) * this.RADIUS * this.Z_FACTOR;
 
             if (spark["life"] === this.maxLife) {
                 this.cluster.children.splice(i, 1);
@@ -87,10 +98,31 @@ export class Tornado {
         });
     }
 
-    animate() {
+    fire() {
+        this.cluster.children.forEach((spark, i) => {
+
+            if (this.RADIUS < this.RADIUS_HIGH) {
+                this.RADIUS += this.EASE;
+            }
+
+            spark.position.x = Math.sin(spark["life"] * this.THROTTLE) * this.RADIUS;
+            spark.position.z = Math.cos(spark["life"] * this.THROTTLE) * this.RADIUS * this.Z_FACTOR;
+
+            if (spark["life"] === this.maxLife) {
+                this.cluster.children.splice(i, 1);
+            }
+            spark["life"]++;
+        });
+    }
+
+    animate(keysPressed) {
         this.addCluster();
 
-        this.fire();
+        if (isFiring(keysPressed)) {
+            this.fire();
+        } else {
+            this.idle();
+        }
     }
 
     render() {

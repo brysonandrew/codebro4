@@ -17,9 +17,9 @@ interface IState {
 
 interface IProps {
     parentEl?: HTMLDivElement
-    width: number
-    height: number
-    savedParams: Map<string, string>;
+    width?: number
+    height?: number
+    savedParams?: Map<string, string>;
 }
 
 @inject('store')
@@ -155,7 +155,7 @@ export class Particles extends React.Component<IProps, IState> {
             45,
             width / height,
             1,
-            4000
+            8000
         );
     }
 
@@ -172,7 +172,7 @@ export class Particles extends React.Component<IProps, IState> {
     initAssets() {
 
         this.playerFocus.add(this.camera);
-        this.playerFocus.position.set(0, 10, 100);
+        this.playerFocus.position.set(0, 10, 400);
         this.playerFocus.rotation.order = "YXZ";
         this.scene.add(this.playerFocus);
 
@@ -224,7 +224,7 @@ export class Particles extends React.Component<IProps, IState> {
         this.playerFocus.position.x += posX;
         this.playerFocus.position.z += posZ;
 
-        this.particles.animate();
+        this.particles.animate(keysPressed);
 
         this.renderer.render( this.scene, this.camera );
     }
