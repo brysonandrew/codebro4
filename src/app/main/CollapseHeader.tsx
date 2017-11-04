@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
 import { IInlineStyles } from '../../data';
-import { CollapseHeaderToggle } from './CollapseHeaderToggle';
 import { CollapseHeaderMenu } from './CollapseHeaderMenu';
 
 const STYLES: IInlineStyles = {
@@ -24,7 +23,7 @@ export class CollapseHeader extends React.Component<{}, {}> {
         return (
             <div style={STYLES.p}>
                 <div style={STYLES.toggle}>
-                    <CollapseHeaderToggle/>
+                    <div/>
                 </div>
                 <CollapseHeaderMenu/>
             </div>

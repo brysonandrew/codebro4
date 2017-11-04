@@ -1,11 +1,9 @@
 import * as React from 'react';
+import { Motion, spring } from 'react-motion';
 import { observer, inject } from 'mobx-react';
-import { computed } from 'mobx';
 import { IInlineStyles, colors, prefixer, Store, IEVersion, MAIN_PAGES } from '../../data';
-import { WideHeaderItem } from '.';
-import { ITabData } from './WideHeaderItem';
-
-const DEFAULT_TAB_WIDTH = 24;
+import {ITabData, WideHeaderItem} from './WideHeaderItem';
+import {browserHistory} from 'react-router';
 
 interface IProps {
     store?: Store
@@ -25,7 +23,9 @@ export class WideHeader extends React.Component<IProps, {}> {
         item: {
             position: "relative",
             display: "inline-block",
-            height: "100%",
+            height: 32,
+            marginTop: 0,
+            width: `${100 / MAIN_PAGES.length}%`,
             cursor: "pointer"
         },
         line: prefixer({
@@ -38,14 +38,11 @@ export class WideHeader extends React.Component<IProps, {}> {
         underline: prefixer({
             position: "absolute",
             bottom: 0,
-            height: 2,
+            height: 1,
             background: colors.blk,
-            transformOrigin: "50% 50%",
-            transition: "width 2000ms, transform 2000ms"
+            transformOrigin: "50% 50%"
         })
     };
-
-// line style
 
     private lineStyle = () => ({
         ...this.STYLES.line,
@@ -53,31 +50,59 @@ export class WideHeader extends React.Component<IProps, {}> {
         left: this.props.store.width / this.props.store.pagesLength * 0.5
     });
 
-// underline style
-
-    private underlineTransform = (tabDimension: ITabData): string => {
+    private underlineTransform = (x): string => {
         return `${IEVersion() <= 11
             ? "none"
-            : `translate3d(${tabDimension ? tabDimension.xOffset : 0}px, 0, 0)`}`
+            : `translate3d(${x}px, 0, 0)`}`
     };
 
-    @computed public get underlineStyle() {
-        const { tabDimensions, currentIndex } = this.props.store;
-        return prefixer({
-            ...this.STYLES.underline,
-            width: tabDimensions[currentIndex] ? tabDimensions[currentIndex].width : DEFAULT_TAB_WIDTH,
-            transform: this.underlineTransform(tabDimensions[currentIndex]),
-        })
+    private underlineStyle = (isDefault: boolean): ITabData => {
+        const { tabDimensions, currentIndex, hoverMenuIndex } = this.props.store;
+
+        if (isDefault) {
+            return ({
+                width: tabDimensions[currentIndex].width,
+                xOffset: tabDimensions[currentIndex].xOffset
+            })
+        } else {
+            return ({
+                width: spring(hoverMenuIndex > -1
+                    ?   Math.abs(tabDimensions[currentIndex].xOffset - tabDimensions[hoverMenuIndex].xOffset)
+                    :   tabDimensions[currentIndex].width),
+                xOffset: spring((hoverMenuIndex > -1 && hoverMenuIndex < currentIndex)
+                    ?   (tabDimensions[hoverMenuIndex].xOffset + tabDimensions[hoverMenuIndex].width)
+                    :   tabDimensions[currentIndex].xOffset)
+            })
+        }
+    };
+
+    handleMouseEnter = (index) => {
+        this.props.store.onHoverMenuIndexChange(index);
+    };
+
+    handleMouseLeave = () => {
+        this.props.store.onHoverMenuIndexChange(-1);
+    };
+
+    handleClick = (path: string, index) => {
+        browserHistory.push(`/${path}`);
+        this.props.store.onCurrentIndexChange(index);
+        this.props.store.onHoverMenuIndexChange(-1);
+        this.props.store.onAnimationStart();
     };
 
     render(): JSX.Element {
+
         return (
             <div style={this.STYLES.p}>
                 {!this.props.store.isResizing
                     ?   MAIN_PAGES.map((page, i) =>
                             <div
                                 key={`page-${i}`}
-                                style={{...this.STYLES.item, width: `${100 / MAIN_PAGES.length}%`}}
+                                style={this.STYLES.item}
+                                onMouseEnter={() => this.handleMouseEnter(i)}
+                                onMouseLeave={() => this.handleMouseLeave()}
+                                onClick={() => this.handleClick(page.path, i)}
                             >
                                 <WideHeaderItem
                                     index={i}
@@ -87,7 +112,19 @@ export class WideHeader extends React.Component<IProps, {}> {
                     :   null}
                 <div style={this.lineStyle()}/>
                 {this.props.store.isTabsMeasured
-                    ?   <div style={this.underlineStyle}/>
+                    ?   <Motion
+                            defaultStyle={this.underlineStyle(true)}
+                            style={this.underlineStyle(false)}
+                        >
+                            {interpolatedStyle =>
+                                <div
+                                    style={prefixer({
+                                        ...this.STYLES.underline,
+                                        width: interpolatedStyle.width,
+                                        transform: this.underlineTransform(interpolatedStyle.xOffset)
+                                    })}
+                                />}
+                        </Motion>
                     :   null}
             </div>
         );

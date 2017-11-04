@@ -65,15 +65,15 @@ export class Pages extends React.Component<IProps, {}> {
                     left: this.widthMargin,
                     width: this.props.store.pagesLength * this.adjustedWidth
                 }}>
-                    {MAIN_PAGES.map((page, i) =>
-                        <div key={`page-${i}`}
-                             style={prefixer({...STYLES.item,
-                                 width: this.adjustedWidth,
-                                 height: this.props.store.height,
-                                 transform: this.pageTransform
-                             })}>
-                            {page.component}
-                        </div>)}
+                {MAIN_PAGES.map((page, i) =>
+                    <div key={`page-${i}`}
+                         style={prefixer({...STYLES.item,
+                             width: this.adjustedWidth,
+                             height: this.props.store.height,
+                             transform: this.pageTransform
+                         })}>
+                        {page.component}
+                    </div>)}
                 </div>
             </div>
         );

@@ -17,18 +17,26 @@ export class HamburgerControls extends React.Component<IProps, IState> {
 
     STYLES: IInlineStyles = {
         p: {
-            position: "relative",
-            background: colors.wht
-        },
-        sample: {
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
+            display: "inline-block",
             background: colors.blk,
-            width: 320,
-            height: 320,
+            top: 0,
+            left: 0,
+            width: 160,
+            height: 160,
             transition: "transform 200ms",
             cursor: "pointer"
+        },
+        number: {
+            position: "absolute",
+            top: 20,
+            right: 20,
+            color: colors.wht
+        },
+        content: {
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%,-50%)"
         }
     };
 
@@ -63,18 +71,23 @@ export class HamburgerControls extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         return (
-            <div style={this.STYLES.p}>
-                <h4 style={{float: "right"}}>{this.props.index}</h4>
+            <div
+                style={{
+                    ...this.STYLES.p,
+                    position: this.state.isZoomed ? "absolute" : "static",
+                    top: this.state.isZoomed ? "50%" : 0,
+                    left: this.state.isZoomed ? "50%" : 0,
+                    zIndex: this.state.isZoomed ? 2 : 0,
+                    transform: `scale(${this.state.isZoomed ? 4 : 1}) translate(${this.state.isZoomed ? -50 : 0}%, ${this.state.isZoomed ? -50 : 0}%)`}}
+                onClick={this.handleClickBorder}
+            >
+                <h4 style={this.STYLES.number}>{this.props.index + 1}</h4>
                 <div
-                    style={{...this.STYLES.sample, transform: `scale(${this.state.isZoomed ? 4 : 1})`}}
-                    onClick={this.handleClickBorder}
+                    className={`nav-bar-toggle ${this.state.isOpen ? "-active" : ""}`}
+                    style={this.STYLES.content}
+                    onClick={this.handleClickNav}
                 >
-                    <div
-                        className={`pt-nav-bar-toggle ${this.state.isOpen ? "-pt-active" : ""}`}
-                        onClick={this.handleClickNav}
-                    >
-                       {this.props.hamburger}
-                    </div>
+                    {this.props.hamburger}
                 </div>
             </div>
         );

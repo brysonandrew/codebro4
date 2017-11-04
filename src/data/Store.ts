@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
 import { browserHistory } from 'react-router';
-import { IParams, buildMap, breakPointTests, IDictionary, setBodyStyle, inAC, inB, outAC, outB, toParams } from '.';
+import { IParams, buildMap, breakPointTests, IDictionary, setBodyStyle, toParams } from '.';
 import { ITabData } from '../app/main';
 import { MAIN_PAGES } from './pages';
 
@@ -21,6 +21,7 @@ export class Store {
     @observable height: number;
     @observable docScroll: number;
     @observable currentIndex: number;
+    @observable hoverMenuIndex: number;
     @observable projectOffsetList: number[];
     @observable projectOffsets: IDictionary<number>;
     @observable savedParams: Map<string, string>;
@@ -28,9 +29,6 @@ export class Store {
     pagesLength;
     timeoutId;
     timeoutStopDelay = 50;
-    sA;
-    sB;
-    sC;
 
     constructor(initialState?: { store: Store }) {
         this.isIntroMounted = false;
@@ -43,6 +41,7 @@ export class Store {
         this.isTabsMeasured = false;
         this.wakeUpDuration = 800;
         this.currentIndex = 0;
+        this.hoverMenuIndex = -1;
         this.projectOffsetList = [];
         this.projectOffsets = {};
         this.pagesLength = MAIN_PAGES.length;
@@ -99,6 +98,11 @@ export class Store {
     };
 
     @action
+    public onHoverMenuIndexChange = (index: number) => {
+        this.hoverMenuIndex = index;
+    };
+
+    @action
     public onAnimationStart = () => {
         this.isAnimating = true;
     };
@@ -109,25 +113,11 @@ export class Store {
     };
 
     @action
-    public addMenuToggleSegments = (sA, sB, sC) => {
-        this.sA = sA;
-        this.sB = sB;
-        this.sC = sC;
-        setTimeout(() => {
-            this.isToggleMenuMounted = true;
-        }, 400);
-    };
-
-    @action
     public onCollapseMenuToggle = (isCollapseMenuOpen: boolean) => {
         if (isCollapseMenuOpen) {
-            inAC(this.sA);
-            inB(this.sB);
-            inAC(this.sC);
+            console.log("close");
         } else {
-            outAC(this.sA);
-            outB(this.sB);
-            outAC(this.sC);
+            console.log("open");
         }
         this.isCollapseMenuOpen = isCollapseMenuOpen
     };

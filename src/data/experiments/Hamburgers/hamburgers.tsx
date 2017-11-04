@@ -1,4 +1,5 @@
 import * as React from "react";
+import {SVGBurger} from './SVGBurger';
 
 export const hamburgers = [
     <div>
@@ -18,5 +19,6 @@ export const hamburgers = [
             <span className="cb-nav-bar-toggle__bar"/>
             <span className="cb-nav-bar-toggle__bar"/>
         </div>
-    </div>
+    </div>,
+    <SVGBurger/>
 ];

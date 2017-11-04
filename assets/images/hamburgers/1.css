@@ -1,8 +1,7 @@
-.cb-nav-bar-toggle {
+.nav-bar-toggle {
     position: relative;
     height: 50px;
     width: 50px;
-    flex:0 0 auto;
 }
 
 .cb-nav-bar-toggle__hamburger, .cb-nav-bar-toggle__cross {
@@ -51,11 +50,11 @@
     transition-delay: 150ms;
 }
 
-.cb-nav-bar-toggle.-cb-active .cb-nav-bar-toggle__hamburger .cb-nav-bar-toggle__bar:before{
+.nav-bar-toggle.-active .cb-nav-bar-toggle__hamburger .cb-nav-bar-toggle__bar:before{
     transform: scale(0);
 }
 
-.cb-nav-bar-toggle.-cb-active .cb-nav-bar-toggle__hamburger .cb-nav-bar-toggle__bar:after {
+.nav-bar-toggle.-active .cb-nav-bar-toggle__hamburger .cb-nav-bar-toggle__bar:after {
     transform: scale(0);
 }
 
@@ -72,11 +71,11 @@
     transform: translateY(-50%) rotate(-45deg) scaleX(0);
 }
 
-.cb-nav-bar-toggle.-cb-active .cb-nav-bar-toggle__cross .cb-nav-bar-toggle__bar {
+.nav-bar-toggle.-active .cb-nav-bar-toggle__cross .cb-nav-bar-toggle__bar {
     transition-delay: 450ms;
     transform: translateY(50%) rotate(45deg) scaleX(1);
 }
 
-.cb-nav-bar-toggle.-cb-active .cb-nav-bar-toggle__cross .cb-nav-bar-toggle__bar:last-child {
+.nav-bar-toggle.-active .cb-nav-bar-toggle__cross .cb-nav-bar-toggle__bar:last-child {
     transform: translateY(-50%) rotate(-45deg) scaleX(1);
 }

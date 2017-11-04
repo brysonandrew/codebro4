@@ -9,7 +9,5 @@ export { listeners } from "./listeners";
 export { resetIdle } from "./reset-idle";
 export { setBodyStyle, setHtmlStyle } from "./set-body-style";
 export { isGL } from "./is-gl";
-export { Segment } from "./segment";
-export { inAC, inB, outAC, outB } from "./collapse-menu-transforms";
 export { createArrayOf, arrayToDictionary } from "./array-utils";
 export { PageMaker } from "./constructors";

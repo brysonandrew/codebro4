@@ -26,19 +26,20 @@ export class MotionScroll extends React.Component<IProps, any> {
     render(): JSX.Element {
         const { isAnimating, docScroll, scrollTarget, onRest } = this.props;
 
-        return  <Motion defaultStyle={{
-                            scrollY: docScroll
-                        }}
-                        style={{
-                            scrollY: spring(isAnimating ? scrollTarget : docScroll)
-                        }}
-                        onRest={onRest}
-                    >
-                    {(currentStyles) =>
-                        this.props.isAnimating
-                            &&  <ScrollSink
-                                    scrollY={currentStyles.scrollY}
-                                />}
+        return  <Motion
+                    defaultStyle={{
+                        scrollY: docScroll
+                    }}
+                    style={{
+                        scrollY: spring(isAnimating ? scrollTarget : docScroll)
+                    }}
+                    onRest={onRest}
+                >
+                {(currentStyles) =>
+                    this.props.isAnimating
+                        &&  <ScrollSink
+                                scrollY={currentStyles.scrollY}
+                            />}
                 </Motion>;
     }
 }

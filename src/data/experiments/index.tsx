@@ -15,7 +15,7 @@ export class LabMenu extends React.Component<{}, {}> {
         p: {
             position: "relative",
             textAlign: "center",
-            width: 320
+            width: "100%"
         }
     };
 

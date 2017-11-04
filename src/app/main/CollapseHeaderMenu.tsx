@@ -15,12 +15,11 @@ export class CollapseHeaderMenu extends React.Component<IProps, {}> {
     STYLES: IInlineStyles = {
         p: {
             position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100vh",
-            background: colors.blk,
-            color: colors.wht,
+            top: "50%",
+            right: 0,
+            width: 140,
+            height: 280,
+            background: colors.wht,
             transitionOrigin: "0% 0%",
             transition: "transform 400ms"
         },
@@ -28,7 +27,7 @@ export class CollapseHeaderMenu extends React.Component<IProps, {}> {
             position: "absolute",
             top: "50%",
             left: "50%",
-            width: 280,
+            width: "100%",
             transform: "translate(-50%, -50%)"
         }),
         item: {
@@ -51,7 +50,7 @@ export class CollapseHeaderMenu extends React.Component<IProps, {}> {
         return (
             <div style={prefixer({
                 ...this.STYLES.p,
-                transform: `scaleY(${isCollapseMenuOpen ? 1 : 0})`
+                transform: `translateX(${isCollapseMenuOpen ? 0 : "100%"})`
             })}>
                 {isCollapseMenuOpen
                     ?   <div style={this.STYLES.items}>

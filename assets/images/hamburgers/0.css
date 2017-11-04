@@ -1,15 +1,17 @@
-.pt-nav-bar-toggle {
+.nav-bar-toggle {
     position: relative;
     height: 50px;
     width: 50px;
-    flex: 0 0 auto;
 }
+
+/*default*/
 
 .pt-nav-bar-toggle__hamburger, .pt-nav-bar-toggle__cross {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    transition: transform ease 200ms;
 }
 
 .pt-nav-bar-toggle__cross .pt-nav-bar-toggle__bar {
@@ -29,14 +31,20 @@
     transform: translateY(-2px) scaleX(1);
 }
 
-.pt-nav-bar-toggle.-pt-active .pt-nav-bar-toggle__cross .pt-nav-bar-toggle__bar {
+/*active*/
+
+.nav-bar-toggle.-active .pt-nav-bar-toggle__cross {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.nav-bar-toggle.-active .pt-nav-bar-toggle__cross .pt-nav-bar-toggle__bar {
     transform: translateY(50%) rotate(45deg);
 }
 
-.pt-nav-bar-toggle.-pt-active .pt-nav-bar-toggle__cross .pt-nav-bar-toggle__bar:nth-child(2) {
+.nav-bar-toggle.-active .pt-nav-bar-toggle__cross .pt-nav-bar-toggle__bar:nth-child(2) {
     transform: translateY(-50%) rotate(-45deg);
 }
 
-.pt-nav-bar-toggle.-pt-active .pt-nav-bar-toggle__cross .pt-nav-bar-toggle__bar:last-child {
+.nav-bar-toggle.-active .pt-nav-bar-toggle__cross .pt-nav-bar-toggle__bar:last-child {
     transform: translateY(-3px) scaleX(0);
 }

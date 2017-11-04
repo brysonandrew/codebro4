@@ -2,7 +2,6 @@ import * as React from 'react';
 import { observer, inject } from 'mobx-react';
 import { WideHeader } from "./WideHeader";
 import { WideHeaderItem, ITabData } from "./WideHeaderItem";
-import { CollapseHeaderToggle } from "./CollapseHeaderToggle";
 import { CollapseHeader } from "./CollapseHeader";
 import { Pages } from "./Pages";
 import { prefixer, Background, Store, breakPointTests, IInlineStyles } from '../../data';
@@ -65,13 +64,11 @@ export class Main extends React.Component<IProps, {}> {
                             />
                         :   null}
                 </div>
-                <div style={{...STYLES.title, top: height * 0.5}}>
+                <div style={{...STYLES.title, top: height * 0.85}}>
                     <h1>code bro</h1>
                 </div>
                 <div style={ STYLES.header }>
-                    {breakPointTests.isTablet(width)
-                        ?   <CollapseHeader/>
-                        :   <WideHeader/>}
+                    <WideHeader/>
                 </div>
                 <Pages/>
                 <ScreenSaver
@@ -93,6 +90,5 @@ export class Main extends React.Component<IProps, {}> {
 
 export { WideHeader };
 export { WideHeaderItem, ITabData };
-export { CollapseHeaderToggle };
 export { CollapseHeader };
 export { Pages };

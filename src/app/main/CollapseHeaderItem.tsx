@@ -3,8 +3,7 @@ import { IPage, IInlineStyles, Store, colors } from '../../data';
 import { inject, observer } from 'mobx-react';
 import {UnderlineSwitch} from '../../widgets/UnderlineSwitch';
 
-const FONT_SIZE = 24;
-const LINE_HEIGHT = 48;
+const FONT_SIZE = 14;
 
 interface IProps {
     page: IPage
@@ -28,10 +27,8 @@ export class CollapseHeaderItem extends React.Component<IProps, IState> {
 
     STYLES: IInlineStyles = {
         p: {
-            left: "50%",
             margin: 0,
-            padding: "16px 0",
-            color: colors.wht,
+            padding: 16,
             fontSize: FONT_SIZE
         }
     };
@@ -57,7 +54,7 @@ export class CollapseHeaderItem extends React.Component<IProps, IState> {
                 onMouseLeave={this.handleMouseLeave}
             >
                 <UnderlineSwitch
-                    height={4}
+                    height={1}
                     underlineColor={colors.wht}
                 >
                     {this.props.page.name}
