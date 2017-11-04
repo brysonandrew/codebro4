@@ -3,7 +3,9 @@ import { computed } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import { IPage, IInlineStyles, colors, Store, breakPointTests } from '../../data';
 
-const FONT_SIZE = 14;
+const CROSS_SIZE = 15;
+const THICKNESS = 1;
+const TRANSITION_DURATION = 200;
 
 export interface ITabData {
     width: number
@@ -31,45 +33,41 @@ export class WideHeaderItem extends React.Component<IProps, {}> {
             top: 7,
             left: "50%",
             color: colors.blk,
-            fontSize: FONT_SIZE,
+            fontSize: CROSS_SIZE,
             transition: "transform ease 800ms"
         },
         lineCross: {
             position: "absolute",
             top: 0,
-            left: 0,
-            transition: "transform 400ms",
-            transitionDelay: "400ms"
+            left: 0
         },
-        arm1: {
+        armY: {
             position: "absolute",
-            top: FONT_SIZE * 0.5,
+            top: 0,
             left: 0,
             background: colors.blk,
-            height: FONT_SIZE,
-            width: 1,
-            transition: "transform 400ms"
+            height: CROSS_SIZE,
+            width: THICKNESS
         },
-        arm2: {
+        armX: {
             position: "absolute",
-            top: FONT_SIZE * 0.5,
+            top: 0,
             left: 0,
             background: colors.blk,
-            height: FONT_SIZE,
-            width: 1,
-            transition: "transform 400ms"
+            height: CROSS_SIZE,
+            width: THICKNESS,
+            transition: `transform ${TRANSITION_DURATION}ms`
         }
     };
-    transitionDelay: "400ms"
 
     componentDidMount() {
         this.props.store.onWideHeaderItemMount(true);
     }
 
     renderLineCross = () =>
-        <div style={{...this.STYLES.lineCross, transform: `rotate(${this.isActive ? -45 : 0}deg) translateX(${this.isActive ? -FONT_SIZE : 0}px)`}}>
-            <div style={{...this.STYLES.arm1, transform: `rotate(${this.isActive ? 45 : 0}deg)`}}/>
-            <div style={{...this.STYLES.arm2, transform: `rotate(${this.isActive ? -45 : 0}deg)`}}/>
+        <div style={this.STYLES.lineCross}>
+            <div style={this.STYLES.armY}/>
+            <div style={{...this.STYLES.armX, transform: `rotate(${this.isActive ? 90 : 0}deg)`}}/>
         </div>;
 
     render(): JSX.Element {
