@@ -1,27 +1,35 @@
 import THREE = require('three');
 import {isFiring} from '../../../helpers/particles/keyboard';
 
+const CLUSTER_AMOUNT = 500;
+const CLUSTER_RADIUS = 20;
+const CLUSTER_MAX_NUMBER = 100;
+const CIRCUMFERENCE = CLUSTER_AMOUNT * CLUSTER_RADIUS;
+const RADIUS = CIRCUMFERENCE / (Math.PI * 80);
+const Y_SHIFT = 5;
+
+const INC_MAX = 600;
+const INC_MIN = 0;
+
 export class Tornado {
 
     particleImagePath = "/images/spark3.png";
     cluster = new THREE.Group;
-    maxLife = 400;
+    count = 0;
+    inc = INC_MIN;
 
     addCluster() {
-        const amount = 400;
-        const radius = 20;
-
-        const positions = new Float32Array( amount * 3 );
-        const colors = new Float32Array( amount * 3 );
-        const sizes = new Float32Array( amount );
+        const positions = new Float32Array( CLUSTER_AMOUNT * 3 );
+        const colors = new Float32Array( CLUSTER_AMOUNT * 3 );
+        const sizes = new Float32Array( CLUSTER_AMOUNT );
 
         const vertex = new THREE.Vector3();
-        const color = new THREE.Color( 0xffffff );
+        const color = new THREE.Color( 0xFFFFFF );
 
         positions.forEach((_, i) => {
-            vertex.x = (Math.random() * 2 - 1) * radius;
-            vertex.y = (Math.random() * 2 - 1) * radius * 0.2;
-            vertex.z = (Math.random() * 2 - 1) * radius;
+            vertex.x = (Math.random() * 2 - 1) * CLUSTER_RADIUS;
+            vertex.y = (Math.random() * 2 - 1) * CLUSTER_RADIUS;
+            vertex.z = (Math.random() * 2 - 1) * CLUSTER_RADIUS;
             (vertex as any).toArray(positions, i);
 
             sizes[i] = 5 + 5 * Math.random() * 0.00001;
@@ -38,7 +46,7 @@ export class Tornado {
         const material = new THREE.ShaderMaterial( {
             uniforms: {
                 amplitude: { value: 1.0 },
-                color:     { value: new THREE.Color( 0xffffff ) },
+                color:     { value: new THREE.Color( 0xFFFFFF ) },
                 texture:   { value: new THREE.TextureLoader().load( this.particleImagePath ) }
             },
             vertexShader:   `uniform float amplitude;
@@ -69,60 +77,32 @@ export class Tornado {
         cluster.position.y = Math.random() * 10;
         cluster.position.z = Math.random() * 120 - 60;
 
-        cluster["life"] = 0;
-
         this.cluster.add(cluster);
     }
 
-    RADIUS = 10;
-    RADIUS_LOW = 50;
-    RADIUS_HIGH = 160;
-    THROTTLE = 0.1;
-    EASE = 0.01;
-    Z_FACTOR = 0.2;
+    fire(isFiring: boolean) {
+        this.count += 0.01;
 
-    idle() {
+        if (isFiring && this.inc < INC_MAX) {
+            this.inc += 10;
+        } else if (this.inc > INC_MIN) {
+            this.inc -= 10;
+        }
+
+        const radius = RADIUS + this.inc;
+
         this.cluster.children.forEach((spark, i) => {
-
-            if (this.RADIUS > this.RADIUS_LOW) {
-                this.RADIUS -= this.EASE;
-            }
-
-            spark.position.x = Math.sin(spark["life"] * this.THROTTLE) * this.RADIUS;
-            spark.position.z = Math.cos(spark["life"] * this.THROTTLE) * this.RADIUS * this.Z_FACTOR;
-
-            if (spark["life"] === this.maxLife) {
-                this.cluster.children.splice(i, 1);
-            }
-            spark["life"]++;
-        });
-    }
-
-    fire() {
-        this.cluster.children.forEach((spark, i) => {
-
-            if (this.RADIUS < this.RADIUS_HIGH) {
-                this.RADIUS += this.EASE;
-            }
-
-            spark.position.x = Math.sin(spark["life"] * this.THROTTLE) * this.RADIUS;
-            spark.position.z = Math.cos(spark["life"] * this.THROTTLE) * this.RADIUS * this.Z_FACTOR;
-
-            if (spark["life"] === this.maxLife) {
-                this.cluster.children.splice(i, 1);
-            }
-            spark["life"]++;
+            spark.position.x = Math.sin(i * Math.PI * 2 / CLUSTER_MAX_NUMBER + this.count) * radius;
+            spark.position.y = Math.sin(i * Math.PI * 2 / CLUSTER_MAX_NUMBER + this.count * this.inc) * Y_SHIFT;
+            spark.position.z = Math.cos(i * Math.PI * 2 / CLUSTER_MAX_NUMBER + this.count) * radius;
         });
     }
 
     animate(keysPressed) {
-        this.addCluster();
-
-        if (isFiring(keysPressed)) {
-            this.fire();
-        } else {
-            this.idle();
+        if (this.cluster.children.length < CLUSTER_MAX_NUMBER) {
+            this.addCluster();
         }
+        this.fire(isFiring(keysPressed));
     }
 
     render() {
