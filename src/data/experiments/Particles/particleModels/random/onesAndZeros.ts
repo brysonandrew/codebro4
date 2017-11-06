@@ -1,7 +1,7 @@
 import THREE = require('three');
 const MAX = 100;
 
-export class Particles {
+export class OnesAndZeros {
 
     cluster = new THREE.Group;
 

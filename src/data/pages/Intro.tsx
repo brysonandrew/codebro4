@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { observer, inject } from 'mobx-react';
-import { IInlineStyles, prefixer, Store } from '..';
+import { IInlineStyles, prefixer, Store, colors } from '..';
 import { TypingTextInterval } from '../../widgets';
 
 const ANIMATION_DELAY = 2000;
@@ -30,8 +30,7 @@ export class Intro extends React.Component<IProps, {}> {
             fontSize: 26,
             lineHeight: 2,
             minHeight: 100,
-            fontFamily: "'Inconsolata', 'arial', sans-serif",
-            background: "rgba(255,255,255, 0.88)",
+            // background: "rgba(255,255,255, 0.88)",
             width: "50%",
             minWidth: 280
         }

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import THREE = require('three');
-import { Particles } from '.';
 import { isGL } from '..';
 import { CenteredText } from '../../widgets';
+import { Square, Circle } from '../experiments/Particles/particleModels';
 
 interface IProps {
     docScroll?: number
@@ -21,7 +21,7 @@ export class Background extends React.Component<IProps, IState> {
     camera;
     renderer;
     animateLoop;
-    particles: Particles = new Particles();
+    particles: Square = new Square();
     playerFocus = new THREE.Group;
 
     public constructor(props?: any, context?: any) {
@@ -89,7 +89,7 @@ export class Background extends React.Component<IProps, IState> {
 
     renderMotion() {
         this.particles.animate();
-        this.camera.position.set(0, 0, 4200 - this.props.docScroll * 0.66);
+        this.camera.position.set(0, 10, 400);
         this.renderer.render( this.scene, this.camera );
     }
 

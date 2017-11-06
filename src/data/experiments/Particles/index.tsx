@@ -143,7 +143,7 @@ export class Particles extends React.Component<IProps, IState> {
     initRenderer() {
         const { height, width } = this.props;
 
-        this.renderer = new THREE.WebGLRenderer();
+        this.renderer = new THREE.WebGLRenderer({alpha: true});
         this.renderer.setSize( width, height );
         this.props.parentEl.appendChild( this.renderer.domElement );
     }
