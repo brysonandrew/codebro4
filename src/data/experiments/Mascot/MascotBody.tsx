@@ -1,10 +1,6 @@
 import * as React from 'react';
-import { MascotMouth } from './MascotMouth';
-import {MascotEyes} from './MascotEyes';
 
-interface IProps {}
-
-export const MascotBody = (props: IProps) => {
+export const MascotBody = () => {
     return (
         <g id="Group">
             <g id="Rectangle 4" opacity="0.178159">
@@ -54,8 +50,6 @@ export const MascotBody = (props: IProps) => {
                     />
                 </g>
             </g>
-            <MascotMouth/>
-            <MascotEyes/>
             <g id="Path 8">
                 <path
                     id="path13_fill"

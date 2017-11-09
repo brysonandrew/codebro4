@@ -5,7 +5,7 @@ export const MascotArmRight_8 = () => {
         <g>
             <title>mascot_arm_right copy</title>
             <desc>Created using Figma</desc>
-            <g id="Canvas" transform="translate(-2259 -5333)">
+            <g transform="translate(-2257 -5333)">
                 <g id="mascot_arm_right copy">
                     <g id="Path 2">
                         <path

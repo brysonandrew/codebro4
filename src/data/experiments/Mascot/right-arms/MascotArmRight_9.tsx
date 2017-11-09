@@ -2,7 +2,7 @@ import * as React from 'react';
 
 export const MascotArmRight_9 = () => {
     return (
-        <g transform="translate(-2475 -5333)">
+        <g transform="translate(-2473 -5333)">
             <g id="Path 2">
                 <path
                     transform="matrix(0.731354 -0.681998 0.681998 0.731354 2487.1 5399.02)"
