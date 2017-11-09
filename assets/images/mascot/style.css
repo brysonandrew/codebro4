@@ -1,0 +1,34 @@
+.mascot__arms {
+    animation: bounce 2s ease-in infinite;
+}
+
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    10% { transform: translateY(-2px); }
+    20% { transform: translateY(0); }
+    100% { transform: translateY(0); }
+}
+
+.mascot__eye-left {
+    transform: matrix(0.97437, -0.224951, 0.224951, 0.97437, 813.345, 5584.87);
+    animation: blink-left 2s ease-in infinite;
+}
+
+@keyframes blink-left {
+    0% { transform: matrix(0.97437, -0.224951, 0.224951, 0.97437, 813.345, 5584.87); }
+    80% { transform: matrix(0.97437, -0.224951, 0.224951, 0.97437, 813.345, 5584.87); }
+    90% { transform: matrix(0.97437, -0.224951, 0.224951, 0.5, 813.345, 5587); }
+    100% { transform: matrix(0.97437, -0.224951, 0.224951, 0.97437, 813.345, 5584.87); }
+}
+
+.mascot__eye-right {
+    transform: matrix(0.97437, -0.224951, 0.224951, 0.97437, 827.03, 5582.03);
+    animation: blink-right 2s ease-in infinite;
+}
+
+@keyframes blink-right {
+    0% { transform: matrix(0.97437, -0.224951, 0.224951, 0.97437, 827.03, 5582.03); }
+    80% { transform: matrix(0.97437, -0.224951, 0.224951, 0.97437, 827.03, 5582.03); }
+    90% { transform: matrix(0.97437, -0.224951, 0.224951, 0.5, 827.03, 5584); }
+    100% { transform: matrix(0.97437, -0.224951, 0.224951, 0.97437, 827.03, 5582.03); }
+}

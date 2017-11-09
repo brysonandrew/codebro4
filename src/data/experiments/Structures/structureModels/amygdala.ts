@@ -72,6 +72,7 @@ export class Amygdala {
     render() {
         this.main.add(this.background);
         this.main.add(this.arms);
+
         return this.main;
     }
 

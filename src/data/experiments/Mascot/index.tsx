@@ -1,9 +1,8 @@
-import { Mascot } from "./Mascot";
-
 import * as React from 'react';
 import { observer } from 'mobx-react';
+import { Mascot } from "./Mascot";
 
-export enum EStage {
+export enum EPose {
     MONEY =                           'money.svg',
     APPROVE_WITH_SMILE_HANDS_UP_03 =  'approve_with_smile_hands_up_03.svg',
     APPROVE_WITH_SMILE_HANDS_UP_02 =  'approve_with_smile_hands_up_02.svg',
@@ -19,7 +18,7 @@ export enum EStage {
     HIGHLY_DISAPPROVE =               'highly_disapprove.svg'
 }
 
-const NUMBER_OF_STAGES = Object.keys(EStage).length;
+const NUMBER_OF_POSES = Object.keys(EPose).length;
 
 const STYLES = {
     p: {
@@ -56,17 +55,23 @@ class MascotControls extends React.Component<{}, IState> {
         return (
             <div style={STYLES.p}>
                 <div>
-                    <img src={`/images/mascot/${EStage[Object.keys(EStage)[this.state.stage]]}`}/>
+                    <img src={`/images/mascot/${EPose[Object.keys(EPose)[this.state.stage]]}`}/>
                 </div>
                 <div>
                     <input
                         style={STYLES.slider}
                         type="range"
-                        min={EStage.MONEY}
-                        max={NUMBER_OF_STAGES}
+                        min={EPose.MONEY}
+                        max={NUMBER_OF_POSES}
                         value={this.state.stage}
                         onChange={this.handleMoodChange}
                     />
+                </div>
+                <div>
+                    {EPose[Object.keys(EPose)[this.state.stage]]}
+                </div>
+                <div>
+                    {Number(this.state.stage) + 1}
                 </div>
                 <Mascot
                     stage={this.state.stage}
@@ -78,10 +83,7 @@ class MascotControls extends React.Component<{}, IState> {
 
 export { Mascot };
 export { MascotControls };
-export { MascotArmLeft } from "./MascotArmLeft";
-export { MascotArmRight } from "./MascotArmRight";
 export { MascotBody } from "./MascotBody";
-export { MascotMouth } from "./MascotMouth";
 export { MascotBackground } from "./MascotBackground";
 export { MascotFilter } from "./defs/MascotFilter";
 export { MascotGradient } from "./defs/MascotGradient";

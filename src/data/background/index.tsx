@@ -137,7 +137,7 @@ export class Background extends React.Component<IProps, IState> {
     }
 
     renderMotion() {
-        this.structure.rotation.y = -this.props.docScroll / this.props.store.scrollHeight * Math.PI * 2;
+        this.structure.rotation.y = this.props.docScroll / this.props.store.scrollHeight * Math.PI * 2 - Math.PI * 0.5;
         this.camera.position.y = -this.props.docScroll / this.props.store.scrollHeight * VERTICAL_CYLINDER.height;
         this.renderer.render( this.scene, this.camera );
     }
