@@ -1,6 +1,34 @@
 import * as React from 'react';
-import {MascotArmLeft_1, MascotArmLeft_2, MascotArmLeft_3, MascotArmLeft_4, MascotArmLeft_5} from './left-arms';
-import {MascotArmRight_1, MascotArmRight_2, MascotArmRight_3, MascotArmRight_4, MascotArmRight_5} from './right-arms';
+import {
+    MascotArmLeft_1,
+    MascotArmLeft_2,
+    MascotArmLeft_3,
+    MascotArmLeft_4,
+    MascotArmLeft_5,
+    MascotArmLeft_6,
+    MascotArmLeft_7,
+    MascotArmLeft_8,
+    MascotArmLeft_9,
+    MascotArmLeft_10,
+    MascotArmLeft_11,
+    MascotArmLeft_12,
+    MascotArmLeft_13
+} from './left-arms';
+import {
+    MascotArmRight_1,
+    MascotArmRight_2,
+    MascotArmRight_3,
+    MascotArmRight_4,
+    MascotArmRight_5,
+    MascotArmRight_6,
+    MascotArmRight_7,
+    MascotArmRight_8,
+    MascotArmRight_9,
+    MascotArmRight_10,
+    MascotArmRight_11,
+    MascotArmRight_12,
+    MascotArmRight_13
+} from './right-arms';
 import {MascotBody} from './MascotBody';
 import {MascotFilter} from './defs/MascotFilter';
 import {MascotGradient} from './defs/MascotGradient';
@@ -11,7 +39,15 @@ const LEFT_ARMS = [
     <MascotArmLeft_2/>,
     <MascotArmLeft_3/>,
     <MascotArmLeft_4/>,
-    <MascotArmLeft_5/>
+    <MascotArmLeft_5/>,
+    <MascotArmLeft_6/>,
+    <MascotArmLeft_7/>,
+    <MascotArmLeft_8/>,
+    <MascotArmLeft_9/>,
+    <MascotArmLeft_10/>,
+    <MascotArmLeft_11/>,
+    <MascotArmLeft_12/>,
+    <MascotArmLeft_13/>
 ];
 
 const RIGHT_ARMS = [
@@ -19,7 +55,15 @@ const RIGHT_ARMS = [
     <MascotArmRight_2/>,
     <MascotArmRight_3/>,
     <MascotArmRight_4/>,
-    <MascotArmRight_5/>
+    <MascotArmRight_5/>,
+    <MascotArmRight_6/>,
+    <MascotArmRight_7/>,
+    <MascotArmRight_8/>,
+    <MascotArmRight_9/>,
+    <MascotArmRight_10/>,
+    <MascotArmRight_11/>,
+    <MascotArmRight_12/>,
+    <MascotArmRight_13/>
 ];
 
 interface IProps {
