@@ -4,7 +4,7 @@ import { WideHeader } from "./WideHeader";
 import { WideHeaderItem, ITabData } from "./WideHeaderItem";
 import { CollapseHeader } from "./CollapseHeader";
 import { Pages } from "./Pages";
-import { prefixer, Background, Store, breakPointTests, IInlineStyles } from '../../data';
+import { prefixer, Background, Store, IInlineStyles } from '../../data';
 import { ScreenSaver, MotionScroll } from '../../widgets';
 
 const STYLES: IInlineStyles = {
@@ -58,8 +58,6 @@ export class Main extends React.Component<IProps, {}> {
                     {!!this.backgroundRef && width > 0 && height > 0
                         ?   <Background
                                 docScroll={docScroll}
-                                width={width}
-                                height={height}
                                 parentEl={this.backgroundRef}
                             />
                         :   null}

@@ -35,10 +35,6 @@ export class Pages extends React.Component<IProps, {}> {
         return this.props.store.docScroll - (-0.5 * this.props.store.docScroll * 2)
     }
 
-    @computed public get scrollHeight(): number {
-        return this.props.store.height + this.props.store.width * (this.props.store.pagesLength - 1)
-    }
-
     @computed public get adjustedWidth(): number {
         return this.props.store.width - this.widthMargin * 2
     }
@@ -60,7 +56,7 @@ export class Pages extends React.Component<IProps, {}> {
 
     render(): JSX.Element {
         return (
-            <div style={{...STYLES.p, height: this.scrollHeight}}>
+            <div style={{...STYLES.p, height: this.props.store.scrollHeight}}>
                 <div style={{...STYLES.slider,
                     left: this.widthMargin,
                     width: this.props.store.pagesLength * this.adjustedWidth

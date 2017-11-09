@@ -1,12 +1,13 @@
 import THREE = require('three');
 import {VERTEX_SHADER, FRAGMENT_SHADER} from '../../fixtures';
 
-const CLUSTER_AMOUNT = 10;
-const CLUSTER_RADIUS = 2;
+const CLUSTER_AMOUNT = 40;
+const CLUSTER_RADIUS = 10;
 const CLUSTER_MAX_NUMBER = 400;
 const SIDE_AMOUNT = CLUSTER_MAX_NUMBER * 0.25;
 const SIZE = CLUSTER_MAX_NUMBER * CLUSTER_RADIUS * 0.25;
-const MAX_LIFE = 10;
+const RISE_SPEED = 0.6;
+const MAX_LIFE = 2;
 const OFFSET = {
     x: SIDE_AMOUNT * 0.5,
     y: SIDE_AMOUNT * 0.5,
@@ -41,8 +42,21 @@ const COORDS = [
 export class SquareSmoke {
 
     particleImagePath = "/images/spark3.png";
+    main = new THREE.Group;
+    background = new THREE.Group;
     cluster = new THREE.Group;
     count = 0;
+    isInit = false;
+
+    init() {
+        const geometry = new THREE.PlaneGeometry( SIDE_AMOUNT, SIDE_AMOUNT, 1 );
+        const material = new THREE.MeshBasicMaterial( {color: 0x000000, side: THREE.DoubleSide} );
+        let main = new THREE.Mesh( geometry, material );
+
+        main.rotation.y = Math.PI;
+
+        this.background.add(main);
+    }
 
     addCluster() {
         const positions = new Float32Array( CLUSTER_AMOUNT * 3 );
@@ -82,40 +96,34 @@ export class SquareSmoke {
             transparent:    true
         } );
 
-        let cluster = new THREE.Points( geometry, material );
-
+        const cluster = new THREE.Points( geometry, material );
         cluster["life"] = 0;
-        console.log(this.cluster);
+        cluster["randX"] = Math.random() * CLUSTER_MAX_NUMBER;
+        cluster["randY"] = Math.random() * CLUSTER_MAX_NUMBER;
 
         this.cluster.add(cluster);
     }
 
-    limit = SIDE_AMOUNT;
-
     fire() {
-        this.count += 0.2;
-
         this.cluster.children.forEach((spark, sparkIndex) => {
 
-            sparkIndex += this.count;
-            if (sparkIndex > this.limit) {
-                sparkIndex -= this.limit
-            }
+            spark["life"] += 0.1;
 
-            COORDS.map((c, coordIndex) => {
+            spark.material.opacity = spark["life"]  * 0.1;
 
-                if (sparkIndex > this.limit * coordIndex && sparkIndex < this.limit * (coordIndex + 1)) {
+            COORDS.map((coord, coordIndex) => {
 
-                    spark.position.x = c.x + sparkIndex * c.dx / SIDE_AMOUNT - OFFSET.x;
-                    spark.position.y = c.y + sparkIndex * c.dy / SIDE_AMOUNT + OFFSET.y + c["life"];
-                }
-
-                c["life"] += 0.1;
-                if (MAX_LIFE < c["life"] ) {
-                    this.cluster.splice(sparkIndex, 1)
+                if (spark["life"] > SIDE_AMOUNT * coordIndex && spark["life"] < SIDE_AMOUNT * (coordIndex + 1)) {
+                    spark.position.x = coord.x + spark["randX"] * coord.dx / SIDE_AMOUNT - OFFSET.x;
+                    spark.position.y = coord.y + spark["randY"] * coord.dy / SIDE_AMOUNT + OFFSET.y + spark["life"];
                 }
 
             });
+
+            if (spark["life"] >= MAX_LIFE) {
+                this.cluster.children.splice(1, sparkIndex);
+            }
+
         });
     }
 
@@ -124,21 +132,30 @@ export class SquareSmoke {
             this.addCluster();
             this.addCluster();
             this.addCluster();
-
             this.addCluster();
             this.addCluster();
             this.addCluster();
-
+            this.addCluster();
             this.addCluster();
             this.addCluster();
             this.addCluster();
             this.addCluster();
         }
+
+        if (!this.isInit) {
+            this.init();
+            this.isInit = true;
+            console.log(this.cluster);
+        }
+
         this.fire();
     }
 
     render() {
-        return this.cluster;
+        this.main.add(this.background);
+        this.main.add(this.cluster);
+
+        return this.main;
     }
 
 }

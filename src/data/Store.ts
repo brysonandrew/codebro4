@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx';
+import {observable, action, computed} from 'mobx';
 import { browserHistory } from 'react-router';
 import { IParams, buildMap, breakPointTests, IDictionary, setBodyStyle, toParams } from '.';
 import { ITabData } from '../app/main';
@@ -52,6 +52,10 @@ export class Store {
             activePagePath: "",
             activeViewPath: ""
         });
+    }
+
+    @computed public get scrollHeight(): number {
+        return this.height + this.width * (this.pagesLength - 1)
     }
 
     @action
@@ -172,7 +176,6 @@ export class Store {
             this.savedParams = buildMap({
                 activePagePath: 'intro'
             });
-            console.log("yo intro");
             browserHistory.push('/intro');
         }
         this.onMeasureViewport(window.innerWidth, window.innerHeight);

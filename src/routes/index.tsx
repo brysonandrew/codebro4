@@ -3,6 +3,7 @@ import { IndexRoute, Route, Redirect } from 'react-router';
 import { App, Home } from '../app';
 import { NotFound } from '../widgets';
 import { MAIN_PAGES, EXPERIMENTS, PARTICLES } from '../data';
+import {STRUCTURES} from '../data/experiments/Structures/structureModels/index';
 
 export default (
     <Route path="/" component={App}>
@@ -24,11 +25,23 @@ export default (
         )}
         {PARTICLES.map((particle, i) =>
             <Route
-                key={`experiment-${i}`}
+                key={`particle-${i}`}
                 path={`/particles/${particle.path}`}
                 component={Home}
             />
         )}
+        {STRUCTURES.map((structure, i) =>
+            <Route
+                key={`structure-${i}`}
+                path={`/structure/${structure.path}`}
+                component={Home}
+            />
+        )}
+        <Route
+            key="background"
+            path="/background"
+            component={Home}
+        />
         <Route path='/404' component={NotFound} />
         <Redirect from='*' to='/404' />
     </Route>
