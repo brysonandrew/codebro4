@@ -4,12 +4,12 @@ export const MascotArmRight_1 = () => {
 
     return (
         <g>
-            <g id="Canvas" transform="translate(-832 -5333)">
-                <g id="mascot_arm_right copy">
-                    <g id="money">
-                        <g id="Group 9">
-                            <g id="Group 10">
-                                <g id="Rectangle 4">
+            <g transform="translate(-832 -5333)">
+                <g>
+                    <g>
+                        <g>
+                            <g>
+                                <g>
                                     <use xlinkHref="#path0_fill" transform="matrix(0.97437 0.224951 -0.224951 0.97437 852.307 5341.59)" fill="#12CCAF"/>
                                     <mask id="mask0_outline_ins">
                                         <use xlinkHref="#path0_fill" fill="white" transform="matrix(0.97437 0.224951 -0.224951 0.97437 852.307 5341.59)"/>
@@ -39,18 +39,18 @@ export const MascotArmRight_1 = () => {
                             </g>
                         </g>
                     </g>
-                    <g id="Group 4">
-                        <g id="Path 2">
+                    <g>
+                        <g>
                             <use xlinkHref="#path2_stroke" transform="matrix(0.731354 -0.681998 0.681998 0.731354 840.513 5391.37)" fill="#2F2B64"/>
                         </g>
-                        <g id="Group 5">
-                            <g id="Line">
+                        <g>
+                            <g>
                                 <use xlinkHref="#path3_stroke" transform="matrix(-0.93358 0.358368 0.358368 0.93358 857.838 5361.73)" fill="#A499FF"/>
                             </g>
-                            <g id="Line Copy">
+                            <g>
                                 <use xlinkHref="#path4_stroke" transform="matrix(-0.93358 0.358368 0.358368 0.93358 858.697 5366.76)" fill="#A499FF"/>
                             </g>
-                            <g id="Line Copy 2">
+                            <g>
                                 <use xlinkHref="#path5_stroke" transform="matrix(-0.93358 0.358368 0.358368 0.93358 858.263 5371.21)" fill="#A499FF"/>
                             </g>
                         </g>

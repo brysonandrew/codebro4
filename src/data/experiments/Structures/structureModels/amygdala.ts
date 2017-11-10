@@ -20,14 +20,14 @@ export class Amygdala {
     arms = new THREE.Group;
     initiated = false;
 
-    createBackground() {
+    createMiddle() {
         const geometry = new THREE.CylinderGeometry( VERTICAL_CYLINDER.radius, VERTICAL_CYLINDER.radius, VERTICAL_CYLINDER.height, VERTICAL_CYLINDER.segments );
         const material = new THREE.MeshPhongMaterial( {color: 0x000000} );
-        let background = new THREE.Mesh( geometry, material );
+        let middle = new THREE.Mesh( geometry, material );
 
-        background.rotation.y = Math.PI;
+        middle.rotation.y = Math.PI;
 
-        this.background.add(background);
+        this.background.add(middle);
     }
 
     createArm(i) {
@@ -56,7 +56,7 @@ export class Amygdala {
     }
 
     init() {
-        this.createBackground();
+        this.createMiddle();
         this.createArms();
     }
 
@@ -72,6 +72,8 @@ export class Amygdala {
     render() {
         this.main.add(this.background);
         this.main.add(this.arms);
+
+        this.main.rotation.x = Math.PI * 0.5;
 
         return this.main;
     }

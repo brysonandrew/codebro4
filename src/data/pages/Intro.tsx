@@ -30,7 +30,7 @@ export class Intro extends React.Component<IProps, {}> {
             fontSize: 26,
             lineHeight: 2,
             minHeight: 100,
-            // background: "rgba(255,255,255, 0.88)",
+            background: "rgba(255,255,255, 0.88)",
             width: "50%",
             minWidth: 280
         }

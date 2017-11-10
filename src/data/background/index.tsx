@@ -39,6 +39,7 @@ export class Background extends React.Component<IProps, IState> {
 
     width = () => this.props.store.width;
     height = () => this.props.store.height;
+    adjustedScrollHeight = () => this.props.store.scrollHeight + this.height() * 0.5;
 
     componentDidMount() {
         if (isGL())  {
@@ -82,6 +83,7 @@ export class Background extends React.Component<IProps, IState> {
             1,
             8000
         );
+        this.camera.position.y = -0.3 * VERTICAL_CYLINDER.height;
     }
 
     initScene() {
@@ -89,7 +91,7 @@ export class Background extends React.Component<IProps, IState> {
     }
 
     initLighting() {
-        this.point = new THREE.PointLight( 0xFFFFFF, 0.75 );
+        this.point = new THREE.PointLight( 0xFFFFFF, 2.5 );
         this.playerFocus.add(this.point);
         this.scene.add(new THREE.AmbientLight( 0xFFFFFF, 0.1 ));
     }
@@ -137,8 +139,8 @@ export class Background extends React.Component<IProps, IState> {
     }
 
     renderMotion() {
-        this.structure.rotation.y = this.props.docScroll / this.props.store.scrollHeight * Math.PI * 2 - Math.PI * 0.5;
-        this.camera.position.y = -this.props.docScroll / this.props.store.scrollHeight * VERTICAL_CYLINDER.height;
+        this.structure.rotation.y = this.props.docScroll / this.adjustedScrollHeight() * Math.PI * 2 + Math.PI * 0.5;
+        this.camera.position.z = -this.props.docScroll / this.adjustedScrollHeight() * VERTICAL_CYLINDER.height + 0.5 * VERTICAL_CYLINDER.height;
         this.renderer.render( this.scene, this.camera );
     }
 
