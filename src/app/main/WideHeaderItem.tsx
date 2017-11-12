@@ -32,7 +32,6 @@ export class WideHeaderItem extends React.Component<IProps, {}> {
             position: "absolute",
             top: 7,
             left: "50%",
-            color: colors.blk,
             fontSize: CROSS_SIZE,
             transition: "transform ease 800ms"
         },

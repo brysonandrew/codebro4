@@ -28,11 +28,11 @@ export class LabMenu extends React.Component<{}, {}> {
                 experiment.name !== MENU_NAME
                     ?   <div key={`link-${i}`}>
                             <UnderlineSwitch
-                                height={1}
                                 underlineColor={colors.blk}
                             >
                                 <InternalLink
                                     path={experiment.path}
+                                    color={colors.blk}
                                 >
                                     {experiment.name}
                                 </InternalLink>

@@ -1,9 +1,9 @@
 import * as React from 'react';
+import { browserHistory } from 'react-router';
 import { Motion, spring } from 'react-motion';
 import { observer, inject } from 'mobx-react';
 import { IInlineStyles, colors, prefixer, Store, IEVersion, MAIN_PAGES } from '../../data';
-import {ITabData, WideHeaderItem} from './WideHeaderItem';
-import {browserHistory} from 'react-router';
+import { ITabData, WideHeaderItem } from './WideHeaderItem';
 
 interface IProps {
     store?: Store
@@ -17,8 +17,7 @@ export class WideHeader extends React.Component<IProps, {}> {
         p: {
             id: "wide header",
             position: "relative",
-            height: 32,
-            color: colors.blk
+            height: 32
         },
         item: {
             position: "relative",

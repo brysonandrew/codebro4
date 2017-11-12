@@ -23,7 +23,6 @@ export class ScreenSaver extends React.Component<IProps, IState> {
             left: 0,
             width: "100%",
             height: "100vh",
-            color: colors.blk,
             background: colors.wht,
             transition: "opacity 1600ms",
             zIndex: 20

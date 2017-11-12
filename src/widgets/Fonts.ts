@@ -1,19 +1,9 @@
+const GOOGLE_FONT_STRING = "Mallanna";
+export const CSS_FONT_STRING = GOOGLE_FONT_STRING.replace(/\+/g, " ");
+
 export const Fonts = () => {
-    adventProFont();
-    inconsolataFont();
-};
-
-const adventProFont = () => {
     const link = document.createElement('link');
-    link.href = 'https://fonts.googleapis.com/css?family=Advent+Pro';
-    link.rel = 'stylesheet';
-
-    document.head.appendChild(link);
-};
-
-const inconsolataFont = () => {
-    const link = document.createElement('link');
-    link.href = 'https://fonts.googleapis.com/css?family=Inconsolata';
+    link.href = `https://fonts.googleapis.com/css?family=${GOOGLE_FONT_STRING}`;
     link.rel = 'stylesheet';
 
     document.head.appendChild(link);

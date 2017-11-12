@@ -1,23 +1,7 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { computed } from 'mobx';
-import { IInlineStyles, prefixer, Store, MAIN_PAGES, IEVersion } from '../../data';
-
-const STYLES: IInlineStyles = {
-    p: {
-        id: "pages",
-        position: "relative"
-    },
-    slider: {
-        position: "fixed",
-        top: 0
-    },
-    item: {
-        display: "inline-block",
-        position: "relative",
-        verticalAlign: "top"
-    }
-};
+import { IInlineStyles, prefixer, Store, MAIN_PAGES, IEVersion, colors } from '../../data';
 
 interface IProps {
     store?: Store
@@ -26,6 +10,24 @@ interface IProps {
 @inject('store')
 @observer
 export class Pages extends React.Component<IProps, {}> {
+
+    STYLES: IInlineStyles = {
+        p: {
+            id: "pages",
+            position: "relative"
+        },
+        slider: {
+            position: "fixed",
+            top: 0
+        },
+        item: {
+            display: "inline-block",
+            position: "relative",
+            verticalAlign: "top",
+            fontSize: 24,
+            color: colors.wht
+        }
+    };
 
     @computed public get widthMargin(): number {
         return -0.5 * this.props.store.width
@@ -56,14 +58,14 @@ export class Pages extends React.Component<IProps, {}> {
 
     render(): JSX.Element {
         return (
-            <div style={{...STYLES.p, height: this.props.store.scrollHeight}}>
-                <div style={{...STYLES.slider,
+            <div style={{...this.STYLES.p, height: this.props.store.scrollHeight}}>
+                <div style={{...this.STYLES.slider,
                     left: this.widthMargin,
                     width: this.props.store.pagesLength * this.adjustedWidth
                 }}>
                 {MAIN_PAGES.map((page, i) =>
                     <div key={`page-${i}`}
-                         style={prefixer({...STYLES.item,
+                         style={prefixer({...this.STYLES.item,
                              width: this.adjustedWidth,
                              height: this.props.store.height,
                              transform: this.pageTransform

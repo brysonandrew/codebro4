@@ -1,13 +1,14 @@
 import * as THREE from "three";
+import {FRAGMENT_SHADER, VERTEX_SHADER} from '../../Particles/fixtures';
 
 export const VERTICAL_CYLINDER = {
-    segments: 30,
-    radius: 20,
+    segments: 1,
+    radius: 2,
     height: 2000
 };
 
 export const ARM = {
-    segments: 5,
+    segments: 1,
     radius: 2,
     height: 150,
     spread: 10
@@ -22,6 +23,8 @@ export const SCREEN = {
     openingBuffer: VERTICAL_CYLINDER.height / NUMBER_OF_ARMS
 };
 
+const MAX_PARTICLES = 200;
+
 export class Amygdala {
 
     main = new THREE.Group;
@@ -30,6 +33,52 @@ export class Amygdala {
     screens = new THREE.Group;
 
     initiated = false;
+    cluster = new THREE.Group;
+
+    addCluster() {
+        const amount = 100;
+        const radius = VERTICAL_CYLINDER.height * 0.5;
+
+        const positions = new Float32Array( amount * 3 );
+        const colors = new Float32Array( amount * 3 );
+        const sizes = new Float32Array( amount );
+
+        const vertex = new THREE.Vector3();
+        const color = new THREE.Color( 0xFFFFFF );
+
+        positions.map((_, i) => {
+            vertex.x = (Math.random() * 2 - 1) * radius;
+            vertex.y = (Math.random() * 2 - 1) * radius;
+            vertex.z = (Math.random() * 2 - 1) * radius;
+            (vertex as any).toArray(positions, i);
+
+            sizes[i] = 20;
+
+            color.setHSL(360 * Math.random(), 0.5, 0.5);
+            (color as any).toArray(colors, i * 3);
+            return vertex
+        });
+
+        const geometry = new THREE.BufferGeometry();
+        geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+        geometry.addAttribute( 'customColor', new THREE.BufferAttribute( colors, 3 ) );
+        geometry.addAttribute( 'size', new THREE.BufferAttribute( sizes, 1 ) );
+
+        const material = new THREE.ShaderMaterial( {
+            uniforms: {
+                amplitude: { value: 1.0 },
+                texture:   { value: new THREE.TextureLoader().load( `/images/spark3.png` ) }
+            },
+            vertexShader:   VERTEX_SHADER,
+            fragmentShader: FRAGMENT_SHADER,
+            blending:       THREE.AdditiveBlending,
+            depthTest:      false,
+            transparent:    true
+        } );
+
+        const cluster = new THREE.Points( geometry, material );
+        this.cluster.add(cluster);
+    }
 
     createMiddle() {
         const geometry = new THREE.CylinderGeometry( VERTICAL_CYLINDER.radius, VERTICAL_CYLINDER.radius, VERTICAL_CYLINDER.height, VERTICAL_CYLINDER.segments );
@@ -100,11 +149,12 @@ export class Amygdala {
 
     init() {
         this.createMiddle();
-        // this.createArms();
+        this.createArms();
         this.createScreens();
     }
 
     animate(scrollPos) {
+        // Card transitions
         const resetScroll = Math.abs(scrollPos - 1000);
 
         this.screens.children.map((screen, i) => {
@@ -116,13 +166,24 @@ export class Amygdala {
                 const twist = Math.PI * 0.5;
                 screen.rotation.x = Math.sin(-rad * Math.PI * 0.5) * twist;
             }
-        })
+        });
+
+        // Particles
+        // if (this.cluster.children.length < MAX_PARTICLES) {
+        //     this.addCluster();
+        // }
+        // this.rotateParticles();
+    }
+
+    rotateParticles() {
+        this.cluster.rotation.y += 0.0002;
     }
 
     render() {
-        // this.main.add(this.middle);
+        this.main.add(this.middle);
         this.main.add(this.arms);
         this.main.add(this.screens);
+        // this.main.add(this.cluster);
 
         return this.main;
     }

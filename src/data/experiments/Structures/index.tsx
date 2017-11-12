@@ -256,7 +256,6 @@ export class Structures extends React.Component<IProps, IState> {
                             onClick={() => this.handleMenuClick(i)}
                         >
                             <UnderlineSwitch
-                                height={1}
                                 underlineColor={colors.blk}
                             >
                                 {particle.name}

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
-import { IInlineStyles, colors, prefixer } from '..';
-import { InternalLink, UnderlineSwitch } from '../../widgets';
+import { IInlineStyles, prefixer } from '..';
+import { ExternalLink, InternalLink, UnderlineSwitch } from '../../widgets';
 
 @observer
 export class Experiments extends React.Component<{}, {}> {
@@ -14,9 +14,6 @@ export class Experiments extends React.Component<{}, {}> {
             left: "50%",
             textAlign: "center",
             padding: 20,
-            fontSize: 24,
-            color: colors.wht,
-            // background: "rgba(255,255,255, 0.88)",
             transform: "translate(-50%, -50%)"
         }),
         image: prefixer(({
@@ -27,21 +24,18 @@ export class Experiments extends React.Component<{}, {}> {
             filter: "invert(100%)"
         })),
         midPoint: {
-            fontSize: 14
+            fontSize: 14,
+            padding: "6px 0 2px"
         }
     };
 
     render(): JSX.Element {
         return (
             <div style={this.STYLES.p}>
-                <InternalLink
+                <ExternalLink
                     path="https://codepen.io/codebro/"
-                    isNewPage={true}
                 >
-                    <UnderlineSwitch
-                        height={1}
-                        underlineColor={colors.wht}
-                    >
+                    <UnderlineSwitch>
                         <span>Check out my </span>
                         <img
                             style={this.STYLES.image}
@@ -50,17 +44,14 @@ export class Experiments extends React.Component<{}, {}> {
                         />
                         <span>channel for code experiments.</span>
                     </UnderlineSwitch>
-                </InternalLink>
+                </ExternalLink>
                 <div style={this.STYLES.midPoint}>
                     - OR -
                 </div>
                 <InternalLink
                     path="lab-menu"
                 >
-                    <UnderlineSwitch
-                        height={1}
-                        underlineColor={colors.wht}
-                    >
+                    <UnderlineSwitch>
                         Click here to see some work in progress.
                     </UnderlineSwitch>
                 </InternalLink>

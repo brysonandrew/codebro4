@@ -2,7 +2,6 @@ import * as React from 'react';
 import { observer, inject } from 'mobx-react';
 import { IInlineStyles, prefixer, Store } from '..';
 import { TypingTextInterval } from '../../widgets';
-import {colors} from '../themeOptions';
 
 const ANIMATION_DELAY = 2000;
 
@@ -28,11 +27,8 @@ export class Intro extends React.Component<IProps, {}> {
         intro__text: {
             display: "inline-block",
             padding: 20,
-            fontSize: 26,
             lineHeight: 2,
             minHeight: 100,
-            color: colors.wht,
-            // background: "rgba(255,255,255, 0.88)",
             width: "50%",
             minWidth: 280
         }

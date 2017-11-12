@@ -1,10 +1,10 @@
 import * as React from 'react';
 import THREE = require('three');
 import { inject, observer } from 'mobx-react';
-import { isGL } from '../helpers';
-import { Amygdala, VERTICAL_CYLINDER, NUMBER_OF_ARMS, ARM } from '../experiments';
+import { Amygdala, VERTICAL_CYLINDER, NUMBER_OF_ARMS } from '../experiments';
 import { CenteredText } from '../../widgets';
-import { Store } from '../Store';
+import { Store, isGL } from '..';
+import {SCREEN} from '../experiments/Structures/structureModels/amygdala';
 
 interface IState {
     isFallback: boolean
@@ -25,7 +25,7 @@ export class Background extends React.Component<IProps, IState> {
     renderer;
     animateLoop;
     texture;
-    point;
+    points = new THREE.Group;
     playerFocus = new THREE.Group;
     structureComponent;
     structure;
@@ -93,9 +93,17 @@ export class Background extends React.Component<IProps, IState> {
     }
 
     initLighting() {
-        this.point = new THREE.PointLight( 0xFFFFFF, 1 );
-        this.camera.add(this.point);
-        this.scene.add(new THREE.AmbientLight( 0xFFFFFF, 0.1 ));
+        let pointLeft = new THREE.PointLight( 0xFFFFFF, 2 );
+        pointLeft.position.y += SCREEN.height * 1.5;
+        pointLeft.position.x -= SCREEN.width;
+        this.points.add(pointLeft);
+
+        let pointRight = new THREE.PointLight( 0xFFFFFF, 2 );
+        pointRight.position.y += SCREEN.height * 1.5;
+        pointRight.position.x += SCREEN.width;
+        this.points.add(pointRight);
+
+        this.scene.add(this.points);
     }
 
     initAssets() {
@@ -134,6 +142,8 @@ export class Background extends React.Component<IProps, IState> {
         this.structureComponent.animate(scrollPos);
         this.structure.rotation.y = this.props.docScroll / this.adjustedScrollHeight() * (Math.PI * 2 -  Math.PI * 2 / NUMBER_OF_ARMS) + Math.PI * 0.5;
         this.camera.position.z = scrollPos;
+        this.points.position.z = scrollPos;
+
         this.renderer.render( this.scene, this.camera );
     }
 

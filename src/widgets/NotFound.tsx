@@ -15,7 +15,7 @@ export class NotFound extends React.Component<IProps, {}> {
     STYLES: IInlineStyles = {
         p: prefixer({
             id: "not found",
-            fontFamily: "'Advent Pro', 'arial', sans-serif",
+            fontFamily: "'Inconsolata', 'arial', sans-serif",
             position: "relative",
             top: 0,
             left: 0,
@@ -23,8 +23,6 @@ export class NotFound extends React.Component<IProps, {}> {
             height: "100vh",
             overflowY: "auto",
             textAlign: "center",
-            color: colors.blk,
-            background: colors.wht,
             zIndex: 20
         }),
         content: prefixer({

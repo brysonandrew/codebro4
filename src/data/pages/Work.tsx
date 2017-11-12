@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
-import { IInlineStyles, IWork, prefixer, colors } from '..';
-import { UnderlineSwitch } from '../../widgets';
+import { IInlineStyles, IWork, prefixer } from '..';
+import { UnderlineSwitch, ExternalLink } from '../../widgets';
 
 const MY_WORK: IWork[] = [
     {
@@ -43,20 +43,11 @@ export class Work extends React.Component<{}, {}> {
             top: "50%",
             left: "50%",
             padding: 20,
-            // background: "rgba(255,255,255, 0.88)",
             transform: "translate(-50%, -50%)"
         }),
         work__title: {
-            color: colors.wht,
             margin: 0,
             fontSize: 14
-        },
-        text: {
-            fontSize: 24,
-            fontFamily: "'Inconsolata', 'arial', sans-serif",
-            color: colors.wht,
-            // background: "rgba(255,255,255, 0.88)",
-            textDecoration: "none"
         },
         work__section: {
             marginTop: 20
@@ -73,16 +64,12 @@ export class Work extends React.Component<{}, {}> {
                     {MY_WORK.map((work) =>
                         <UnderlineSwitch
                             key={work.name}
-                            height={1}
-                            underlineColor={colors.wht}
                         >
-                            <a
-                                style={this.STYLES.text}
-                                href={work.link}
-                                target="_blank"
+                            <ExternalLink
+                                path={work.link}
                             >
                                 {work.name}
-                            </a>
+                            </ExternalLink>
                         </UnderlineSwitch>)}
                 </div>
                 <div style={this.STYLES.work__section}>
@@ -92,16 +79,12 @@ export class Work extends React.Component<{}, {}> {
                     {TEAM_WORK.map((work) =>
                         <UnderlineSwitch
                             key={work.name}
-                            height={1}
-                            underlineColor={colors.wht}
                         >
-                            <a
-                                style={this.STYLES.text}
-                                href={work.link}
-                                target="_blank"
+                            <ExternalLink
+                                path={work.link}
                             >
                                 {work.name}
-                            </a>
+                            </ExternalLink>
                         </UnderlineSwitch>
                     )}
                 </div>

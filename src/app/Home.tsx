@@ -2,19 +2,10 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import createHistory from 'history/createBrowserHistory';
 import { browserHistory } from 'react-router';
-import { toParams, listeners, resetIdle, IInlineStyles, Store
-    , EXPERIMENTS_PATHS } from '../data';
+import { toParams, listeners, resetIdle, IInlineStyles, Store, EXPERIMENTS_PATHS, colors } from '../data';
 import { Main } from './main';
 import { Lab } from './lab';
-
-const STYLES: IInlineStyles = {
-    p: {
-        id: "home",
-        position: "relative",
-        fontFamily: "'Advent Pro', 'arial', sans-serif",
-        overflow: "hidden"
-    }
-};
+import { CSS_FONT_STRING } from '../widgets';
 
 interface IProps {
     store?: Store
@@ -23,6 +14,17 @@ interface IProps {
 @inject('store')
 @observer
 export class Home extends React.Component<IProps, {}> {
+
+    STYLES: IInlineStyles = {
+        p: {
+            id: "home",
+            position: "relative",
+            color: colors.blk,
+            background: colors.wht,
+            fontFamily: `'${CSS_FONT_STRING}', 'arial', sans-serif`,
+            overflow: "hidden"
+        }
+    };
 
     parentRef;
     idleTimeoutId;
@@ -69,7 +71,7 @@ export class Home extends React.Component<IProps, {}> {
     render(): JSX.Element {
         return (
             <div
-                style={ STYLES.p }
+                style={ this.STYLES.p }
                 ref={el => el ? (this.parentRef = el) : null}
             >
                 {this.renderHome()}

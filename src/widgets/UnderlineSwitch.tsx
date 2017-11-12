@@ -3,8 +3,8 @@ import { observer } from 'mobx-react';
 import { IInlineStyles, colors } from '../data';
 
 interface IProps {
-    height: number
-    underlineColor: string
+    height?: number
+    underlineColor?: string
 }
 
 interface IState {
@@ -14,27 +14,26 @@ interface IState {
 @observer
 export class UnderlineSwitch extends React.Component<IProps, IState> {
 
+    STYLES: IInlineStyles = {
+        p: {
+            id: "underline switch",
+            position: "relative"
+        },
+        underline: {
+            height: this.props.height || 1,
+            position: "absolute",
+            bottom: 0,
+            background: this.props.underlineColor || colors.wht,
+            transition: "400ms width"
+        }
+    };
+
     public constructor(props?: any, context?: any) {
         super(props, context);
         this.state = {
             isHovered: false
         };
     }
-
-    STYLES: IInlineStyles = {
-        p: {
-            id: "underline switch",
-            position: "relative",
-            padding: "4px 0"
-        },
-        underline: {
-            height: this.props.height,
-            position: "absolute",
-            bottom: 0,
-            background: this.props.underlineColor,
-            transition: "400ms width"
-        }
-    };
 
     handleMouseEnter = () => {
         this.setState({

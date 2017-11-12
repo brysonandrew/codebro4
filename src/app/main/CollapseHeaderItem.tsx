@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IPage, IInlineStyles, Store, colors } from '../../data';
 import { inject, observer } from 'mobx-react';
-import {UnderlineSwitch} from '../../widgets/UnderlineSwitch';
+import { UnderlineSwitch } from '../../widgets';
 
 const FONT_SIZE = 14;
 
@@ -53,10 +53,7 @@ export class CollapseHeaderItem extends React.Component<IProps, IState> {
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
             >
-                <UnderlineSwitch
-                    height={1}
-                    underlineColor={colors.wht}
-                >
+                <UnderlineSwitch>
                     {this.props.page.name}
                 </UnderlineSwitch>
             </div>
