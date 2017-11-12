@@ -11,3 +11,6 @@ export {MascotMouth_10} from "./MascotMouth_10";
 export {MascotMouth_11} from "./MascotMouth_11";
 export {MascotMouth_12} from "./MascotMouth_12";
 export {MascotMouth_13} from "./MascotMouth_13";
+export {MascotMouth_14} from "./MascotMouth_14";
+export {MascotMouth_15} from "./MascotMouth_15";
+export {MascotMouth_16} from "./MascotMouth_16";

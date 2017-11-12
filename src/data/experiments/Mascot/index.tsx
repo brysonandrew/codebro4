@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import { Mascot } from "./Mascot";
 
 export enum EPose {
+    // inline
     MONEY =                           'money.svg',
     APPROVE_WITH_SMILE_HANDS_UP_03 =  'approve_with_smile_hands_up_03.svg',
     APPROVE_WITH_SMILE_HANDS_UP_02 =  'approve_with_smile_hands_up_02.svg',
@@ -15,7 +16,11 @@ export enum EPose {
     NOT_AMUSED =                      'not_amused.svg',
     SLIGHTLY_DISAPPROVE =             'slightly_disapprove.svg',
     DISAPPROVE =                      'disapprove.svg',
-    HIGHLY_DISAPPROVE =               'highly_disapprove.svg'
+    HIGHLY_DISAPPROVE =               'highly_disapprove.svg',
+    // img
+    BLINK =                           'blink.svg',
+    THUMBS_UP_SMILE_01 =              'thumbs_up_smile_01.svg',
+    THUMBS_UP_WINK_LEFT_EYE =         'thumbs_up_wink_left_eye.svg'
 }
 
 const NUMBER_OF_POSES = Object.keys(EPose).length;
@@ -61,8 +66,8 @@ class MascotControls extends React.Component<{}, IState> {
                     <input
                         style={STYLES.slider}
                         type="range"
-                        min={EPose.MONEY}
-                        max={NUMBER_OF_POSES}
+                        min={0}
+                        max={NUMBER_OF_POSES - 1}
                         value={this.state.stage}
                         onChange={this.handleMoodChange}
                     />

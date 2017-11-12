@@ -13,8 +13,6 @@ interface IState {
 interface IProps {
     parentEl?: HTMLDivElement
     store?: Store
-    width?: number
-    height?: number
     docScroll?: number
 }
 
@@ -40,8 +38,8 @@ export class Background extends React.Component<IProps, IState> {
         this.animate = this.animate.bind(this);
     }
 
-    width = () => this.props.width;
-    height = () => this.props.height;
+    width = () => this.props.store.width;
+    height = () => this.props.store.height;
     adjustedScrollHeight = () => this.props.store.scrollHeight - this.height();
 
     componentDidMount() {
@@ -57,16 +55,6 @@ export class Background extends React.Component<IProps, IState> {
 
         if (isGL()) {
             this.props.parentEl.removeChild( this.renderer.domElement );
-        }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.width !== this.width() || nextProps.height !== this.height()) {
-            if (isGL())  {
-                this.initGL();
-            } else {
-                this.initGLFallback();
-            }
         }
     }
 
@@ -96,7 +84,8 @@ export class Background extends React.Component<IProps, IState> {
             1,
             8000
         );
-        this.camera.position.y = -0.3 * VERTICAL_CYLINDER.height;
+        this.camera.rotation.x = Math.PI * 0.1;
+        this.camera.position.y = this.height() * 0.015;
     }
 
     initScene() {
@@ -110,27 +99,9 @@ export class Background extends React.Component<IProps, IState> {
     }
 
     initAssets() {
-        const index = 0;
-        const buffer = 100;
-
-        const y = (VERTICAL_CYLINDER.height * index / NUMBER_OF_ARMS)
-            - (VERTICAL_CYLINDER.height * 0.5)
-            + (VERTICAL_CYLINDER.height * 0.5  / NUMBER_OF_ARMS);
-
-        const z = ARM.height + buffer;
-
-        this.playerFocus.add(this.camera);
-        this.playerFocus.rotation.order = 'YXZ';
-
-        this.playerFocus.position.set(0, -y, z);
-        // this.playerFocus.rotation.set(-Math.PI * 0.1, 0, 0);
-
-        this.scene.add(this.playerFocus);
-
         this.structureComponent = new Amygdala();
 
         this.initStructure();
-
         // Promise.all([
         //     loadGround(),
         //     loadBackground()
@@ -149,9 +120,6 @@ export class Background extends React.Component<IProps, IState> {
         this.structure = this.structureComponent.render();
 
         this.structure.rotation.x = Math.PI * 0.5;
-
-        this.structure.position.y = this.height() * 0.125;
-        this.structure.position.z = VERTICAL_CYLINDER.height / NUMBER_OF_ARMS * 0.25;
 
         this.scene.add(this.structure);
     }

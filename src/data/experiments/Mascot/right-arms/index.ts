@@ -11,3 +11,6 @@ export {MascotArmRight_10} from "./MascotArmRight_10";
 export {MascotArmRight_11} from "./MascotArmRight_11";
 export {MascotArmRight_12} from "./MascotArmRight_12";
 export {MascotArmRight_13} from "./MascotArmRight_13";
+export {MascotArmRight_14} from "./MascotArmRight_14";
+export {MascotArmRight_15} from "./MascotArmRight_15";
+export {MascotArmRight_16} from "./MascotArmRight_16";

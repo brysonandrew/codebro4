@@ -47,7 +47,7 @@ export class Main extends React.Component<IProps, {}> {
 
     render(): JSX.Element {
         const { width, height, docScroll, isMainMounted, projectOffsets, isAnimating, savedParams
-            , onAnimationEnd } = this.props.store;
+            , onAnimationEnd, isResizing } = this.props.store;
 
         return (
             <div>
@@ -55,12 +55,10 @@ export class Main extends React.Component<IProps, {}> {
                     style={{...STYLES.background}}
                     ref={el => el ? (this.backgroundRef = el) : null}
                 >
-                    {!!this.backgroundRef && width > 0 && height > 0
+                    {!!this.backgroundRef && width > 0 && height > 0 && !isResizing
                         ?   <Background
                                 docScroll={docScroll}
                                 parentEl={this.backgroundRef}
-                                width={width}
-                                height={height}
                             />
                         :   null}
                 </div>
