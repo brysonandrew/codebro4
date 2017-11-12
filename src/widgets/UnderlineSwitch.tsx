@@ -31,7 +31,7 @@ export class UnderlineSwitch extends React.Component<IProps, IState> {
             height: this.props.height,
             position: "absolute",
             bottom: 0,
-            background: colors.blk,
+            background: this.props.underlineColor,
             transition: "400ms width"
         }
     };

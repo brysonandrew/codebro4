@@ -59,6 +59,8 @@ export class Main extends React.Component<IProps, {}> {
                         ?   <Background
                                 docScroll={docScroll}
                                 parentEl={this.backgroundRef}
+                                width={width}
+                                height={height}
                             />
                         :   null}
                 </div>

@@ -17,7 +17,7 @@ export class InternalLink extends React.Component<IProps, {}> {
             cursor: "pointer",
             padding: 10,
             textDecoration: "none",
-            color: colors.blk,
+            color: colors.wht,
             maxWidth: 320
         }
     };

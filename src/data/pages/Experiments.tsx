@@ -15,16 +15,17 @@ export class Experiments extends React.Component<{}, {}> {
             textAlign: "center",
             padding: 20,
             fontSize: 24,
-            color: colors.blk,
-            background: "rgba(255,255,255, 0.88)",
+            color: colors.wht,
+            // background: "rgba(255,255,255, 0.88)",
             transform: "translate(-50%, -50%)"
         }),
-        image: {
+        image: prefixer(({
             display: "inline-block",
             verticalAlign: "middle",
             height: 24,
-            width: "auto"
-        },
+            width: "auto",
+            filter: "invert(100%)"
+        })),
         midPoint: {
             fontSize: 14
         }
@@ -39,7 +40,7 @@ export class Experiments extends React.Component<{}, {}> {
                 >
                     <UnderlineSwitch
                         height={1}
-                        underlineColor={colors.blk}
+                        underlineColor={colors.wht}
                     >
                         <span>Check out my </span>
                         <img
@@ -58,7 +59,7 @@ export class Experiments extends React.Component<{}, {}> {
                 >
                     <UnderlineSwitch
                         height={1}
-                        underlineColor={colors.blk}
+                        underlineColor={colors.wht}
                     >
                         Click here to see some work in progress.
                     </UnderlineSwitch>

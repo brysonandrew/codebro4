@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
 import { IInlineStyles, colors, prefixer } from '..';
+import {UnderlineSwitch} from '../../widgets/UnderlineSwitch';
 
 @observer
 export class Contact extends React.Component<{}, {}> {
@@ -13,7 +14,8 @@ export class Contact extends React.Component<{}, {}> {
             left: "50%",
             textAlign: "center",
             padding: 20,
-            background: "rgba(255,255,255, 0.88)",
+            color: colors.wht,
+            // background: "rgba(255,255,255, 0.88)",
             transform: "translate(-50%, -50%)",
             cursor: "pointer"
         }),
@@ -22,7 +24,7 @@ export class Contact extends React.Component<{}, {}> {
             fontSize: 24,
             fontFamily: "'Inconsolata', 'arial', sans-serif",
             width: "100%",
-            color: colors.blk,
+            color: colors.wht,
             textDecoration: "none"
         }
     };
@@ -30,12 +32,17 @@ export class Contact extends React.Component<{}, {}> {
     render(): JSX.Element {
         return (
             <div style={this.STYLES.contact}>
-                <a
-                    style={this.STYLES.contact__text}
-                    href="mailto:andrew@codebro.io"
+                <UnderlineSwitch
+                    height={1}
+                    underlineColor={colors.wht}
                 >
-                    andrew@codebro.io
-                </a>
+                    <a
+                        style={this.STYLES.contact__text}
+                        href="mailto:andrew@codebro.io"
+                    >
+                        andrew@codebro.io
+                    </a>
+                </UnderlineSwitch>
             </div>
         );
     }

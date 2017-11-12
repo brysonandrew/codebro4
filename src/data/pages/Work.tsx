@@ -43,17 +43,19 @@ export class Work extends React.Component<{}, {}> {
             top: "50%",
             left: "50%",
             padding: 20,
-            background: "rgba(255,255,255, 0.88)",
+            // background: "rgba(255,255,255, 0.88)",
             transform: "translate(-50%, -50%)"
         }),
         work__title: {
+            color: colors.wht,
             margin: 0,
             fontSize: 14
         },
         text: {
             fontSize: 24,
             fontFamily: "'Inconsolata', 'arial', sans-serif",
-            color: colors.blk,
+            color: colors.wht,
+            // background: "rgba(255,255,255, 0.88)",
             textDecoration: "none"
         },
         work__section: {
@@ -65,12 +67,14 @@ export class Work extends React.Component<{}, {}> {
         return (
             <div style={this.STYLES.work}>
                 <div>
-                    <h2 style={this.STYLES.work__title}>My work</h2>
+                    <h2 style={this.STYLES.work__title}>
+                        My work
+                    </h2>
                     {MY_WORK.map((work) =>
                         <UnderlineSwitch
                             key={work.name}
                             height={1}
-                            underlineColor={colors.blk}
+                            underlineColor={colors.wht}
                         >
                             <a
                                 style={this.STYLES.text}
@@ -82,12 +86,14 @@ export class Work extends React.Component<{}, {}> {
                         </UnderlineSwitch>)}
                 </div>
                 <div style={this.STYLES.work__section}>
-                    <h2 style={this.STYLES.work__title}>Team work</h2>
+                    <h2 style={this.STYLES.work__title}>
+                        Team work
+                    </h2>
                     {TEAM_WORK.map((work) =>
                         <UnderlineSwitch
                             key={work.name}
                             height={1}
-                            underlineColor={colors.blk}
+                            underlineColor={colors.wht}
                         >
                             <a
                                 style={this.STYLES.text}

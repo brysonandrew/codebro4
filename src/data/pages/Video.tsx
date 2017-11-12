@@ -20,8 +20,8 @@ export class Video extends React.Component<{}, {}> {
             fontFamily: "'Inconsolata', 'arial', sans-serif",
             width: "50%",
             padding: 20,
-            background: "rgba(255,255,255, 0.88)",
-            color: colors.blk,
+            color: colors.wht,
+            // background: "rgba(255,255,255, 0.88)",
             textDecoration: "none"
         },
         video__image: {

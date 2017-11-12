@@ -13,6 +13,8 @@ interface IState {
 interface IProps {
     parentEl?: HTMLDivElement
     store?: Store
+    width?: number
+    height?: number
     docScroll?: number
 }
 
@@ -27,6 +29,7 @@ export class Background extends React.Component<IProps, IState> {
     texture;
     point;
     playerFocus = new THREE.Group;
+    structureComponent;
     structure;
 
     public constructor(props?: any, context?: any) {
@@ -37,9 +40,9 @@ export class Background extends React.Component<IProps, IState> {
         this.animate = this.animate.bind(this);
     }
 
-    width = () => this.props.store.width;
-    height = () => this.props.store.height;
-    adjustedScrollHeight = () => this.props.store.scrollHeight + this.height() * 0.5;
+    width = () => this.props.width;
+    height = () => this.props.height;
+    adjustedScrollHeight = () => this.props.store.scrollHeight - this.height();
 
     componentDidMount() {
         if (isGL())  {
@@ -54,6 +57,16 @@ export class Background extends React.Component<IProps, IState> {
 
         if (isGL()) {
             this.props.parentEl.removeChild( this.renderer.domElement );
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.width !== this.width() || nextProps.height !== this.height()) {
+            if (isGL())  {
+                this.initGL();
+            } else {
+                this.initGLFallback();
+            }
         }
     }
 
@@ -91,8 +104,8 @@ export class Background extends React.Component<IProps, IState> {
     }
 
     initLighting() {
-        this.point = new THREE.PointLight( 0xFFFFFF, 2.5 );
-        this.playerFocus.add(this.point);
+        this.point = new THREE.PointLight( 0xFFFFFF, 1 );
+        this.camera.add(this.point);
         this.scene.add(new THREE.AmbientLight( 0xFFFFFF, 0.1 ));
     }
 
@@ -107,12 +120,16 @@ export class Background extends React.Component<IProps, IState> {
         const z = ARM.height + buffer;
 
         this.playerFocus.add(this.camera);
-        this.playerFocus.position.set(0, -y, z);
         this.playerFocus.rotation.order = 'YXZ';
+
+        this.playerFocus.position.set(0, -y, z);
+        // this.playerFocus.rotation.set(-Math.PI * 0.1, 0, 0);
+
         this.scene.add(this.playerFocus);
 
-        const component = new Amygdala();
-        this.initStructure(component);
+        this.structureComponent = new Amygdala();
+
+        this.initStructure();
 
         // Promise.all([
         //     loadGround(),
@@ -127,9 +144,15 @@ export class Background extends React.Component<IProps, IState> {
         this.scene.remove(obj);
     }
 
-    initStructure(component) {
-        component.init();
-        this.structure = component.render();
+    initStructure() {
+        this.structureComponent.init();
+        this.structure = this.structureComponent.render();
+
+        this.structure.rotation.x = Math.PI * 0.5;
+
+        this.structure.position.y = this.height() * 0.125;
+        this.structure.position.z = VERTICAL_CYLINDER.height / NUMBER_OF_ARMS * 0.25;
+
         this.scene.add(this.structure);
     }
 
@@ -139,8 +162,10 @@ export class Background extends React.Component<IProps, IState> {
     }
 
     renderMotion() {
-        this.structure.rotation.y = this.props.docScroll / this.adjustedScrollHeight() * Math.PI * 2 + Math.PI * 0.5;
-        this.camera.position.z = -this.props.docScroll / this.adjustedScrollHeight() * VERTICAL_CYLINDER.height + 0.5 * VERTICAL_CYLINDER.height;
+        const scrollPos = -this.props.docScroll / this.adjustedScrollHeight() * (VERTICAL_CYLINDER.height - VERTICAL_CYLINDER.height / NUMBER_OF_ARMS) + 0.5 * VERTICAL_CYLINDER.height;
+        this.structureComponent.animate(scrollPos);
+        this.structure.rotation.y = this.props.docScroll / this.adjustedScrollHeight() * (Math.PI * 2 -  Math.PI * 2 / NUMBER_OF_ARMS) + Math.PI * 0.5;
+        this.camera.position.z = scrollPos;
         this.renderer.render( this.scene, this.camera );
     }
 
