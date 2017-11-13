@@ -170,6 +170,8 @@ export class Store {
 
     @action
     public onLoad = (nextParams: IParams) => {
+        console.log(nextParams.activePagePath.length > 0);
+        console.log(nextParams.activePagePath);
         if (nextParams.activePagePath.length > 0) {
             this.savedParams = buildMap(nextParams);
         } else {

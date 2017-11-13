@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { loaders } from './loaders';
 import { IInlineStyles } from '../..';
+import { TextLoader } from "./TextLoader";
 
 const STYLES: IInlineStyles = {
     p: {
@@ -22,4 +23,4 @@ const Loaders = () => {
             </div>
 };
 
-export { Loaders };
+export { Loaders, TextLoader };

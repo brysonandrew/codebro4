@@ -32,10 +32,10 @@ export class Experiments extends React.Component<{}, {}> {
     render(): JSX.Element {
         return (
             <div style={this.STYLES.p}>
-                <ExternalLink
-                    path="https://codepen.io/codebro/"
-                >
-                    <UnderlineSwitch>
+                <UnderlineSwitch>
+                    <ExternalLink
+                        path="https://codepen.io/codebro/"
+                    >
                         <span>Check out my </span>
                         <img
                             style={this.STYLES.image}
@@ -43,18 +43,18 @@ export class Experiments extends React.Component<{}, {}> {
                             alt="Codepen Link"
                         />
                         <span>channel for code experiments.</span>
-                    </UnderlineSwitch>
-                </ExternalLink>
+                    </ExternalLink>
+                </UnderlineSwitch>
                 <div style={this.STYLES.midPoint}>
                     - OR -
                 </div>
-                <InternalLink
-                    path="lab-menu"
-                >
-                    <UnderlineSwitch>
+                <UnderlineSwitch>
+                    <InternalLink
+                        path="lab-menu"
+                    >
                         Click here to see some work in progress.
-                    </UnderlineSwitch>
-                </InternalLink>
+                    </InternalLink>
+                </UnderlineSwitch>
             </div>
         );
     }

@@ -22,6 +22,12 @@ export const SCREEN = {
     openingBuffer: VERTICAL_CYLINDER.height / NUMBER_OF_ARMS
 };
 
+const OPACITY = {
+    min: 0.1,
+    max: 1,
+    inc: 0.02
+};
+
 export class Amygdala {
 
     main = new THREE.Group;
@@ -71,9 +77,9 @@ export class Amygdala {
 
         this.screens.children.map((screen, i) => {
             if (isAnimating) {
-                screen.material.opacity = 0.1;
-            } else {
-                screen.material.opacity = 1;
+                screen.material.opacity = OPACITY.min;
+            } else if (screen.material.opacity < OPACITY.max) {
+                screen.material.opacity += OPACITY.inc;
             }
             const min = SCREEN.openingBuffer * (NUMBER_OF_ARMS - i - 2);
             const max = SCREEN.openingBuffer * (NUMBER_OF_ARMS - i);

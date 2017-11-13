@@ -8,6 +8,7 @@ import { InternalLink, UnderlineSwitch } from '../../widgets';
 import { Particles, PARTICLES, PARTICLES_DICT } from './Particles';
 import { Structures, Amygdala, VERTICAL_CYLINDER, NUMBER_OF_ARMS, ARM, SCREEN } from './Structures';
 import { Background } from '../background';
+import { Random } from './Random';
 
 const MENU_NAME = "Lab Menu";
 
@@ -74,6 +75,10 @@ export const EXPERIMENTS: IPage[] = [
     new PageMaker(
         "Background",
         <Background/>
+    ),
+    new PageMaker(
+        "Random",
+        <Random/>
     )
 ];
 

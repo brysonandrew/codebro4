@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { browserHistory } from 'react-router';
+import { Link } from 'react-router';
 import { observer } from 'mobx-react';
 import { colors } from '../data';
 
@@ -21,18 +21,14 @@ export class InternalLink extends React.Component<IProps, {}> {
         }
     };
 
-    handleClick() {
-        browserHistory.push(`/${this.props.path}`);
-    }
-
     render(): JSX.Element {
         return (
-            <div
+            <Link
                 style={this.STYLES.p}
-                onClick={() => this.handleClick()}
+                to={`/${this.props.path}`}
             >
                 {this.props.children}
-            </div>
+            </Link>
         );
     }
 }

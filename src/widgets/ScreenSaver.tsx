@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { colors, IInlineStyles, prefixer } from '../data';
 import { TextLogo } from '.';
+import { GrowingStripeLoader } from './GrowingStripeLoader';
 
 interface IProps {
     isScreenSaver: boolean
@@ -27,11 +28,10 @@ export class ScreenSaver extends React.Component<IProps, IState> {
             transition: "opacity 1600ms",
             zIndex: 20
         }),
-        textLogo: prefixer({
+        center: prefixer({
             position: "absolute",
             top: "50%",
             right: "50%",
-            fontSize: 120,
             transform: "translate(50%, -50%)",
         })
     };
@@ -80,8 +80,8 @@ export class ScreenSaver extends React.Component<IProps, IState> {
                         }}
                         onTransitionEnd={this.handleTransitionEnd}
                     >
-                        <div style={this.STYLES.textLogo}>
-                            <TextLogo/>
+                        <div style={this.STYLES.center}>
+                            <GrowingStripeLoader/>
                         </div>
                     </div>
                 :   null
