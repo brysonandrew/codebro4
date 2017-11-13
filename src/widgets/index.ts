@@ -9,3 +9,4 @@ export { ExternalLink } from "./ExternalLink";
 export { InternalLink } from "./InternalLink";
 export { UnderlineSwitch } from "./UnderlineSwitch";
 export { TextLogo } from "./TextLogo";
+export { ThreeBarLoader } from "./ThreeBarLoader";

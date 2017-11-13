@@ -1,10 +1,9 @@
 import * as React from 'react';
 import THREE = require('three');
 import { inject, observer } from 'mobx-react';
-import { Amygdala, VERTICAL_CYLINDER, NUMBER_OF_ARMS } from '../experiments';
+import { Amygdala, VERTICAL_CYLINDER, NUMBER_OF_ARMS, SCREEN } from '../experiments';
 import { CenteredText } from '../../widgets';
 import { Store, isGL } from '..';
-import {SCREEN} from '../experiments/Structures/structureModels/amygdala';
 
 interface IState {
     isFallback: boolean
@@ -139,11 +138,10 @@ export class Background extends React.Component<IProps, IState> {
 
     renderMotion() {
         const scrollPos = -this.props.docScroll / this.adjustedScrollHeight() * (VERTICAL_CYLINDER.height - VERTICAL_CYLINDER.height / NUMBER_OF_ARMS) + 0.5 * VERTICAL_CYLINDER.height;
-        this.structureComponent.animate(scrollPos);
+        this.structureComponent.animate(scrollPos, this.props.store.isAnimating);
         this.structure.rotation.y = this.props.docScroll / this.adjustedScrollHeight() * (Math.PI * 2 -  Math.PI * 2 / NUMBER_OF_ARMS) + Math.PI * 0.5;
         this.camera.position.z = scrollPos;
         this.points.position.z = scrollPos;
-
         this.renderer.render( this.scene, this.camera );
     }
 

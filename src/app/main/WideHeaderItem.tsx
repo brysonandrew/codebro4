@@ -76,7 +76,7 @@ export class WideHeaderItem extends React.Component<IProps, {}> {
         return (
             <div
                 key={page.name}
-                style={{...this.STYLES.p, transform: `translate3d(0, ${this.isActive ? 0 : 4}px, 0)`}}
+                style={{...this.STYLES.p, transform: `translate3d(0, ${this.isActive ? -4 : 0}px, 0)`}}
                 ref={(el) => onMeasureTabByRef(el, index)}
             >
                 {breakPointTests.isTablet(width) ? this.renderLineCross() : page.name}

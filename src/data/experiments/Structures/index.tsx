@@ -6,7 +6,7 @@ import { inject, observer } from 'mobx-react';
 import { isGL, IInlineStyles, colors } from "../../../data";
 import { playerPositionX, playerPositionZ, playerRotationY, playerRotationX } from "../helpers";
 import { CenteredText, UnderlineSwitch } from "../../../widgets";
-import { ARM, NUMBER_OF_ARMS, VERTICAL_CYLINDER } from './structureModels/amygdala';
+import { ARM, NUMBER_OF_ARMS, VERTICAL_CYLINDER, SCREEN } from './structureModels/amygdala';
 import { STRUCTURES, STRUCTURES_DICT } from './structureModels/index';
 import { animateKey } from '../helpers/game/keyboard';
 import { Amygdala } from './structureModels/amygdala';
@@ -266,4 +266,4 @@ export class Structures extends React.Component<IProps, IState> {
     }
 }
 
-export {STRUCTURES, STRUCTURES_DICT, Amygdala, NUMBER_OF_ARMS, VERTICAL_CYLINDER, ARM}
+export { STRUCTURES, STRUCTURES_DICT, Amygdala, NUMBER_OF_ARMS, VERTICAL_CYLINDER, ARM, SCREEN }

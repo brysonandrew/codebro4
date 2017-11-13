@@ -3,6 +3,7 @@ import { browserHistory } from 'react-router';
 import { observer, inject } from 'mobx-react';
 import { IInlineStyles, prefixer, colors, Store } from '../data';
 import { GlitchText } from './GlitchText';
+import { CSS_FONT_STRING } from './Fonts';
 
 interface IProps {
     store?: Store
@@ -15,7 +16,7 @@ export class NotFound extends React.Component<IProps, {}> {
     STYLES: IInlineStyles = {
         p: prefixer({
             id: "not found",
-            fontFamily: "'Inconsolata', 'arial', sans-serif",
+            fontFamily: `'${CSS_FONT_STRING}', 'arial', sans-serif`,
             position: "relative",
             top: 0,
             left: 0,
@@ -97,7 +98,7 @@ export class NotFound extends React.Component<IProps, {}> {
                             isActive={true}
                             textColor={colors.blk}
                             backgroundColor={colors.wht}
-                            textContent="click here to return to codebro.io"
+                            textContent="click here to go back"
                         />
                     </div>
                 </div>

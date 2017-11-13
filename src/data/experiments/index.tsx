@@ -2,10 +2,11 @@ import * as React from "react";
 import { observer } from 'mobx-react';
 import { MascotControls } from './Mascot';
 import { Hamburgers } from './Hamburgers';
+import { Loaders } from './Loaders';
 import { PageMaker, IPage, IInlineStyles, IDictionary, arrayToDictionary, colors } from '..';
 import { InternalLink, UnderlineSwitch } from '../../widgets';
 import { Particles, PARTICLES, PARTICLES_DICT } from './Particles';
-import { Structures, Amygdala, VERTICAL_CYLINDER, NUMBER_OF_ARMS, ARM } from './Structures';
+import { Structures, Amygdala, VERTICAL_CYLINDER, NUMBER_OF_ARMS, ARM, SCREEN } from './Structures';
 import { Background } from '../background';
 
 const MENU_NAME = "Lab Menu";
@@ -59,6 +60,10 @@ export const EXPERIMENTS: IPage[] = [
         <Hamburgers/>
     ),
     new PageMaker(
+        "Loaders",
+        <Loaders/>
+    ),
+    new PageMaker(
         "Particles",
         <Particles/>
     ),
@@ -75,4 +80,4 @@ export const EXPERIMENTS: IPage[] = [
 export const EXPERIMENTS_PATHS: string[] = EXPERIMENTS.map(experiment => experiment.path);
 export const EXPERIMENTS_DICT: IDictionary<IPage> = arrayToDictionary(EXPERIMENTS, "path");
 
-export { Particles, PARTICLES, PARTICLES_DICT, Amygdala, MascotControls, VERTICAL_CYLINDER, NUMBER_OF_ARMS, ARM };
+export { Particles, PARTICLES, PARTICLES_DICT, Amygdala, MascotControls, VERTICAL_CYLINDER, NUMBER_OF_ARMS, ARM, SCREEN };

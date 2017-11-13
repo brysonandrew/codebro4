@@ -6,6 +6,7 @@ import { CollapseHeader } from "./CollapseHeader";
 import { Pages } from "./Pages";
 import { prefixer, Background, Store, IInlineStyles } from '../../data';
 import { ScreenSaver, MotionScroll } from '../../widgets';
+import {ThreeBarLoader} from '../../widgets/ThreeBarLoader';
 
 const STYLES: IInlineStyles = {
     header: {
@@ -28,6 +29,11 @@ const STYLES: IInlineStyles = {
         position: "fixed",
         top: 0,
         left: 0
+    },
+    loader: {
+        position: "fixed",
+        bottom: 0,
+        right: 0
     }
 };
 
@@ -80,6 +86,13 @@ export class Main extends React.Component<IProps, {}> {
                             scrollTarget={projectOffsets[savedParams.get("activePagePath")]}
                             onRest={onAnimationEnd}
                         />
+                    :   null}
+                {isAnimating
+                    ?   <div
+                            style={{...STYLES.loader}}
+                        >
+                            <ThreeBarLoader/>
+                        </div>
                     :   null}
             </div>
         );
