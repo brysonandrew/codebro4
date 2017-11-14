@@ -145,7 +145,6 @@ export class SquareSmoke {
         if (!this.isInit) {
             this.init();
             this.isInit = true;
-            console.log(this.cluster);
         }
 
         this.fire();

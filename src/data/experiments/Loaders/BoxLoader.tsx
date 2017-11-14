@@ -1,33 +1,38 @@
 import * as React from "react";
 
-const SIZE = 100;
+interface IProps {
+    size?: number
+}
+
+const BASE_SIZE = 300;
 
 const BOX_CONFIGS = [
     // First row
-    { x: 0,   y: 100, color: "#50E3C2" },
-    { x: 0,   y: 200, color: "#50E3C2" },
-    { x: 0,   y: 300, color: "#50E3C2" },
+    { x: 0,   y: 0,   color: "#000000" },
+    { x: 0,   y: 100, color: "#000000" },
+    { x: 0,   y: 200, color: "#000000" },
     // Second row
-    { x: 100, y: 0,   color: "#A49EFC" },
-    { x: 100, y: 200, color: "#A49EFC" },
+    { x: 100, y: 0,   color: "#000000" },
+    { x: 100, y: 100, color: "#000000" },
+    { x: 100, y: 200, color: "#000000" },
     // Third row
-    { x: 200, y: 100, color: "#A49EFC" },
-    // Fifth row
-    { x: 400, y: 100, color: "#A49EFC" },
-    // Sixth row
-    { x: 500, y: 0,   color: "#A49EFC" },
-    { x: 500, y: 200, color: "#A49EFC" },
-    { x: 500, y: 300, color: "#50E3C2" },
-
+    { x: 200, y: 0,   color: "#000000" },
+    { x: 200, y: 100, color: "#000000" },
+    { x: 200, y: 200, color: "#000000" },
 ];
 
-export const BoxLoader = () =>  <svg width="600" height="400" viewBox="0 0 600 400">
+export const BoxLoader = (props: IProps) =>
+                                <svg
+                                    width={props.size || BASE_SIZE} height={props.size || BASE_SIZE}
+                                    viewBox={`0 0 ${props.size || BASE_SIZE} ${props.size || BASE_SIZE}`}
+                                >
                                     {BOX_CONFIGS.map((config, i) =>
                                         <rect
-                                            x={config.x}
-                                            y={config.y}
-                                            width={SIZE}
-                                            height={SIZE}
+                                            key={`rect-${i}`}
+                                            x={props.size ? config.x * props.size / BASE_SIZE : config.x}
+                                            y={props.size ? config.y * props.size / BASE_SIZE : config.y }
+                                            width={(props.size || BASE_SIZE) / 3}
+                                            height={(props.size || BASE_SIZE) / 3}
                                             fill={config.color}
                                         >
                                             <animate
@@ -35,7 +40,7 @@ export const BoxLoader = () =>  <svg width="600" height="400" viewBox="0 0 600 4
                                                 attributeName="opacity"
                                                 values="1;0;1"
                                                 dur="4s"
-                                                begin={i + 1 - BOX_CONFIGS.length * Math.random()}
+                                                begin={i - BOX_CONFIGS.length * Math.random()}
                                                 repeatCount="indefinite"
                                             />
                                         </rect>)}

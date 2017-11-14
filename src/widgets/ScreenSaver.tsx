@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { colors, IInlineStyles, prefixer } from '../data';
 import { TextLogo } from '.';
-import { GrowingStripeLoader } from './GrowingStripeLoader';
+import { setBodyStyle } from '../data/helpers/set-body-style';
+import { BoxLoader } from '../data/experiments/Loaders/BoxLoader';
 
 interface IProps {
     isScreenSaver: boolean
@@ -16,6 +17,8 @@ interface IState {
 export class ScreenSaver extends React.Component<IProps, IState> {
 
     openTimeoutId;
+    mountTimeoutId;
+
     STYLES: IInlineStyles = {
         p: prefixer({
             id: "screen saver",
@@ -31,8 +34,8 @@ export class ScreenSaver extends React.Component<IProps, IState> {
         center: prefixer({
             position: "absolute",
             top: "50%",
-            right: "50%",
-            transform: "translate(50%, -50%)",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
         })
     };
 
@@ -42,6 +45,14 @@ export class ScreenSaver extends React.Component<IProps, IState> {
             isMounted: true,
             isShown: true
         };
+    }
+
+    componentDidMount() {
+        this.mountTimeoutId = setTimeout(() => {
+            this.setState({
+                isMounted: true
+            });
+        }, 0);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -65,7 +76,10 @@ export class ScreenSaver extends React.Component<IProps, IState> {
     handleTransitionEnd = () => {
         this.setState({
             isMounted: this.state.isShown
-        })
+        });
+        if (!this.state.isShown) {
+            setBodyStyle('position', 'static');
+        }
     };
 
     render(): JSX.Element {
@@ -81,7 +95,7 @@ export class ScreenSaver extends React.Component<IProps, IState> {
                         onTransitionEnd={this.handleTransitionEnd}
                     >
                         <div style={this.STYLES.center}>
-                            <GrowingStripeLoader/>
+                            <BoxLoader/>
                         </div>
                     </div>
                 :   null

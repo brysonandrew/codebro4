@@ -129,3 +129,5 @@ export class WideHeader extends React.Component<IProps, {}> {
         );
     }
 }
+
+export { WideHeaderItem, ITabData };

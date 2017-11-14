@@ -1,12 +1,10 @@
 import * as React from 'react';
 import { observer, inject } from 'mobx-react';
-import { WideHeader } from "./WideHeader";
-import { WideHeaderItem, ITabData } from "./WideHeaderItem";
-import { CollapseHeader } from "./CollapseHeader";
+import { WideHeader, WideHeaderItem, ITabData } from "./WideHeader";
 import { Pages } from "./Pages";
 import { prefixer, Background, Store, IInlineStyles } from '../../data';
 import { ScreenSaver, MotionScroll } from '../../widgets';
-import {ThreeBarLoader} from '../../widgets/ThreeBarLoader';
+import { BoxLoader } from '../../data/experiments/Loaders/BoxLoader';
 
 const STYLES: IInlineStyles = {
     header: {
@@ -32,8 +30,8 @@ const STYLES: IInlineStyles = {
     },
     loader: {
         position: "fixed",
-        bottom: 0,
-        right: 0
+        bottom: 20,
+        right: 20
     }
 };
 
@@ -91,7 +89,9 @@ export class Main extends React.Component<IProps, {}> {
                     ?   <div
                             style={{...STYLES.loader}}
                         >
-                            <ThreeBarLoader/>
+                            <BoxLoader
+                                size={100}
+                            />
                         </div>
                     :   null}
             </div>
@@ -101,5 +101,4 @@ export class Main extends React.Component<IProps, {}> {
 
 export { WideHeader };
 export { WideHeaderItem, ITabData };
-export { CollapseHeader };
 export { Pages };

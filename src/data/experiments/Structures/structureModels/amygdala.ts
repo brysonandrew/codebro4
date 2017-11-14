@@ -40,7 +40,6 @@ export class Amygdala {
     createScreen(i) {
         const geometry = new THREE.PlaneGeometry( SCREEN.width, SCREEN.height, 1 );
         const material = new THREE.MeshPhongMaterial( { color: 0x000000, side: THREE.DoubleSide, transparent: true } );
-        console.log(material);
         let screen = new THREE.Mesh( geometry, material );
 
         screen.rotation.order = "YXZ";

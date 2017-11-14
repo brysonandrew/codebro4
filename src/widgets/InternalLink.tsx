@@ -26,6 +26,7 @@ export class InternalLink extends React.Component<IProps, {}> {
             <Link
                 style={this.STYLES.p}
                 to={`/${this.props.path}`}
+                onClick={e => e.stopPropagation()}
             >
                 {this.props.children}
             </Link>

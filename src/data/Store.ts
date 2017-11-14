@@ -119,11 +119,6 @@ export class Store {
 
     @action
     public onCollapseMenuToggle = (isCollapseMenuOpen: boolean) => {
-        if (isCollapseMenuOpen) {
-            console.log("close");
-        } else {
-            console.log("open");
-        }
         this.isCollapseMenuOpen = isCollapseMenuOpen
     };
 
@@ -170,8 +165,6 @@ export class Store {
 
     @action
     public onLoad = (nextParams: IParams) => {
-        console.log(nextParams.activePagePath.length > 0);
-        console.log(nextParams.activePagePath);
         if (nextParams.activePagePath.length > 0) {
             this.savedParams = buildMap(nextParams);
         } else {
