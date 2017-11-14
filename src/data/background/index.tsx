@@ -107,14 +107,7 @@ export class Background extends React.Component<IProps, IState> {
 
     initAssets() {
         this.structureComponent = new Amygdala();
-
         this.initStructure();
-        // Promise.all([
-        //     loadGround(),
-        //     loadBackground()
-        // ]).then((meshes) => {
-        //     meshes.map(mesh => this.scene.add(mesh));
-        // });
     }
 
     removeByName(name) {

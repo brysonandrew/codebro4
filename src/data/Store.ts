@@ -28,6 +28,7 @@ export class Store {
     tabDimensions: Array<ITabData> = [];
     pagesLength;
     timeoutId;
+    zoomIntervalId;
     timeoutStopDelay = 50;
 
     constructor(initialState?: { store: Store }) {
@@ -39,7 +40,7 @@ export class Store {
         this.isToggleMenuMounted = false;
         this.isResizing = false;
         this.isTabsMeasured = false;
-        this.wakeUpDuration = 800;
+        this.wakeUpDuration = 0;
         this.currentIndex = 0;
         this.hoverMenuIndex = -1;
         this.projectOffsetList = [];
@@ -47,7 +48,7 @@ export class Store {
         this.pagesLength = MAIN_PAGES.length;
         this.width = 0;
         this.height = 0;
-        this.docScroll = 0;
+        this.docScroll = -5000;
         this.savedParams = buildMap({
             activePagePath: "",
             activeViewPath: ""
@@ -173,6 +174,13 @@ export class Store {
             });
             browserHistory.push('/intro');
         }
+        this.zoomIntervalId = setInterval(() => {
+            if (this.docScroll < 0) {
+                this.docScroll += 200;
+            } else {
+                clearInterval(this.zoomIntervalId);
+            }
+        }, 100);
         this.onMeasureViewport(window.innerWidth, window.innerHeight);
         this.onAnimationStart();
         this.onMainMount(true);
