@@ -43,16 +43,31 @@ export class WideHeader extends React.Component<IProps, {}> {
         })
     };
 
+    pagesLength = this.props.store.pagesLength;
+
     private lineStyle = () => ({
         ...this.STYLES.line,
         ...this.fullLineDimensions("left")
     });
 
+    fullLineWidth() {
+        const { height, width, currentIndex, tabDimensions } = this.props.store;
+
+        if (currentIndex > -1) {
+            return (height - height / this.pagesLength)
+                + height * 0.5
+                - width / this.pagesLength * 0.5
+                + tabDimensions[currentIndex].width
+        } else {
+            return 0
+        }
+    }
+
     private fullLineDimensions = (leftProp: "left" | "xOffset") => ({
         width: leftProp === "left"
-            ? this.props.store.docScroll / this.props.store.pagesLength
-            : this.props.store.scrollHeight / this.props.store.pagesLength - this.props.store.height,
-        [leftProp]: this.props.store.width / this.props.store.pagesLength * 0.5
+            ? this.props.store.docScroll / this.pagesLength
+            : this.fullLineWidth(),
+        [leftProp]: this.props.store.width / this.pagesLength * 0.5
     });
 
     private underlineTransform = (x): string => {
