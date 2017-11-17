@@ -2,7 +2,7 @@ import * as React from 'react';
 import { colors, IInlineStyles, prefixer } from '../data';
 import { TextLogo } from '.';
 import { setBodyStyle } from '../data/helpers/set-body-style';
-import { BoxLoader } from '../data/experiments/Loaders/BoxLoader';
+import { GrowingCircleLoader } from '../data/experiments/Loaders/GrowingCircleLoader';
 
 interface IProps {
     isScreenSaver: boolean
@@ -42,7 +42,7 @@ export class ScreenSaver extends React.Component<IProps, IState> {
     public constructor(props?: any, context?: any) {
         super(props, context);
         this.state = {
-            isMounted: true,
+            isMounted: false,
             isShown: true
         };
     }
@@ -95,7 +95,9 @@ export class ScreenSaver extends React.Component<IProps, IState> {
                         onTransitionEnd={this.handleTransitionEnd}
                     >
                         <div style={this.STYLES.center}>
-                            <BoxLoader/>
+                            <GrowingCircleLoader
+                                size={400}
+                            />
                         </div>
                     </div>
                 :   null

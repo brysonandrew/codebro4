@@ -21,7 +21,10 @@ const BOX_CONFIGS = [
 
 ];
 
-export const BoxLoaderPT = () =>  <svg width="600" height="400" viewBox="0 0 600 400">
+export const BoxLoaderPT = () =>  <svg
+                                        width={SIZE} height={SIZE}
+                                        viewBox={`0 0 ${SIZE} ${SIZE}`}
+                                    >
                                     {BOX_CONFIGS.map((config, i) =>
                                         <rect
                                             x={config.x}

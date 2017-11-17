@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export const TextLoader = () => <svg width="960" height="160" viewBox="0 0 96 16">
+export const TextLoader = () => <svg width="96" height="16" viewBox="0 0 96 16">
         <g id="Canvas" transform="translate(1117 2156)">
             <g>
                 <g id="Fill 1">

@@ -1,24 +1,24 @@
 import * as React from "react";
 
 interface IProps {
-    size?: number
+    size: number
 }
 
-const BASE_SIZE = 300;
+const BASE_SIZE = 100;
 
-const BOX_CONFIGS = [
+const BOX_CONFIGS = (size: number) => [
     // First row
-    { x: 0,   y: 0,   color: "#000000" },
-    { x: 0,   y: 100, color: "#000000" },
-    { x: 0,   y: 200, color: "#000000" },
+    { x: 0,   y: 0,         color: "#000000" },
+    { x: 0,   y: size,      color: "#000000" },
+    { x: 0,   y: size * 2,  color: "#000000" },
     // Second row
-    { x: 100, y: 0,   color: "#000000" },
-    { x: 100, y: 100, color: "#000000" },
-    { x: 100, y: 200, color: "#000000" },
+    { x: size, y: 0,        color: "#000000" },
+    { x: size, y: 100,      color: "#000000" },
+    { x: size, y: size * 2, color: "#000000" },
     // Third row
-    { x: 200, y: 0,   color: "#000000" },
-    { x: 200, y: 100, color: "#000000" },
-    { x: 200, y: 200, color: "#000000" },
+    { x: size * 2, y: 0,        color: "#000000" },
+    { x: size * 2, y: size,     color: "#000000" },
+    { x: size * 2, y: size * 2, color: "#000000" },
 ];
 
 export const BoxLoader = (props: IProps) =>
@@ -26,7 +26,7 @@ export const BoxLoader = (props: IProps) =>
                                     width={props.size || BASE_SIZE} height={props.size || BASE_SIZE}
                                     viewBox={`0 0 ${props.size || BASE_SIZE} ${props.size || BASE_SIZE}`}
                                 >
-                                    {BOX_CONFIGS.map((config, i) =>
+                                    {BOX_CONFIGS(props.size / 3).map((config, i) =>
                                         <rect
                                             key={`rect-${i}`}
                                             x={props.size ? config.x * props.size / BASE_SIZE : config.x}

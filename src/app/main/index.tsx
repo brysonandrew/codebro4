@@ -4,7 +4,7 @@ import { WideHeader, WideHeaderItem, ITabData } from "./WideHeader";
 import { Pages } from "./Pages";
 import { prefixer, Background, Store, IInlineStyles } from '../../data';
 import { ScreenSaver, MotionScroll } from '../../widgets';
-import { BoxLoader } from '../../data/experiments/Loaders/BoxLoader';
+import { GrowingCircleLoader } from '../../data/experiments/Loaders';
 
 const STYLES: IInlineStyles = {
     header: {
@@ -89,8 +89,8 @@ export class Main extends React.Component<IProps, {}> {
                     ?   <div
                             style={{...STYLES.loader}}
                         >
-                            <BoxLoader
-                                size={100}
+                            <GrowingCircleLoader
+                                size={40}
                             />
                         </div>
                     :   null}
