@@ -41,7 +41,7 @@ export class Store {
         this.isResizing = false;
         this.isTabsMeasured = false;
         this.wakeUpDuration = 0;
-        this.currentIndex = 0;
+        this.currentIndex = -1;
         this.hoverMenuIndex = -1;
         this.projectOffsetList = [];
         this.projectOffsets = {};
@@ -170,9 +170,9 @@ export class Store {
             this.savedParams = buildMap(nextParams);
         } else {
             this.savedParams = buildMap({
-                activePagePath: 'intro'
+                activePagePath: ''
             });
-            browserHistory.push('/intro');
+            browserHistory.push('/');
         }
         this.zoomIntervalId = setInterval(() => {
             if (this.docScroll < 0) {
@@ -196,7 +196,7 @@ export class Store {
             this.isCollapseMenuOpen = false;
             this.isToggleMenuMounted = false;
             this.isResizing = false;
-            this.currentIndex = 0;
+            this.currentIndex = 10;
             this.projectOffsetList = [];
             this.projectOffsets = {};
             this.pagesLength = MAIN_PAGES.length;

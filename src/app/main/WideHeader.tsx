@@ -45,8 +45,14 @@ export class WideHeader extends React.Component<IProps, {}> {
 
     private lineStyle = () => ({
         ...this.STYLES.line,
-        width: this.props.store.docScroll / this.props.store.pagesLength,
-        left: this.props.store.width / this.props.store.pagesLength * 0.5
+        ...this.fullLineDimensions("left")
+    });
+
+    private fullLineDimensions = (leftProp: "left" | "xOffset") => ({
+        width: leftProp === "left"
+            ? this.props.store.docScroll / this.props.store.pagesLength
+            : this.props.store.scrollHeight / this.props.store.pagesLength - this.props.store.height,
+        [leftProp]: this.props.store.width / this.props.store.pagesLength * 0.5
     });
 
     private underlineTransform = (x): string => {
@@ -57,12 +63,9 @@ export class WideHeader extends React.Component<IProps, {}> {
 
     private underlineStyle = (isDefault: boolean): ITabData => {
         const { tabDimensions, currentIndex, hoverMenuIndex } = this.props.store;
-
-        if (isDefault) {
-            return ({
-                width: tabDimensions[currentIndex].width,
-                xOffset: tabDimensions[currentIndex].xOffset
-            })
+        // hoverMenuIndex === 0 is intro page
+        if (isDefault || currentIndex === -1) {
+            return this.fullLineDimensions("xOffset")
         } else {
             return ({
                 width: spring(hoverMenuIndex > -1
@@ -91,6 +94,7 @@ export class WideHeader extends React.Component<IProps, {}> {
     };
 
     render(): JSX.Element {
+        console.log(this.underlineStyle(false));
 
         return (
             <div style={this.STYLES.p}>

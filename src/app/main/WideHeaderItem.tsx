@@ -9,7 +9,7 @@ const TRANSITION_DURATION = 200;
 
 export interface ITabData {
     width: number
-    xOffset: number
+    xOffset?: number
 }
 
 interface IProps {
