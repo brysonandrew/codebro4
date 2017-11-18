@@ -7,6 +7,7 @@ import { MAIN_PAGES } from './pages';
 export class Store {
     isWideHeaderItemMounted: boolean;
     @observable isIntroMounted: boolean;
+    @observable isIntroEnded: boolean;
     @observable isAnimating: boolean;
     @observable isAwake: boolean;
     @observable isMobile: boolean;
@@ -33,6 +34,7 @@ export class Store {
 
     constructor(initialState?: { store: Store }) {
         this.isIntroMounted = false;
+        this.isIntroEnded = false;
         this.isWideHeaderItemMounted = false;
         this.isAnimating = false;
         this.isAwake = false;
@@ -160,6 +162,11 @@ export class Store {
     };
 
     @action
+    public onIntroEnd = (isEnded: boolean) => {
+        this.isIntroEnded = isEnded;
+    };
+
+    @action
     public onWideHeaderItemMount = (isMounted: boolean) => {
         this.isWideHeaderItemMounted = isMounted;
     };
@@ -189,6 +196,7 @@ export class Store {
     public reset = () => {
         setTimeout(() => {
             this.isIntroMounted = false;
+            this.isIntroEnded = false;
             this.isWideHeaderItemMounted = false;
             this.isAnimating = false;
             this.isAwake = false;

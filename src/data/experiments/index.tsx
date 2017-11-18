@@ -86,3 +86,4 @@ export const EXPERIMENTS_PATHS: string[] = EXPERIMENTS.map(experiment => experim
 export const EXPERIMENTS_DICT: IDictionary<IPage> = arrayToDictionary(EXPERIMENTS, "path");
 
 export { Particles, PARTICLES, PARTICLES_DICT, Amygdala, MascotControls, VERTICAL_CYLINDER, NUMBER_OF_ARMS, ARM, SCREEN };
+export { GrowingCircleLoader } from "./Loaders";

@@ -44,7 +44,7 @@ export class Home extends React.Component<IProps, {}> {
         window.scroll(0, 0);
         window.addEventListener("scroll", onScroll);
         window.addEventListener("resize", () => onMeasureViewport(window.innerWidth, window.innerHeight));
-        listeners(this.parentRef, "addEventListener", "interaction", () => wakeUp(this));
+        listeners(this.parentRef, "addEventListener", "interaction", this.handleInteraction);
     }
 
     componentWillUnmount() {
@@ -53,8 +53,14 @@ export class Home extends React.Component<IProps, {}> {
         clearTimeout(this.idleTimeoutId);
         window.removeEventListener("scroll", onScroll);
         window.removeEventListener("resize", () => onMeasureViewport(window.innerWidth, window.innerHeight));
-        listeners(this.parentRef, "removeEventListener", "interaction", () => wakeUp(this));
+        listeners(this.parentRef, "removeEventListener", "interaction", this.handleInteraction);
     }
+
+    private handleInteraction = () => {
+        if (this.props.store.isIntroEnded) {
+            wakeUp(this);
+        }
+    };
 
     private renderHome = () => {
         const activePage = this.props.store.savedParams.get("activePagePath");

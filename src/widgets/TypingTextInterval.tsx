@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as Immutable from 'immutable';
 import { observer } from 'mobx-react';
 import { interval } from '../data';
+const TYPING_SPEED = 60;
 
 interface IProps {
     textContent: string
@@ -27,7 +28,7 @@ export class TypingTextInterval extends React.Component<IProps, IState> {
     componentDidMount() {
         let textArray: string[] = this.props.textContent.split("");
         let count = 0;
-        interval(100, this.props.textContent.length, () => {
+        interval(TYPING_SPEED, this.props.textContent.length, () => {
             this.setState({
                 textShown: Immutable.List(this.state.textShown).push(textArray[count]).toArray()
             });

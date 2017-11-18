@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { observer, inject } from 'mobx-react';
-import { colors, IInlineStyles, prefixer } from '../data';
-import { TextLogo } from '.';
-import { setBodyStyle, Store } from '../data';
-import { TypingTextInterval } from './TypingTextInterval';
-import {GrowingCircleLoader} from '../data/experiments/Loaders/GrowingCircleLoader';
+import { colors, IInlineStyles, prefixer, setBodyStyle, Store, GrowingCircleLoader } from '../data';
+import { TextLogo, TypingTextInterval } from '.';
 const ANIMATION_DELAY = 2000;
 const FONT_SIZE = 24;
 
@@ -16,7 +13,6 @@ interface IProps {
 interface IState {
     isMounted: boolean
     isShown: boolean
-    isTypingTextEnd: boolean
 }
 
 @inject('store')
@@ -51,8 +47,7 @@ export class ScreenSaver extends React.Component<IProps, IState> {
         super(props, context);
         this.state = {
             isMounted: true,
-            isShown: true,
-            isTypingTextEnd: false
+            isShown: true
         };
     }
 
@@ -89,15 +84,9 @@ export class ScreenSaver extends React.Component<IProps, IState> {
         }
     };
 
-    handleTypeTextEnd = () => {
-        this.setState({
-            isTypingTextEnd: true
-        })
-    };
-
     render(): JSX.Element {
-        const { isMounted, isShown, isTypingTextEnd } = this.state;
-        const { isIntroMounted } = this.props.store;
+        const { isMounted, isShown } = this.state;
+        const { isIntroMounted, isIntroEnded } = this.props.store;
 
         return (
             isMounted
@@ -112,10 +101,10 @@ export class ScreenSaver extends React.Component<IProps, IState> {
                             {isIntroMounted
                                 ?   <TypingTextInterval
                                         textContent="Hi, my name is Andrew and I make websites"
-                                        onAnimationEnd={this.handleTypeTextEnd}
+                                        onAnimationEnd={() => this.props.store.onIntroEnd(true)}
                                     />
                                 :   null}
-                            {isTypingTextEnd
+                            {isIntroEnded
                                 ?   <GrowingCircleLoader size={FONT_SIZE * 2}/>
                                 :   null}
                         </div>
