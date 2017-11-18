@@ -183,7 +183,6 @@ export class Store {
         }, 100);
         this.onMeasureViewport(window.innerWidth, window.innerHeight);
         this.onAnimationStart();
-        this.onMainMount(true);
     };
 
     @action

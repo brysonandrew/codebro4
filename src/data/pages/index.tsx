@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Intro } from './Intro';
 import { Video } from './Video';
 import { Experiments } from './Experiments';
 import { MyWork } from './MyWork';
@@ -33,7 +32,6 @@ export const MAIN_PAGES: IPage[] = [
 export const MAIN_PAGES_PATHS: string[] = MAIN_PAGES.map(experiment => experiment.path);
 export const MAIN_PAGES_DICT: IDictionary<IPage> = arrayToDictionary(MAIN_PAGES, "path");
 
-export { Intro };
 export { Video };
 export { Experiments };
 export { MyWork };

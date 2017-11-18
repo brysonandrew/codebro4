@@ -1,12 +1,15 @@
 import * as React from 'react';
+import { observer, inject } from 'mobx-react';
 import { colors, IInlineStyles, prefixer } from '../data';
 import { TextLogo } from '.';
-import { setBodyStyle } from '../data/helpers/set-body-style';
-import { GrowingCircleLoader } from '../data/experiments/Loaders/GrowingCircleLoader';
+import { setBodyStyle, Store } from '../data';
+import { GrowingCircleLoader } from '../data/experiments/Loaders';
+import { TypingTextInterval } from './TypingTextInterval';
+const ANIMATION_DELAY = 2000;
 
 interface IProps {
     isScreenSaver: boolean
-    wakeUpDuration: number
+    store?: Store
 }
 
 interface IState {
@@ -14,6 +17,8 @@ interface IState {
     isShown: boolean
 }
 
+@inject('store')
+@observer
 export class ScreenSaver extends React.Component<IProps, IState> {
 
     openTimeoutId;
@@ -42,16 +47,14 @@ export class ScreenSaver extends React.Component<IProps, IState> {
     public constructor(props?: any, context?: any) {
         super(props, context);
         this.state = {
-            isMounted: false,
+            isMounted: true,
             isShown: true
         };
     }
 
     componentDidMount() {
         this.mountTimeoutId = setTimeout(() => {
-            this.setState({
-                isMounted: true
-            });
+            setTimeout(() => this.props.store.onIntroMount(true), (this.props.store.wakeUpDuration + ANIMATION_DELAY) / 2);
         }, 0);
     }
 
@@ -65,7 +68,7 @@ export class ScreenSaver extends React.Component<IProps, IState> {
                     this.setState({
                         isShown: nextProps.isScreenSaver
                     }
-                ), nextProps.isScreenSaver ? 400 : this.props.wakeUpDuration);
+                ), nextProps.isScreenSaver ? 400 : this.props.store.wakeUpDuration);
         }
     }
 
@@ -84,6 +87,7 @@ export class ScreenSaver extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         const { isMounted, isShown } = this.state;
+        const { isIntroMounted, wakeUpDuration } = this.props.store;
 
         return (
             isMounted
@@ -95,6 +99,11 @@ export class ScreenSaver extends React.Component<IProps, IState> {
                         onTransitionEnd={this.handleTransitionEnd}
                     >
                         <div style={this.STYLES.center}>
+                            {isIntroMounted
+                                ?   <TypingTextInterval
+                                    textContent="Hi, my name is Andrew and I make websites."
+                                />
+                                :   null}
                             <GrowingCircleLoader
                                 size={400}
                             />

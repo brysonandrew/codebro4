@@ -109,8 +109,6 @@ export class WideHeader extends React.Component<IProps, {}> {
     };
 
     render(): JSX.Element {
-        console.log(this.underlineStyle(false));
-
         return (
             <div style={this.STYLES.p}>
                 {!this.props.store.isResizing

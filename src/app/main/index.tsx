@@ -45,13 +45,10 @@ export class Main extends React.Component<IProps, {}> {
 
     backgroundRef;
 
-    componentDidMount() {
-        this.props.store.onMainMount(true);
-    }
-
     render(): JSX.Element {
         const { width, height, docScroll, isMainMounted, projectOffsets, isAnimating, savedParams
             , onAnimationEnd, isResizing } = this.props.store;
+        console.log(isMainMounted);
 
         return (
             <div>
@@ -75,7 +72,6 @@ export class Main extends React.Component<IProps, {}> {
                 <Pages/>
                 <ScreenSaver
                     isScreenSaver={!isMainMounted}
-                    wakeUpDuration={this.props.store.wakeUpDuration}
                 />
                 {!!projectOffsets
                     ?   <MotionScroll
@@ -86,9 +82,7 @@ export class Main extends React.Component<IProps, {}> {
                         />
                     :   null}
                 {isAnimating
-                    ?   <div
-                            style={{...STYLES.loader}}
-                        >
+                    ?   <div style={{...STYLES.loader}}>
                             <GrowingCircleLoader
                                 size={40}
                             />
