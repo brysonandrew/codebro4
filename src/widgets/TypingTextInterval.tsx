@@ -5,6 +5,7 @@ import { interval } from '../data';
 
 interface IProps {
     textContent: string
+    onAnimationEnd?: () => void
 }
 
 interface IState {
@@ -31,7 +32,7 @@ export class TypingTextInterval extends React.Component<IProps, IState> {
                 textShown: Immutable.List(this.state.textShown).push(textArray[count]).toArray()
             });
             count++;
-        }, (intervalId => (this.intervalId = intervalId)));
+        }, (intervalId => (this.intervalId = intervalId)), this.props.onAnimationEnd);
     }
 
     componentWillUnmount() {

@@ -1,16 +1,16 @@
 const TIME_UNTIL_IDLE = 30000; // 300000ms = 5 minutes
-let isIdle = false;
+let isAsleep = true;
 
-export const resetIdle = (that) => {
-    if (isIdle) {
+export const wakeUp = (that) => {
+    if (isAsleep) {
         // wake up!
-        that.props.store.onMainMount(true);
+        that.props.store.onAwake(true);
     }
-    isIdle = false;
+    isAsleep = false;
     clearTimeout(that.idleTimeoutId);
     that.idleTimeoutId = setTimeout(() => {
         // go to sleep...
-        isIdle = true;
-        that.props.store.onMainMount(false);
+        isAsleep = true;
+        that.props.store.onAwake(false);
     }, TIME_UNTIL_IDLE);
 };

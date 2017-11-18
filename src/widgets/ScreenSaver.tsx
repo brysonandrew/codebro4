@@ -3,9 +3,10 @@ import { observer, inject } from 'mobx-react';
 import { colors, IInlineStyles, prefixer } from '../data';
 import { TextLogo } from '.';
 import { setBodyStyle, Store } from '../data';
-import { GrowingCircleLoader } from '../data/experiments/Loaders';
 import { TypingTextInterval } from './TypingTextInterval';
+import {GrowingCircleLoader} from '../data/experiments/Loaders/GrowingCircleLoader';
 const ANIMATION_DELAY = 2000;
+const FONT_SIZE = 24;
 
 interface IProps {
     isScreenSaver: boolean
@@ -15,6 +16,7 @@ interface IProps {
 interface IState {
     isMounted: boolean
     isShown: boolean
+    isTypingTextEnd: boolean
 }
 
 @inject('store')
@@ -40,6 +42,7 @@ export class ScreenSaver extends React.Component<IProps, IState> {
             position: "absolute",
             top: "50%",
             left: "50%",
+            fontSize: FONT_SIZE,
             transform: "translate(-50%, -50%)",
         })
     };
@@ -48,7 +51,8 @@ export class ScreenSaver extends React.Component<IProps, IState> {
         super(props, context);
         this.state = {
             isMounted: true,
-            isShown: true
+            isShown: true,
+            isTypingTextEnd: false
         };
     }
 
@@ -85,9 +89,15 @@ export class ScreenSaver extends React.Component<IProps, IState> {
         }
     };
 
+    handleTypeTextEnd = () => {
+        this.setState({
+            isTypingTextEnd: true
+        })
+    };
+
     render(): JSX.Element {
-        const { isMounted, isShown } = this.state;
-        const { isIntroMounted, wakeUpDuration } = this.props.store;
+        const { isMounted, isShown, isTypingTextEnd } = this.state;
+        const { isIntroMounted } = this.props.store;
 
         return (
             isMounted
@@ -98,15 +108,16 @@ export class ScreenSaver extends React.Component<IProps, IState> {
                         }}
                         onTransitionEnd={this.handleTransitionEnd}
                     >
-                        <div style={this.STYLES.center}>
+                        <div style={{...this.STYLES.center, lineHeight: FONT_SIZE * 2}}>
                             {isIntroMounted
                                 ?   <TypingTextInterval
-                                    textContent="Hi, my name is Andrew and I make websites."
-                                />
+                                        textContent="Hi, my name is Andrew and I make websites"
+                                        onAnimationEnd={this.handleTypeTextEnd}
+                                    />
                                 :   null}
-                            <GrowingCircleLoader
-                                size={400}
-                            />
+                            {isTypingTextEnd
+                                ?   <GrowingCircleLoader size={FONT_SIZE * 2}/>
+                                :   null}
                         </div>
                     </div>
                 :   null

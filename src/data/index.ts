@@ -1,5 +1,5 @@
 export { breakPoints, breakPointTests, buildMap, IEVersion, linearize, interval, scrollTopMax, toParams
-    , toPath, listeners, resetIdle, setBodyStyle, setHtmlStyle, isGL, prefixer
+    , toPath, listeners, wakeUp, setBodyStyle, setHtmlStyle, isGL, prefixer
     , createArrayOf, PageMaker, arrayToDictionary  } from "./helpers";
 export { Video, MyWork, TeamWork, Contact, Experiments, MAIN_PAGES } from "./pages";
 export { EXPERIMENTS, EXPERIMENTS_DICT, EXPERIMENTS_PATHS, Particles, PARTICLES, PARTICLES_DICT } from "./experiments";

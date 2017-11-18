@@ -8,7 +8,7 @@ export class Store {
     isWideHeaderItemMounted: boolean;
     @observable isIntroMounted: boolean;
     @observable isAnimating: boolean;
-    @observable isMainMounted: boolean;
+    @observable isAwake: boolean;
     @observable isMobile: boolean;
     @observable isTablet: boolean;
     @observable isLaptop: boolean;
@@ -35,7 +35,7 @@ export class Store {
         this.isIntroMounted = false;
         this.isWideHeaderItemMounted = false;
         this.isAnimating = false;
-        this.isMainMounted = false;
+        this.isAwake = false;
         this.isCollapseMenuOpen = false;
         this.isToggleMenuMounted = false;
         this.isResizing = false;
@@ -148,9 +148,9 @@ export class Store {
     };
 
     @action
-    public onMainMount = (isMounted: boolean) => {
-        setBodyStyle('position', isMounted ? 'static' : 'fixed');
-        this.isMainMounted = isMounted;
+    public onAwake = (isAwake: boolean) => {
+        setBodyStyle('position', isAwake ? 'static' : 'fixed');
+        this.isAwake = isAwake;
         this.wakeUpDuration = 400;
     };
 
@@ -191,7 +191,7 @@ export class Store {
             this.isIntroMounted = false;
             this.isWideHeaderItemMounted = false;
             this.isAnimating = false;
-            this.isMainMounted = false;
+            this.isAwake = false;
             this.isCollapseMenuOpen = false;
             this.isToggleMenuMounted = false;
             this.isResizing = false;

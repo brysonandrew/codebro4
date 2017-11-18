@@ -5,10 +5,15 @@ interface IProps {
     size: number
 }
 
+const STYLES = {
+    verticalAlign: "middle"
+};
+
 export const GrowingCircleLoader = (props: IProps) =>
                                 <svg
                                     width={props.size} height={props.size}
                                     viewBox={`0 0 ${props.size} ${props.size}`}
+                                    style={STYLES}
                                 >
                                     <circle
                                         cx={props.size * 0.5}

@@ -6,7 +6,7 @@ export { scrollTopMax} from "./scroll-top-max";
 export { prefixer } from "./prefixer";
 export { toParams, toPath } from "./route-utils";
 export { listeners } from "./listeners";
-export { resetIdle } from "./reset-idle";
+export { wakeUp } from "./wake-up";
 export { setBodyStyle, setHtmlStyle } from "./set-body-style";
 export { isGL } from "./is-gl";
 export { createArrayOf, arrayToDictionary } from "./array-utils";
