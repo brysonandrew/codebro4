@@ -44,7 +44,7 @@ export class Home extends React.Component<IProps, {}> {
         window.scroll(0, 0);
         window.addEventListener("scroll", onScroll);
         window.addEventListener("resize", () => onMeasureViewport(window.innerWidth, window.innerHeight));
-        listeners(this.parentRef, "addEventListener", "interaction", this.handleInteraction);
+        listeners(window, "addEventListener", "interaction", this.handleInteraction);
     }
 
     componentWillUnmount() {

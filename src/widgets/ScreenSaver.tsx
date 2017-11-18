@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { observer, inject } from 'mobx-react';
 import { colors, IInlineStyles, prefixer, setBodyStyle, Store, GrowingCircleLoader } from '../data';
-import { TextLogo, TypingTextInterval } from '.';
+import { TypingTextInterval, TYPING_SPEED } from './TypingTextInterval';
+
 const ANIMATION_DELAY = 2000;
 const FONT_SIZE = 24;
+const TEXT_CONTENT = "Hi, my name is Andrew and I make websites ";
 
 interface IProps {
     isScreenSaver: boolean
@@ -40,7 +42,11 @@ export class ScreenSaver extends React.Component<IProps, IState> {
             left: "50%",
             fontSize: FONT_SIZE,
             transform: "translate(-50%, -50%)",
-        })
+        }),
+        loader: {
+            display: "inline-block",
+            transition: `transform ${TEXT_CONTENT.length * TYPING_SPEED}ms`
+        }
     };
 
     public constructor(props?: any, context?: any) {
@@ -100,13 +106,13 @@ export class ScreenSaver extends React.Component<IProps, IState> {
                         <div style={{...this.STYLES.center, lineHeight: FONT_SIZE * 2}}>
                             {isIntroMounted
                                 ?   <TypingTextInterval
-                                        textContent="Hi, my name is Andrew and I make websites"
+                                        textContent={TEXT_CONTENT}
                                         onAnimationEnd={() => this.props.store.onIntroEnd(true)}
                                     />
                                 :   null}
-                            {isIntroEnded
-                                ?   <GrowingCircleLoader size={FONT_SIZE * 2}/>
-                                :   null}
+                            <div style={{...this.STYLES.loader, transform: `scale(${isIntroMounted ? 1 : 0})`}}>
+                                <GrowingCircleLoader size={FONT_SIZE * 2}/>
+                            </div>
                         </div>
                     </div>
                 :   null

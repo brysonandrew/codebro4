@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as Immutable from 'immutable';
 import { observer } from 'mobx-react';
 import { interval } from '../data';
-const TYPING_SPEED = 60;
+export const TYPING_SPEED = 60;
 
 interface IProps {
     textContent: string
@@ -17,6 +17,16 @@ interface IState {
 export class TypingTextInterval extends React.Component<IProps, IState> {
 
     intervalId;
+
+    STYLES = {
+        p: {
+            display: "inline-block"
+        },
+        letter: {
+            display: "inline-block",
+            transition: `opacity ${TYPING_SPEED * 5}ms, transform ${TYPING_SPEED * 5}ms`
+        }
+    };
 
     public constructor(props?: any, context?: any) {
         super(props, context);
@@ -40,13 +50,28 @@ export class TypingTextInterval extends React.Component<IProps, IState> {
         clearInterval(this.intervalId);
     }
 
+    transformStyle = (i: number): string => `rotate(${i === this.state.textShown.length - 1 ? 90 : 0}deg)`;
+
+    opacityStyle = (i: number): number =>
+        i === this.state.textShown.length - 1
+            ? 0
+            : 1;
+
     render(): JSX.Element {
-        return  <span>
+        return  <div style={this.STYLES.p}>
                     {this.state.textShown.map((letter, i) =>
-                        <span key={`letter-${i}`}>
+                        <div
+                            key={`letter-${i}`}
+                            style={{
+                                ...this.STYLES.letter,
+                                transform: this.transformStyle(i),
+                                opacity: this.opacityStyle(i),
+                                width: letter === " " ? 12 : "auto"
+                            }}
+                        >
                             {letter}
-                        </span>)}
-                </span>
+                        </div>)}
+                </div>
 
     }
 }

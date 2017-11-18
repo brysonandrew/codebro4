@@ -154,6 +154,7 @@ export class Store {
         setBodyStyle('position', isAwake ? 'static' : 'fixed');
         this.isAwake = isAwake;
         this.wakeUpDuration = 400;
+        this.incrementDocScroll();
     };
 
     @action
@@ -181,6 +182,12 @@ export class Store {
             });
             browserHistory.push('/');
         }
+        this.onMeasureViewport(window.innerWidth, window.innerHeight);
+        this.onAnimationStart();
+    };
+
+    @action
+    public incrementDocScroll = () => {
         this.zoomIntervalId = setInterval(() => {
             if (this.docScroll < 0) {
                 this.docScroll += 200;
@@ -188,8 +195,6 @@ export class Store {
                 clearInterval(this.zoomIntervalId);
             }
         }, 100);
-        this.onMeasureViewport(window.innerWidth, window.innerHeight);
-        this.onAnimationStart();
     };
 
     @action
