@@ -56,8 +56,8 @@ export class Home extends React.Component<IProps, {}> {
         listeners(this.parentRef, "removeEventListener", "interaction", this.handleInteraction);
     }
 
-    private handleInteraction = () => {
-        if (this.props.store.isIntroEnded) {
+    private handleInteraction = (e) => {
+        if (this.props.store.isIntroEnded || e.type === "click") {
             wakeUp(this);
         }
     };

@@ -2,7 +2,7 @@ import {observable, action, computed} from 'mobx';
 import { browserHistory } from 'react-router';
 import { IParams, buildMap, breakPointTests, IDictionary, setBodyStyle, toParams } from '.';
 import { ITabData } from '../app/main';
-import { MAIN_PAGES } from './pages';
+import { MAIN_PAGES, MAIN_PAGES_PATHS } from './pages';
 
 export class Store {
     isWideHeaderItemMounted: boolean;
@@ -66,7 +66,7 @@ export class Store {
         this.docScroll = (!!document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
         clearTimeout(this.timeoutId);
         this.timeoutId = setTimeout(() => {
-            if (!this.isAnimating) {
+            if (!this.isAnimating && MAIN_PAGES_PATHS.indexOf(this.savedParams.get('activePagePath')) > -1) {
                 this.changeProjectPathOnScroll();
             }
         }, this.timeoutStopDelay);

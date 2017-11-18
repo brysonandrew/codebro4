@@ -7,11 +7,12 @@ import { GrowingCircleLoader } from './GrowingCircleLoader';
 
 export const loaders = [
     <ThreeBarLoader/>,
-    <TextLoader/>,
     <BoxLoader
         size={100}
     />,
-    <BoxLoaderPT/>,
+    <BoxLoaderPT
+        size={100}
+    />,
     <GrowingCircleLoader
         size={50}
     />

@@ -13,7 +13,7 @@ const BOX_CONFIGS = (size: number) => [
     { x: 0,   y: size * 2,  color: "#000000" },
     // Second row
     { x: size, y: 0,        color: "#000000" },
-    { x: size, y: 100,      color: "#000000" },
+    { x: size, y: size,      color: "#000000" },
     { x: size, y: size * 2, color: "#000000" },
     // Third row
     { x: size * 2, y: 0,        color: "#000000" },
