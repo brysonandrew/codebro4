@@ -84,7 +84,7 @@ export class Background extends React.Component<IProps, IState> {
             8000
         );
         this.camera.rotation.x = Math.PI * 0.1;
-        this.camera.position.y = this.height() * 0.015;
+        this.camera.position.y = this.height() * 0.0025;
     }
 
     initScene() {

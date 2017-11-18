@@ -43,7 +43,7 @@ export class Store {
         this.isResizing = false;
         this.isTabsMeasured = false;
         this.wakeUpDuration = 0;
-        this.currentIndex = -1;
+        this.currentIndex = 0;
         this.hoverMenuIndex = -1;
         this.projectOffsetList = [];
         this.projectOffsets = {};

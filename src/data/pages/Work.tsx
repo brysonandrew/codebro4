@@ -5,21 +5,28 @@ import { UnderlineSwitch, ExternalLink } from '../../widgets';
 
 const MY_WORK: IWork[] = [
     {
-        name: "porizi.com",
-        link: "http://www.porizi.com/"
-    },
-    {
-        name: "co-workz.de",
-        link: "https://cb-coworking.herokuapp.com/"
-    },
-    {
         name: "gulumjan-consulting.de",
         link: "http://www.gulumjan-consulting.de/home/de"
     }
 ];
 
+const TEAM_WORK: IWork[] = [
+    {
+        name: "phonetradr.com",
+        link: "https://www.phonetradr.com/"
+    },
+    {
+        name: "eventerprise.com",
+        link: "https://www.eventerprise.com/"
+    },
+    {
+        name: "urbancircus.com.au",
+        link: "http://urbancircus.com.au/"
+    }
+];
+
 @observer
-export class MyWork extends React.Component<{}, {}> {
+export class Work extends React.Component<{}, {}> {
 
     STYLES: IInlineStyles = {
         work: prefixer({
@@ -35,7 +42,7 @@ export class MyWork extends React.Component<{}, {}> {
     render(): JSX.Element {
         return (
             <div style={this.STYLES.work}>
-                {MY_WORK.map((work) =>
+                {MY_WORK.concat(TEAM_WORK).map((work) =>
                     <UnderlineSwitch
                         key={work.name}
                     >
@@ -44,7 +51,8 @@ export class MyWork extends React.Component<{}, {}> {
                         >
                             {work.name}
                         </ExternalLink>
-                    </UnderlineSwitch>)}
+                    </UnderlineSwitch>
+                )}
             </div>
         );
     }
