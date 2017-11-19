@@ -7,15 +7,15 @@ import { IPage, PageMaker, IDictionary, arrayToDictionary } from '..';
 
 export const MAIN_PAGES: IPage[] = [
     new PageMaker(
-        "Work",
+        "Selected Work",
         <Work/>
     ),
     new PageMaker(
-        "Experiments",
+        "codebro Labs",
         <Experiments/>
     ),
     new PageMaker(
-        "Video",
+        "codebro Tuts",
         <Video/>
     ),
     new PageMaker(

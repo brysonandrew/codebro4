@@ -2,8 +2,10 @@ import * as React from 'react';
 import { browserHistory } from 'react-router';
 import { Motion, spring } from 'react-motion';
 import { observer, inject } from 'mobx-react';
-import { IInlineStyles, colors, prefixer, Store, IEVersion, MAIN_PAGES } from '../../data';
+import { IInlineStyles, colors, prefixer, Store, IEVersion, MAIN_PAGES, breakPointTests } from '../../data';
 import { ITabData, WideHeaderItem } from './WideHeaderItem';
+import { TypingTextInterval } from '../../widgets';
+import {TypingTextSVG} from '../../data/experiments/TextExperiments/TypingTextSVG';
 
 interface IProps {
     store?: Store
@@ -40,7 +42,10 @@ export class WideHeader extends React.Component<IProps, {}> {
             height: 1,
             background: colors.wht,
             transformOrigin: "50% 50%"
-        })
+        }),
+        pageName: {
+            paddingLeft: 32
+        }
     };
 
     pagesLength = this.props.store.pagesLength;
@@ -109,9 +114,11 @@ export class WideHeader extends React.Component<IProps, {}> {
     };
 
     render(): JSX.Element {
+        const { isResizing, isTabsMeasured, width, currentIndex, isAnimating } = this.props.store;
+
         return (
             <div style={this.STYLES.p}>
-                {!this.props.store.isResizing
+                {!isResizing
                     ?   MAIN_PAGES.map((page, i) =>
                             <div
                                 key={`page-${i}`}
@@ -127,7 +134,7 @@ export class WideHeader extends React.Component<IProps, {}> {
                             </div>)
                     :   null}
                 <div style={this.lineStyle()}/>
-                {this.props.store.isTabsMeasured
+                {isTabsMeasured
                     ?   <Motion
                             defaultStyle={this.underlineStyle(true)}
                             style={this.underlineStyle(false)}
@@ -142,6 +149,20 @@ export class WideHeader extends React.Component<IProps, {}> {
                                 />}
                         </Motion>
                     :   null}
+                {breakPointTests.isTablet(width) && !isAnimating
+                    ?   <div style={this.STYLES.pageName}>
+                            <TypingTextSVG
+                                animationConfig={{
+                                    dur: "2000ms",
+                                    begin: "0",
+                                    repeatCount: "1"
+                                }}
+                                width={280}
+                                height={40}
+                                textContent={MAIN_PAGES[currentIndex].name}
+                            />
+                        </div>
+                    : null}
             </div>
         );
     }

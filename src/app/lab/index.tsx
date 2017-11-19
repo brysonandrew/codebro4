@@ -47,20 +47,18 @@ export class Lab extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         return (
-            <div style={this.STYLES.p}>
-                <div style={this.STYLES.wrapper} ref={(el) => this.parentRef = el}>
-                    {this.state.isMounted
-                        ?  React.cloneElement(
-                                EXPERIMENTS_DICT[this.props.activePage].component,
-                                {
-                                    parentEl: this.parentRef,
-                                    width: this.props.store.width,
-                                    height: this.props.store.height,
-                                    savedParams: this.props.store.savedParams
-                                }
-                            )
-                        :   null}
-                </div>
+            <div style={this.STYLES.p} ref={(el) => this.parentRef = el}>
+                {this.state.isMounted
+                    ?  React.cloneElement(
+                        EXPERIMENTS_DICT[this.props.activePage].component,
+                        {
+                            parentEl: this.parentRef,
+                            width: this.props.store.width,
+                            height: this.props.store.height,
+                            savedParams: this.props.store.savedParams
+                        }
+                    )
+                    :   null}
             </div>
         );
     }

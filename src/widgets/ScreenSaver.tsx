@@ -4,7 +4,6 @@ import { colors, IInlineStyles, prefixer, setBodyStyle, Store, GrowingCircleLoad
 import { TypingTextInterval, TYPING_SPEED } from './TypingTextInterval';
 
 const ANIMATION_DELAY = 2000;
-const FONT_SIZE = 24;
 const TEXT_CONTENT = "Hi, my name is Andrew and I make websites ";
 
 interface IProps {
@@ -40,7 +39,8 @@ export class ScreenSaver extends React.Component<IProps, IState> {
             position: "absolute",
             top: "50%",
             left: "50%",
-            fontSize: FONT_SIZE,
+            width: "100%",
+            textAlign: "center",
             transform: "translate(-50%, -50%)",
         }),
         loader: {
@@ -81,6 +81,8 @@ export class ScreenSaver extends React.Component<IProps, IState> {
         clearTimeout(this.openTimeoutId);
     }
 
+    fontSize = () => this.props.store.isMobile ? 12 : this.props.store.isTablet ? 20 : 24;
+
     handleTransitionEnd = () => {
         this.setState({
             isMounted: this.state.isShown
@@ -92,7 +94,7 @@ export class ScreenSaver extends React.Component<IProps, IState> {
 
     render(): JSX.Element {
         const { isMounted, isShown } = this.state;
-        const { isIntroMounted, isIntroEnded } = this.props.store;
+        const { isIntroMounted } = this.props.store;
 
         return (
             isMounted
@@ -103,15 +105,17 @@ export class ScreenSaver extends React.Component<IProps, IState> {
                         }}
                         onTransitionEnd={this.handleTransitionEnd}
                     >
-                        <div style={{...this.STYLES.center, lineHeight: FONT_SIZE * 2}}>
-                            {isIntroMounted
-                                ?   <TypingTextInterval
-                                        textContent={TEXT_CONTENT}
-                                        onAnimationEnd={() => this.props.store.onIntroEnd(true)}
-                                    />
-                                :   null}
-                            <div style={{...this.STYLES.loader, transform: `scale(${isIntroMounted ? 1 : 0})`}}>
-                                <GrowingCircleLoader size={FONT_SIZE * 2}/>
+                        <div style={{...this.STYLES.center, lineHeight: this.fontSize() * 2, fontSize: this.fontSize()}}>
+                            <div style={{display: "inline-block"}}>
+                                {isIntroMounted
+                                    ?   <TypingTextInterval
+                                            textContent={TEXT_CONTENT}
+                                            onAnimationEnd={() => this.props.store.onIntroEnd(true)}
+                                        />
+                                    :   null}
+                                <div style={{...this.STYLES.loader, transform: `scale(${isIntroMounted ? 1 : 0})`}}>
+                                    <GrowingCircleLoader size={this.fontSize() * 2}/>
+                                </div>
                             </div>
                         </div>
                     </div>

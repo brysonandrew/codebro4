@@ -210,7 +210,7 @@ export class Store {
 
     @action
     public setBodyBackground = (docScroll: number) => {
-        setBodyStyle("background", `hsl(${360 / this.scrollHeight * this.docScroll}, 60%, 40%)`);
+        setBodyStyle("background", `hsl(${360 / this.scrollHeight * this.docScroll}, 65%, 35%)`);
     };
 
     @action

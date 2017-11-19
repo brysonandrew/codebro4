@@ -8,6 +8,7 @@ import { InternalLink, UnderlineSwitch } from '../../widgets';
 import { Particles, PARTICLES, PARTICLES_DICT } from './Particles';
 import { Structures, Amygdala, VERTICAL_CYLINDER, NUMBER_OF_ARMS, ARM, SCREEN } from './Structures';
 import { Background } from '../background';
+import { TextExperiments } from './TextExperiments';
 import { Random } from './Random';
 
 const MENU_NAME = "Lab Menu";
@@ -17,9 +18,12 @@ export class LabMenu extends React.Component<{}, {}> {
 
     STYLES: IInlineStyles = {
         p: {
-            position: "relative",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
             textAlign: "center",
-            width: "100%"
+            minWidth: 180,
+            transform: "translate(-50%, -50%)"
         }
     };
 
@@ -77,9 +81,13 @@ export const EXPERIMENTS: IPage[] = [
         <Background/>
     ),
     new PageMaker(
-        "Random",
-        <Random/>
+        "Text Experiments",
+        <TextExperiments/>
     )
+    // new PageMaker(
+    //     "Random",
+    //     <Random/>
+    // )
 ];
 
 export const EXPERIMENTS_PATHS: string[] = EXPERIMENTS.map(experiment => experiment.path);
