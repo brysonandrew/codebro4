@@ -44,7 +44,7 @@ export class WideHeaderItem extends React.Component<IProps, {}> {
             position: "absolute",
             top: 0,
             left: 0,
-            background: colors.blk,
+            background: colors.wht,
             height: CROSS_SIZE,
             width: THICKNESS
         },
@@ -52,7 +52,7 @@ export class WideHeaderItem extends React.Component<IProps, {}> {
             position: "absolute",
             top: 0,
             left: 0,
-            background: colors.blk,
+            background: colors.wht,
             height: CROSS_SIZE,
             width: THICKNESS,
             transition: `transform ${TRANSITION_DURATION}ms`

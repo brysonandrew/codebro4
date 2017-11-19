@@ -19,8 +19,7 @@ export class Home extends React.Component<IProps, {}> {
         p: {
             id: "home",
             position: "relative",
-            color: colors.blk,
-            background: colors.wht,
+            color: colors.wht,
             fontFamily: `'${CSS_FONT_STRING}', 'arial', sans-serif`,
             overflow: "hidden"
         }

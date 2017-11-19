@@ -39,7 +39,7 @@ const COORDS = [
     }
 ];
 
-export class SquareSmoke {
+export class SmokeLine {
 
     particleImagePath = "/images/spark3.png";
     main = new THREE.Group;
@@ -49,13 +49,13 @@ export class SquareSmoke {
     isInit = false;
 
     init() {
-        const geometry = new THREE.PlaneGeometry( SIDE_AMOUNT, SIDE_AMOUNT, 1 );
-        const material = new THREE.MeshBasicMaterial( {color: 0x000000, side: THREE.DoubleSide} );
-        let main = new THREE.Mesh( geometry, material );
-
-        main.rotation.y = Math.PI;
-
-        this.background.add(main);
+        // const geometry = new THREE.PlaneGeometry( SIDE_AMOUNT, SIDE_AMOUNT, 1 );
+        // const material = new THREE.MeshBasicMaterial( {color: 0xFFFFFF, side: THREE.DoubleSide} );
+        // let main = new THREE.Mesh( geometry, material );
+        //
+        // main.rotation.y = Math.PI;
+        //
+        // this.background.add(main);
     }
 
     addCluster() {
@@ -64,7 +64,7 @@ export class SquareSmoke {
         const sizes = new Float32Array( CLUSTER_AMOUNT );
 
         const vertex = new THREE.Vector3();
-        const color = new THREE.Color( 0x000000 );
+        const color = new THREE.Color( 0xFFFFFF );
 
         positions.forEach((_, i) => {
             vertex.x = (Math.random() * 2 - 1) * CLUSTER_RADIUS;
@@ -86,7 +86,7 @@ export class SquareSmoke {
         const material = new THREE.ShaderMaterial( {
             uniforms: {
                 amplitude: { value: 1.0 },
-                color:     { value: new THREE.Color( 0x000000 ) },
+                color:     { value: new THREE.Color( 0xFFFFFF ) },
                 texture:   { value: new THREE.TextureLoader().load( this.particleImagePath ) }
             },
             vertexShader:   VERTEX_SHADER,
@@ -114,7 +114,7 @@ export class SquareSmoke {
             COORDS.map((coord, coordIndex) => {
 
                 if (spark["life"] > SIDE_AMOUNT * coordIndex && spark["life"] < SIDE_AMOUNT * (coordIndex + 1)) {
-                    spark.position.x = coord.x + spark["randX"] * coord.dx / SIDE_AMOUNT - OFFSET.x;
+                    spark.position.x = coord.x + spark["randX"] * coord.dx / SIDE_AMOUNT - OFFSET.x + spark["life"];
                     spark.position.y = coord.y + spark["randY"] * coord.dy / SIDE_AMOUNT + OFFSET.y + spark["life"];
                 }
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
-import { IInlineStyles, IWork, prefixer } from '..';
+import { IInlineStyles, IWork, prefixer, colors } from '..';
 import { UnderlineSwitch, ExternalLink } from '../../widgets';
 
 const MY_WORK: IWork[] = [
@@ -35,6 +35,7 @@ export class Work extends React.Component<{}, {}> {
             top: "50%",
             left: "50%",
             padding: 20,
+            color: colors.wht,
             transform: "translate(-50%, -50%)"
         })
     };

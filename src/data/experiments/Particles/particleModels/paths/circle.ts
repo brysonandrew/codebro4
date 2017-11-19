@@ -19,7 +19,7 @@ export class Circle {
         const sizes = new Float32Array( CLUSTER_AMOUNT );
 
         const vertex = new THREE.Vector3();
-        const color = new THREE.Color( 0x000000 );
+        const color = new THREE.Color( 0xFFFFFF );
 
         positions.forEach((_, i) => {
             vertex.x = (Math.random() * 2 - 1) * CLUSTER_RADIUS;
@@ -41,7 +41,7 @@ export class Circle {
         const material = new THREE.ShaderMaterial( {
             uniforms: {
                 amplitude: { value: 1.0 },
-                color:     { value: new THREE.Color( 0x000000 ) },
+                color:     { value: new THREE.Color( 0xFFFFFF ) },
                 texture:   { value: new THREE.TextureLoader().load( this.particleImagePath ) }
             },
             vertexShader:  VERTEX_SHADER,

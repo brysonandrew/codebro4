@@ -1,5 +1,6 @@
 import THREE = require('three');
 import { playerPositionX, playerPositionZ, playerRotationY } from "../../../helpers";
+import { FRAGMENT_SHADER, VERTEX_SHADER } from '../../fixtures';
 
 export class VisualBullets {
 
@@ -18,7 +19,7 @@ export class VisualBullets {
         const sizes = new Float32Array( amount );
 
         const vertex = new THREE.Vector3();
-        const color = new THREE.Color( 0xffffff );
+        const color = new THREE.Color( 0xFFFFFF );
 
         const positions = new Float32Array( amount * 3 );
 
@@ -42,26 +43,11 @@ export class VisualBullets {
         const material = new THREE.ShaderMaterial( {
             uniforms: {
                 amplitude: { value: 1.0 },
-                color:     { value: new THREE.Color( 0xffffff ) },
+                color:     { value: new THREE.Color( 0xFFFFFF ) },
                 texture:   { value: new THREE.TextureLoader().load( this.particleImagePath ) }
             },
-            vertexShader:   `uniform float amplitude;
-                                attribute float size;
-                                attribute vec3 customColor;
-                                varying vec3 vColor;
-                            void main() {
-                                vColor = customColor;
-                                vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-                                gl_PointSize = size * ( 300.0 / -mvPosition.z );
-                                gl_Position = projectionMatrix * mvPosition;
-                            }`,
-            fragmentShader: `uniform vec3 color;
-                                uniform sampler2D texture;
-                                varying vec3 vColor;
-                            void main() {
-                                gl_FragColor = vec4( color * vColor, 1.0 );
-                                gl_FragColor = gl_FragColor * texture2D( texture, gl_PointCoord );
-                            }`,
+            vertexShader:   VERTEX_SHADER,
+            fragmentShader: FRAGMENT_SHADER,
             blending:       THREE.AdditiveBlending,
             depthTest:      true,
             depthWrite:     false,

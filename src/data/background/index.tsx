@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as THREE from "three";
+import * as THREE from 'three';
 import { inject, observer } from 'mobx-react';
 import { Amygdala, VERTICAL_CYLINDER, NUMBER_OF_ARMS, SCREEN } from '../experiments';
 import { CenteredText } from '../../widgets';
@@ -84,7 +84,7 @@ export class Background extends React.Component<IProps, IState> {
             8000
         );
         this.camera.rotation.x = Math.PI * 0.1;
-        this.camera.position.y = -this.height() * 0.00125;
+        this.camera.position.y = this.height() * 0.0025;
     }
 
     initScene() {

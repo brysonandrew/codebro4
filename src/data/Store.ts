@@ -63,8 +63,7 @@ export class Store {
 
     @action
     public onScroll = () => {
-        this.docScroll = (!!document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-        clearTimeout(this.timeoutId);
+        this.onSetDocScroll((!!document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop);
         this.timeoutId = setTimeout(() => {
             if (!this.isAnimating && MAIN_PAGES_PATHS.indexOf(this.savedParams.get('activePagePath')) > -1) {
                 this.changeProjectPathOnScroll();
@@ -190,11 +189,24 @@ export class Store {
     public incrementDocScroll = () => {
         this.zoomIntervalId = setInterval(() => {
             if (this.docScroll < 0) {
-                this.docScroll += 200;
+                this.onIncrementDocScroll(200);
             } else {
                 clearInterval(this.zoomIntervalId);
             }
         }, 100);
+    };
+
+    @action
+    public onIncrementDocScroll = (inc: number) => {
+        this.docScroll += inc;
+        setBodyStyle("background", `hsl(${360 / this.scrollHeight * this.docScroll}, 50%, 50%)`);
+
+    };
+
+    @action
+    public onSetDocScroll = (nextDocScroll: number) => {
+        this.docScroll = nextDocScroll;
+        setBodyStyle("background", `hsl(${360 / this.scrollHeight * this.docScroll}, 50%, 50%)`);
     };
 
     @action

@@ -1,33 +1,34 @@
-import * as THREE from 'three';
-import { FRAGMENT_SHADER, VERTEX_SHADER } from '../../fixtures';
+import THREE = require('three');
+import {FRAGMENT_SHADER, VERTEX_SHADER} from '../../fixtures';
+const MAX = 40;
+const MAX_FALL = -400;
 
-export class Snow {
+export class VerticalLine {
 
-    particleImagePath = "/images/spark3.png";
     cluster = new THREE.Group;
-    gravity = 0.1;
 
     addCluster() {
-        const amount = 100;
-        const radius = 200;
+        const amount = 4;
+        const radius = 800;
 
         const positions = new Float32Array( amount * 3 );
         const colors = new Float32Array( amount * 3 );
         const sizes = new Float32Array( amount );
 
         const vertex = new THREE.Vector3();
-        const color = new THREE.Color( 0xffffff );
+        const color = new THREE.Color( 0xFFFFFF );
 
-        positions.forEach((_, i) => {
+        positions.map((_, i) => {
             vertex.x = (Math.random() * 2 - 1) * radius;
             vertex.y = (Math.random() * 2 - 1) * radius;
             vertex.z = (Math.random() * 2 - 1) * radius;
             (vertex as any).toArray(positions, i);
 
-            sizes[i] = 5 + 5 * Math.random();
+            sizes[i] = 200 * Math.random();
 
-            color.setHSL(0, 1, 1);
+            color.setHSL(0.15 * ( i / amount ) - 0.005, 0.8, 0.6);
             (color as any).toArray(colors, i * 3);
+            return vertex
         });
 
         const geometry = new THREE.BufferGeometry();
@@ -38,8 +39,7 @@ export class Snow {
         const material = new THREE.ShaderMaterial( {
             uniforms: {
                 amplitude: { value: 1.0 },
-                color:     { value: new THREE.Color( 0xffffff ) },
-                texture:   { value: new THREE.TextureLoader().load( this.particleImagePath ) }
+                texture:   { value: new THREE.TextureLoader().load( "/images/particles/verticalLine1024.png" ) }
             },
             vertexShader:   VERTEX_SHADER,
             fragmentShader: FRAGMENT_SHADER,
@@ -48,40 +48,30 @@ export class Snow {
             transparent:    true
         } );
 
-        const cluster = new THREE.Points( geometry, material );
-
-        cluster.position.x = Math.random() * 120;
-        cluster.position.y = 160;
-        cluster.position.z = Math.random() * 120;
-
-        cluster["life"] = 0;
-
-        this.cluster.add(cluster);
+        let line = new THREE.Points( geometry, material );
+        line.inc = 1 + Math.random();
+        this.cluster.add(line);
     }
 
-    fire() {
+    fall() {
+        this.cluster.children.forEach(line => {
 
-        this.cluster.children.forEach((spark, i) => {
+            line.position.y -= line.inc;
 
-            spark.position.x += Math.cos(spark["life"]) * 0.25;
-            spark.position.y -= spark["life"] * this.gravity * 0.25;
-            spark.position.z += Math.sin(spark["life"]) * 0.25;
-
-            if (spark["life"] === 50) {
-                this.cluster.children.splice(i, 1);
+            if (line.position.y < MAX_FALL) {
+                line.position.y = 400;
             }
-            spark["life"]++;
         });
     }
 
     animate() {
-        this.addCluster();
-
-        this.fire();
+        if (this.cluster.children.length < MAX) {
+            this.addCluster();
+        }
+        this.fall();
     }
 
     render() {
         return this.cluster;
     }
-
 }

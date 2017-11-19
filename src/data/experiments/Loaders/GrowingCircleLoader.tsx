@@ -19,13 +19,13 @@ export const GrowingCircleLoader = (props: IProps) =>
                                         cx={props.size * 0.5}
                                         cy={props.size * 0.5}
                                         r={props.size * 0.25}
-                                        fill={colors.blk}
+                                        fill={colors.wht}
                                     />
                                     <circle
                                         cx={0}
                                         cy={0}
                                         r={props.size * 0.5}
-                                        fill={colors.blk}
+                                        fill={colors.wht}
                                         transform={`translate(${props.size * 0.5} ${props.size * 0.5})`}
                                     >
                                         <animateTransform

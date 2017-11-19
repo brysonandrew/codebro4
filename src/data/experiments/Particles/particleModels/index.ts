@@ -2,7 +2,8 @@ import { toPath, IDictionary, ILabProject } from "../../../../data";
 import {Fire, FireBlade, Frost, Rain, Snow} from "./elements";
 import {BasicExplosion, RandomSparks} from "./explosions";
 import {MultidirectionalBullets, VisualBullets} from "./projectiles";
-import {Circle, Square, SquareSmoke} from "./paths";
+import {Circle, Square, SmokeLine} from "./paths";
+import {OnesAndZeros, VerticalLine} from './random';
 
 function Project(name, component) {
     this.name = name;
@@ -48,8 +49,16 @@ export const PARTICLES: ILabProject[] = [
         new Square
     ),
     new Project(
-        "Square Smoke",
-        new SquareSmoke
+        "Smoke Line",
+        new SmokeLine
+    ),
+    new Project(
+        "Ones And Zeros",
+        new OnesAndZeros
+    ),
+    new Project(
+        "Vertical Line",
+        new VerticalLine
     )
 ];
 

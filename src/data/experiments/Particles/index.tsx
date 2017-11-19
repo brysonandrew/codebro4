@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as Immutable from 'immutable';
-import THREE = require('three');
+import * as THREE from 'three';
 import { browserHistory } from 'react-router';
 import { inject, observer } from 'mobx-react';
 import { isGL, IInlineStyles, colors } from "../../../data";
@@ -41,7 +41,7 @@ export class Particles extends React.Component<IProps, IState> {
             top: 0,
             left: 0,
             padding: 20,
-            background: colors.wht,
+            background: colors.blk,
             cursor: "pointer"
         }
     };
@@ -143,7 +143,7 @@ export class Particles extends React.Component<IProps, IState> {
     initRenderer() {
         const { height, width } = this.props;
 
-        this.renderer = new THREE.WebGLRenderer({alpha: true});
+        this.renderer = new THREE.WebGLRenderer();
         this.renderer.setSize( width, height );
         this.props.parentEl.appendChild( this.renderer.domElement );
     }

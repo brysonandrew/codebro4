@@ -38,7 +38,7 @@ export class WideHeader extends React.Component<IProps, {}> {
             position: "absolute",
             bottom: 0,
             height: 1,
-            background: colors.blk,
+            background: colors.wht,
             transformOrigin: "50% 50%"
         })
     };

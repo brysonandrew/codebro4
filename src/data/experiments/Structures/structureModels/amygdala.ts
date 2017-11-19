@@ -24,8 +24,8 @@ export const SCREEN = {
 
 const OPACITY = {
     min: 0.1,
-    max: 1,
-    inc: 0.02
+    max: 0.5,
+    inc: 0.005
 };
 
 export class Amygdala {
@@ -39,7 +39,7 @@ export class Amygdala {
 
     createScreen(i) {
         const geometry = new THREE.PlaneGeometry( SCREEN.width, SCREEN.height, 1 );
-        const material = new THREE.MeshPhongMaterial( { color: 0x000000, side: THREE.DoubleSide, transparent: true } );
+        const material = new THREE.MeshPhongMaterial( { color: 0x000000, side: THREE.DoubleSide, transparent: true, opacity: OPACITY.max } );
         let screen = new THREE.Mesh( geometry, material );
 
         screen.rotation.order = "YXZ";

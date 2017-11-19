@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
-import { IInlineStyles, prefixer } from '..';
+import { IInlineStyles, prefixer, colors } from '..';
 import { ExternalLink, InternalLink, UnderlineSwitch } from '../../widgets';
 
 @observer
@@ -25,6 +25,7 @@ export class Experiments extends React.Component<{}, {}> {
         })),
         midPoint: {
             fontSize: 14,
+            color: colors.wht,
             padding: "6px 0 2px"
         }
     };
