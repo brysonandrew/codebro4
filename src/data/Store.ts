@@ -199,14 +199,18 @@ export class Store {
     @action
     public onIncrementDocScroll = (inc: number) => {
         this.docScroll += inc;
-        setBodyStyle("background", `hsl(${360 / this.scrollHeight * this.docScroll}, 50%, 50%)`);
-
+        this.setBodyBackground(this.docScroll);
     };
 
     @action
     public onSetDocScroll = (nextDocScroll: number) => {
         this.docScroll = nextDocScroll;
-        setBodyStyle("background", `hsl(${360 / this.scrollHeight * this.docScroll}, 50%, 50%)`);
+        this.setBodyBackground(this.docScroll);
+    };
+
+    @action
+    public setBodyBackground = (docScroll: number) => {
+        setBodyStyle("background", `hsl(${360 / this.scrollHeight * this.docScroll}, 60%, 40%)`);
     };
 
     @action

@@ -17,7 +17,7 @@ export const NUMBER_OF_ARMS = 4;
 
 export const SCREEN = {
     width: 150,
-    height: 100,
+    height: 120,
     radius: 155,
     openingBuffer: VERTICAL_CYLINDER.height / NUMBER_OF_ARMS
 };
