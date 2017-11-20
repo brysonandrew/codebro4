@@ -15,8 +15,7 @@ export class ExternalLink extends React.Component<IProps, {}> {
             cursor: "pointer",
             padding: 2,
             textDecoration: "none",
-            color: colors.wht,
-            maxWidth: 320
+            color: colors.wht
         }
     };
 

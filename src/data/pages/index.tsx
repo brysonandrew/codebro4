@@ -19,7 +19,7 @@ export const MAIN_PAGES: IPage[] = [
         <Video/>
     ),
     new PageMaker(
-        "Contact",
+        "Links and Contact",
         <Contact/>
     )
 ];
