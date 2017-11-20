@@ -12,34 +12,29 @@ export class Video extends React.Component<{}, {}> {
             position: "absolute",
             top: "50%",
             left: "50%",
-            textAlign: "center",
+            maxWidth: 320,
+            fontSize: 20,
+            textAlign: "left",
             transform: "translate(-50%, -50%)"
         }),
-        video__image: {
-            display: "inline-block",
-            paddingLeft: 4,
-            verticalAlign: "middle",
-            height: 24,
-            width: "auto"
+        button: {
+            textAlign: "center"
         }
     };
 
     render(): JSX.Element {
         return (
             <div style={this.STYLES.video}>
-                <UnderlineSwitch>
-                    <ExternalLink
-                        path="https://www.youtube.com/channel/UCF1SvsAZTJL4Bw9qj0hdNLA"
-                    >
-                        Check out my
-                        <img
-                            style={this.STYLES.video__image}
-                            src="/images/youtube.png"
-                            alt="Youtube Link"
-                        />
-                        <span> channel for coding tips and tutorials.</span>
-                    </ExternalLink>
-                </UnderlineSwitch>
+                Coming from a teaching background, I enjoy sharing my knowledge of coding through video.
+                <div style={this.STYLES.button}>
+                    <UnderlineSwitch>
+                        <ExternalLink
+                            path="https://www.youtube.com/channel/UCF1SvsAZTJL4Bw9qj0hdNLA"
+                        >
+                            Go to channel →
+                        </ExternalLink>
+                    </UnderlineSwitch>
+                </div>
             </div>
         );
     }

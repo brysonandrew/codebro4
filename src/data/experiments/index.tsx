@@ -7,9 +7,7 @@ import { PageMaker, IPage, IInlineStyles, IDictionary, arrayToDictionary, colors
 import { InternalLink, UnderlineSwitch } from '../../widgets';
 import { Particles, PARTICLES, PARTICLES_DICT } from './Particles';
 import { Structures, Amygdala, VERTICAL_CYLINDER, NUMBER_OF_ARMS, ARM, SCREEN } from './Structures';
-import { Background } from '../background';
 import { TextExperiments } from './TextExperiments';
-import { Random } from './Random';
 
 const MENU_NAME = "Lab Menu";
 
@@ -73,21 +71,9 @@ export const EXPERIMENTS: IPage[] = [
         <Particles/>
     ),
     new PageMaker(
-        "Structures",
-        <Structures/>
-    ),
-    new PageMaker(
-        "Background",
-        <Background/>
-    ),
-    new PageMaker(
         "Text Experiments",
         <TextExperiments/>
     )
-    // new PageMaker(
-    //     "Random",
-    //     <Random/>
-    // )
 ];
 
 export const EXPERIMENTS_PATHS: string[] = EXPERIMENTS.map(experiment => experiment.path);

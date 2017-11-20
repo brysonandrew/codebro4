@@ -11,11 +11,11 @@ export const MAIN_PAGES: IPage[] = [
         <Work/>
     ),
     new PageMaker(
-        "codebro Labs",
+        "Selected Experiments",
         <Experiments/>
     ),
     new PageMaker(
-        "codebro Tuts",
+        "Video Tutorials",
         <Video/>
     ),
     new PageMaker(

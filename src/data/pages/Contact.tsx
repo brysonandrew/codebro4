@@ -2,7 +2,7 @@ import * as React from 'react';
 import { observer } from 'mobx-react';
 import { IInlineStyles, prefixer } from '..';
 import { UnderlineSwitch, ExternalLink } from '../../widgets';
-import { EmailSvg, GithubSvg, UpworkSvg, CodepenSvg } from '../icons';
+import { EmailSvg, GithubSvg, UpworkSvg, CodepenSvg, YouTubeSvg } from '../icons';
 
 @observer
 export class Contact extends React.Component<{}, {}> {
@@ -27,6 +27,11 @@ export class Contact extends React.Component<{}, {}> {
             name: "Codepen",
             path: "https://codepen.io/codebro/",
             icon: <CodepenSvg/>
+        },
+        {
+            name: "YouTube",
+            path: "https://www.youtube.com/channel/UCF1SvsAZTJL4Bw9qj0hdNLA",
+            icon: <YouTubeSvg/>
         }
     ];
 
@@ -51,7 +56,7 @@ export class Contact extends React.Component<{}, {}> {
         name: {
             display: "inline-block",
             verticalAlign: "top",
-            fontSize: 18
+            fontSize: 20
         }
     };
 
