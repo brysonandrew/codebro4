@@ -3,7 +3,7 @@ import { IndexRoute, Route, Redirect } from 'react-router';
 import { App, Home } from '../app';
 import { NotFound } from '../widgets';
 import { MAIN_PAGES, EXPERIMENTS, PARTICLES } from '../data';
-import {STRUCTURES} from '../data/experiments/Structures/structureModels/index';
+import { MODELS } from '../data/experiments/Models/models/index';
 
 export default (
     <Route path="/" component={App}>
@@ -30,10 +30,10 @@ export default (
                 component={Home}
             />
         )}
-        {STRUCTURES.map((structure, i) =>
+        {MODELS.map((models, i) =>
             <Route
-                key={`structure-${i}`}
-                path={`/structure/${structure.path}`}
+                key={`models-${i}`}
+                path={`/models/${models.path}`}
                 component={Home}
             />
         )}

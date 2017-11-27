@@ -1,10 +1,10 @@
-import THREE = require('three');
-import { loadTexture } from "../../helpers";
+import * as THREE from 'three';
+import { textureLoader } from "../../helpers";
 const IMAGE_PATH = "/images/particles/blackspotted.jpg";
 
 export const loadGround = () => {
     return new Promise((resolve) => {
-        loadTexture( IMAGE_PATH ).then((texture) => {
+        textureLoader( IMAGE_PATH ).then((texture) => {
             // texture["wrapS"] = texture["wrapT"] = THREE.RepeatWrapping;
             // texture["anisotropy"] = 16;
             // texture["repeat"].set(4, 4);
@@ -16,5 +16,4 @@ export const loadGround = () => {
             resolve(mesh);
         });
     });
-
 };

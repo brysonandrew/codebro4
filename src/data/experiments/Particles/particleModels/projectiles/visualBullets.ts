@@ -1,4 +1,4 @@
-import THREE = require('three');
+import * as THREE from 'three';
 import { playerPositionX, playerPositionZ, playerRotationY } from "../../../helpers";
 import { FRAGMENT_SHADER, VERTEX_SHADER } from '../../fixtures';
 

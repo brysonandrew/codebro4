@@ -3,11 +3,10 @@ import { browserHistory } from 'react-router';
 import { IParams, buildMap, breakPointTests, IDictionary, setBodyStyle, toParams } from '.';
 import { ITabData } from '../app/main';
 import { MAIN_PAGES, MAIN_PAGES_PATHS } from './pages';
+const AWAKE_DURATION = 5000;
 
 export class Store {
     isWideHeaderItemMounted: boolean;
-    @observable isIntroMounted: boolean;
-    @observable isIntroEnded: boolean;
     @observable isAnimating: boolean;
     @observable isAwake: boolean;
     @observable isMobile: boolean;
@@ -17,7 +16,6 @@ export class Store {
     @observable isToggleMenuMounted: boolean;
     @observable isResizing: boolean;
     @observable isTabsMeasured: boolean;
-    @observable wakeUpDuration: number;
     @observable width: number;
     @observable height: number;
     @observable docScroll: number;
@@ -29,12 +27,11 @@ export class Store {
     tabDimensions: Array<ITabData> = [];
     pagesLength;
     timeoutId;
+    sleepTimeoutId;
     zoomIntervalId;
     timeoutStopDelay = 50;
 
     constructor(initialState?: { store: Store }) {
-        this.isIntroMounted = false;
-        this.isIntroEnded = false;
         this.isWideHeaderItemMounted = false;
         this.isAnimating = false;
         this.isAwake = false;
@@ -42,7 +39,6 @@ export class Store {
         this.isToggleMenuMounted = false;
         this.isResizing = false;
         this.isTabsMeasured = false;
-        this.wakeUpDuration = 0;
         this.currentIndex = 0;
         this.hoverMenuIndex = -1;
         this.projectOffsetList = [];
@@ -150,20 +146,12 @@ export class Store {
 
     @action
     public onAwake = (isAwake: boolean) => {
-        setBodyStyle('position', isAwake ? 'static' : 'fixed');
         this.isAwake = isAwake;
-        this.wakeUpDuration = 400;
         this.incrementDocScroll();
-    };
-
-    @action
-    public onIntroMount = (isMounted: boolean) => {
-        this.isIntroMounted = isMounted;
-    };
-
-    @action
-    public onIntroEnd = (isEnded: boolean) => {
-        this.isIntroEnded = isEnded;
+        this.sleepTimeoutId = setTimeout(() => {
+        // back to sleep
+            this.isAwake = false;
+        }, AWAKE_DURATION);
     };
 
     @action
@@ -216,8 +204,6 @@ export class Store {
     @action
     public reset = () => {
         setTimeout(() => {
-            this.isIntroMounted = false;
-            this.isIntroEnded = false;
             this.isWideHeaderItemMounted = false;
             this.isAnimating = false;
             this.isAwake = false;

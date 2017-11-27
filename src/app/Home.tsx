@@ -2,7 +2,7 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import createHistory from 'history/createBrowserHistory';
 import { browserHistory } from 'react-router';
-import { toParams, listeners, wakeUp, IInlineStyles, Store, EXPERIMENTS_PATHS, colors } from '../data';
+import { toParams, IInlineStyles, Store, EXPERIMENTS_PATHS, colors } from '../data';
 import { Main } from './main';
 import { Lab } from './lab';
 import { CSS_FONT_STRING } from '../widgets';
@@ -43,7 +43,6 @@ export class Home extends React.Component<IProps, {}> {
         window.scroll(0, 0);
         window.addEventListener("scroll", onScroll);
         window.addEventListener("resize", () => onMeasureViewport(window.innerWidth, window.innerHeight));
-        listeners(window, "addEventListener", "interaction", this.handleInteraction);
     }
 
     componentWillUnmount() {
@@ -52,14 +51,7 @@ export class Home extends React.Component<IProps, {}> {
         clearTimeout(this.idleTimeoutId);
         window.removeEventListener("scroll", onScroll);
         window.removeEventListener("resize", () => onMeasureViewport(window.innerWidth, window.innerHeight));
-        listeners(this.parentRef, "removeEventListener", "interaction", this.handleInteraction);
     }
-
-    private handleInteraction = (e) => {
-        if (this.props.store.isIntroEnded || e.type === "click") {
-            wakeUp(this);
-        }
-    };
 
     private renderHome = () => {
         const activePage = this.props.store.savedParams.get("activePagePath");

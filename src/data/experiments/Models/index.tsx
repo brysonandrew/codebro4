@@ -1,15 +1,15 @@
 import * as React from 'react';
 import * as Immutable from 'immutable';
-import THREE = require('three');
+import * as THREE from 'three';
 import { browserHistory } from 'react-router';
 import { inject, observer } from 'mobx-react';
 import { isGL, IInlineStyles, colors } from "../../../data";
 import { playerPositionX, playerPositionZ, playerRotationY, playerRotationX } from "../helpers";
 import { CenteredText, UnderlineSwitch } from "../../../widgets";
-import { ARM, NUMBER_OF_ARMS, VERTICAL_CYLINDER, SCREEN } from './structureModels/amygdala';
-import { STRUCTURES, STRUCTURES_DICT } from './structureModels/index';
+import { ARM, NUMBER_OF_ARMS, VERTICAL_CYLINDER, SCREEN } from './models/amygdala';
+import { MODELS, MODELS_DICT } from './models';
 import { animateKey } from '../helpers/game/keyboard';
-import { Amygdala } from './structureModels/amygdala';
+import { Amygdala } from './models/amygdala';
 
 interface IState {
     isFallback: boolean
@@ -27,7 +27,7 @@ interface IProps {
 
 @inject('store')
 @observer
-export class Structures extends React.Component<IProps, IState> {
+export class Models extends React.Component<IProps, IState> {
 
     scene;
     camera;
@@ -36,7 +36,7 @@ export class Structures extends React.Component<IProps, IState> {
     texture;
     point;
     playerFocus = new THREE.Group;
-    particles;
+    models;
 
     STYLES: IInlineStyles = {
         menu: {
@@ -44,7 +44,7 @@ export class Structures extends React.Component<IProps, IState> {
             top: 0,
             left: 0,
             padding: 20,
-            background: colors.wht,
+            background: colors.blk,
             cursor: "pointer"
         }
     };
@@ -97,13 +97,13 @@ export class Structures extends React.Component<IProps, IState> {
         const isParamsChanged = nextProps.savedParams.get("activeViewPath") !== savedParams.get("activeViewPath");
 
         if (isParamsChanged) {
-            this.removeByName("particles");
-            this.initParticles(STRUCTURES_DICT[nextProps.savedParams.get("activeViewPath")].component);
+            this.removeByName("models");
+            this.initModels(MODELS_DICT[nextProps.savedParams.get("activeViewPath")].component);
         }
     }
 
     handleMenuClick = (i) => {
-        browserHistory.push(`/structures/${STRUCTURES[i].path}`)
+        browserHistory.push(`/models/${MODELS[i].path}`)
     };
 
     handleKeyPress = (e) => {
@@ -146,7 +146,7 @@ export class Structures extends React.Component<IProps, IState> {
     initRenderer() {
         const { height, width } = this.props;
 
-        this.renderer = new THREE.WebGLRenderer({alpha: true});
+        this.renderer = new THREE.WebGLRenderer();
         this.renderer.setSize( width, height );
         this.props.parentEl.appendChild( this.renderer.domElement );
     }
@@ -167,31 +167,22 @@ export class Structures extends React.Component<IProps, IState> {
     }
 
     initLighting() {
-        this.point = new THREE.PointLight( 0xFFFFFF, 0.75 );
+        this.point = new THREE.PointLight( 0xFFFFFF, 0.5 );
         this.playerFocus.add(this.point);
-        this.scene.add(new THREE.AmbientLight( 0xFFFFFF, 0.1 ));
+        this.scene.add(new THREE.AmbientLight( 0xFFFFFF, 0.25 ));
     }
 
     initAssets() {
-        const index = 0;
-        const buffer = 100;
-
-        const y = (VERTICAL_CYLINDER.height * index / NUMBER_OF_ARMS)
-            - (VERTICAL_CYLINDER.height * 0.5)
-            + (VERTICAL_CYLINDER.height * 0.5  / NUMBER_OF_ARMS);
-
-        const z = ARM.height + buffer;
-
         this.playerFocus.add(this.camera);
-        this.playerFocus.position.set(0, -y, z);
+        this.playerFocus.position.set(0, 10, 100);
         this.playerFocus.rotation.order = "YXZ";
         this.scene.add(this.playerFocus);
 
         const component = this.props.savedParams.get("activeViewPath")
-            ? STRUCTURES_DICT[this.props.savedParams.get("activeViewPath")].component
-            : STRUCTURES[0].component;
+            ? MODELS_DICT[this.props.savedParams.get("activeViewPath")].component
+            : MODELS[0].component;
 
-        this.initParticles(component);
+        this.initModels(component);
 
         // Promise.all([
         //     loadGround(),
@@ -206,14 +197,21 @@ export class Structures extends React.Component<IProps, IState> {
         this.scene.remove(obj);
     }
 
-    initParticles(component) {
-
-        this.particles = component;
-        this.particles.init();
-        const particlesObj = this.particles.render();
-        particlesObj.name =  "particles";
-
-        this.scene.add(particlesObj);
+    initModels(component) {
+        this.models = component;
+        if (this.models.init) {
+            this.models.init();
+        }
+        if (this.models.render) {
+            const modelsObj = this.models.render();
+            modelsObj.name =  "models";
+            this.scene.add(modelsObj);
+        }
+        if (this.models.addToScene) {
+            this.models.addToScene(this.scene)
+                .then(() => console.log("Object added"))
+                .catch(() => console.error("Object failed"));
+        }
     }
 
     animate() {
@@ -238,7 +236,9 @@ export class Structures extends React.Component<IProps, IState> {
         this.playerFocus.position.y += posY;
         this.playerFocus.position.z += posZ;
 
-        // this.particles.animate(keysPressed);
+        if (this.models.animate) {
+            this.models.animate(keysPressed);
+        }
 
         this.renderer.render( this.scene, this.camera );
     }
@@ -250,14 +250,12 @@ export class Structures extends React.Component<IProps, IState> {
                         content="Unable to view due to browser or browser settings. Try another browser or reconfigure your current browser."
                     />
                 :   <div style={this.STYLES.menu}>
-                    {STRUCTURES.map((particle, i) =>
+                    {MODELS.map((particle, i) =>
                         <div
                             key={`particle-${i}`}
                             onClick={() => this.handleMenuClick(i)}
                         >
-                            <UnderlineSwitch
-                                underlineColor={colors.blk}
-                            >
+                            <UnderlineSwitch>
                                 {particle.name}
                             </UnderlineSwitch>
                         </div>)}
@@ -266,4 +264,4 @@ export class Structures extends React.Component<IProps, IState> {
     }
 }
 
-export { STRUCTURES, STRUCTURES_DICT, Amygdala, NUMBER_OF_ARMS, VERTICAL_CYLINDER, ARM, SCREEN }
+export { MODELS, MODELS_DICT, Amygdala, NUMBER_OF_ARMS, VERTICAL_CYLINDER, ARM, SCREEN }

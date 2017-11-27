@@ -6,8 +6,9 @@ import { Loaders } from './Loaders';
 import { PageMaker, IPage, IInlineStyles, IDictionary, arrayToDictionary, colors } from '..';
 import { InternalLink, UnderlineSwitch } from '../../widgets';
 import { Particles, PARTICLES, PARTICLES_DICT } from './Particles';
-import { Structures, Amygdala, VERTICAL_CYLINDER, NUMBER_OF_ARMS, ARM, SCREEN } from './Structures';
+import { Models, Amygdala, VERTICAL_CYLINDER, NUMBER_OF_ARMS, ARM, SCREEN } from './Models';
 import { TextExperiments } from './TextExperiments';
+import {Buttons} from './Buttons/index';
 
 const MENU_NAME = "Lab Menu";
 
@@ -63,12 +64,20 @@ export const EXPERIMENTS: IPage[] = [
         <Hamburgers/>
     ),
     new PageMaker(
+        "Buttons",
+        <Buttons/>
+    ),
+    new PageMaker(
         "Loaders",
         <Loaders/>
     ),
     new PageMaker(
         "Particles",
         <Particles/>
+    ),
+    new PageMaker(
+        "Models",
+        <Models/>
     ),
     new PageMaker(
         "Text Experiments",

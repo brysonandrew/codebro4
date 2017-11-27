@@ -69,9 +69,7 @@ export class Main extends React.Component<IProps, {}> {
                     <WideHeader/>
                 </div>
                 <Pages/>
-                <ScreenSaver
-                    isScreenSaver={!isAwake}
-                />
+                <ScreenSaver/>
                 {!!projectOffsets
                     ?   <MotionScroll
                             docScroll={docScroll}

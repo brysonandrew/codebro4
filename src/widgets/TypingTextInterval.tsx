@@ -43,7 +43,8 @@ export class TypingTextInterval extends React.Component<IProps, IState> {
                 textShown: Immutable.List(this.state.textShown).push(textArray[count]).toArray()
             });
             count++;
-        }, (intervalId => (this.intervalId = intervalId)), this.props.onAnimationEnd);
+        }, (intervalId => (this.intervalId = intervalId))
+            , () => this.props.onAnimationEnd && this.props.onAnimationEnd());
     }
 
     componentWillUnmount() {

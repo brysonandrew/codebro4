@@ -181,13 +181,6 @@ export class Particles extends React.Component<IProps, IState> {
             : PARTICLES[0].component;
 
         this.initParticles(component);
-
-        // Promise.all([
-        //     loadGround(),
-        //     loadBackground()
-        // ]).then((meshes) => {
-        //     meshes.map(mesh => this.scene.add(mesh));
-        // });
     }
 
     removeByName(name) {

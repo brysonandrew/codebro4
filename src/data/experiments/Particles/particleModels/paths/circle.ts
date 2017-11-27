@@ -1,4 +1,4 @@
-import THREE = require('three');
+import * as THREE from 'three';
 import {VERTEX_SHADER, FRAGMENT_SHADER} from '../../fixtures';
 const CLUSTER_AMOUNT = 20;
 const CLUSTER_RADIUS = 2;

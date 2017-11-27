@@ -1,10 +1,10 @@
-import THREE = require('three');
-import { loadTexture } from "../../helpers";
+import * as THREE from 'three';
+import { textureLoader } from "../../helpers";
 const IMAGE_PATH = "/images/particles/whiteblack.jpg";
 
 export const loadBackground = () => {
     return new Promise(resolve => {
-        loadTexture( IMAGE_PATH ).then((texture) => {
+        textureLoader( IMAGE_PATH ).then((texture) => {
             texture["mapping"] = THREE.UVMapping;
             // texture["wrapS"] = texture["wrapT"] = THREE.RepeatWrapping;
             // texture["repeat"].set(1000, 1000);
