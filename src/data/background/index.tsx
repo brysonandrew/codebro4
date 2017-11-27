@@ -84,7 +84,6 @@ export class Background extends React.Component<IProps, IState> {
             8000
         );
         this.camera.rotation.x = Math.PI * 0.1;
-        this.camera.position.y = this.height() * 0.0025;
     }
 
     initScene() {
@@ -133,7 +132,23 @@ export class Background extends React.Component<IProps, IState> {
         const scrollPos = -this.props.docScroll / this.adjustedScrollHeight() * (VERTICAL_CYLINDER.height - VERTICAL_CYLINDER.height / NUMBER_OF_ARMS) + VERTICAL_CYLINDER.height * 0.5;
         this.structureComponent.animate(scrollPos, this.props.store.isAnimating);
         this.structure.rotation.y = this.props.docScroll / this.adjustedScrollHeight() * (Math.PI * 2 -  Math.PI * 2 / NUMBER_OF_ARMS) + Math.PI * 0.5;
-        this.camera.position.z = scrollPos;
+        if (!this.props.store.isAwake) {
+            if (this.camera.position.z > (scrollPos - 200) || this.camera.position.y > this.height() * 0.0025 * 10) {
+                this.camera.position.z -= this.camera.position.z > (scrollPos - 200) ? (scrollPos - 200) / 20 : 0;
+                this.camera.position.y -= this.camera.position.y > this.height() * 0.0025 * 10 ? this.height() * 0.0025 / 20 : 0;
+            } else {
+                this.camera.position.z = scrollPos - 200;
+                this.camera.position.y = this.height() * 0.0025 * 10;
+            }
+        } else {
+            if (this.camera.position.z < scrollPos || this.camera.position.y < this.height() * 0.0025) {
+                this.camera.position.z += this.camera.position.z < scrollPos ? scrollPos / 20 : 0;
+                this.camera.position.y += this.camera.position.y < this.height() * 0.0025 ? this.height() * 0.0025 / 20 : 0;
+            } else {
+                this.camera.position.z = scrollPos;
+                this.camera.position.y = this.height() * 0.0025;
+            }
+        }
         this.points.position.z = scrollPos;
         this.renderer.render( this.scene, this.camera );
     }

@@ -48,14 +48,14 @@ export class Contact extends React.Component<{}, {}> {
         }),
         icon: {
             display: "inline-block",
-            verticalAlign: "top",
+            verticalAlign: "middle",
             height: 32,
             width: 32,
             marginRight: 4
         },
         name: {
             display: "inline-block",
-            verticalAlign: "top",
+            verticalAlign: "middle",
             fontSize: 20
         }
     };

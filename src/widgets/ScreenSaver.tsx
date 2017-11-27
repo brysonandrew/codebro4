@@ -1,21 +1,28 @@
 import * as React from 'react';
-import { observer, inject } from 'mobx-react';
-import { colors, IInlineStyles, prefixer, Store, GrowingCircleLoader } from '../data';
+import { observer } from 'mobx-react';
+import { colors, IInlineStyles, prefixer, GrowingCircleLoader } from '../data';
 import { TypingTextInterval, TYPING_SPEED } from './TypingTextInterval';
 
 const TEXT_CONTENT = "Hi, my name is Andrew and I make websites ";
 
 interface IProps {
-    store?: Store
+    isAwake: boolean
+    isMobile: boolean
+    isTablet: boolean
+    onAwake: (isAwake: boolean) => void
 }
 
 interface IState {
     isMounted: boolean
+    isVisible: boolean
 }
 
-@inject('store')
 @observer
 export class ScreenSaver extends React.Component<IProps, IState> {
+
+    wakeTimeoutId;
+    sleepTimeoutId;
+    freezeTimeoutId;
 
     STYLES: IInlineStyles = {
         p: prefixer({
@@ -25,7 +32,7 @@ export class ScreenSaver extends React.Component<IProps, IState> {
             left: 0,
             width: "100%",
             height: "100vh",
-            background: colors.blk,
+            background: "rgba(0,0,0, 0.22)",
             transition: "2000ms opacity",
             zIndex: 20
         }),
@@ -48,36 +55,69 @@ export class ScreenSaver extends React.Component<IProps, IState> {
     public constructor(props?: any, context?: any) {
         super(props, context);
         this.state = {
-            isMounted: true
+            isMounted: true,
+            isVisible: true
         };
     }
 
-    fontSize = () => this.props.store.isMobile ? 12 : this.props.store.isTablet ? 20 : 24;
+    fontSize = () => this.props.isMobile ? 12 : this.props.isTablet ? 20 : 24;
 
-    handleAwake = () => {
-        this.props.store.onAwake(true);
+    componentWillReceiveProps(nextProps) {
+        if (this.props.isAwake !== nextProps.isAwake) {
+            if (nextProps.isAwake && this.state.isVisible) {
+                this.wake();
+            } else if (!nextProps.isAwake && !this.state.isVisible) {
+                this.sleep();
+            }
+        }
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.wakeTimeoutId);
+        clearTimeout(this.sleepTimeoutId);
+        clearTimeout(this.freezeTimeoutId);
+    }
+
+    wake = () => {
+        this.setState({
+            isMounted: true
+        });
+        this.wakeTimeoutId = setTimeout(() => {
+            this.setState({
+                isVisible: false
+            })
+        }, 0);
+        this.freezeTimeoutId = setTimeout(() => {
+            this.setState({
+                isMounted: false
+            });
+        }, 2000);
     };
 
-    handleTransitionEnd = () => {
+    sleep = () => {
         this.setState({
-            isMounted: !this.props.store.isAwake
+            isMounted: true,
         });
+        this.sleepTimeoutId = setTimeout(() => {
+            this.setState({
+                isVisible: true
+            })
+        }, 0);
     };
 
     render(): JSX.Element {
-        const { isMounted } = this.state;
-        const { isAwake } = this.props.store;
+        const { isMounted, isVisible } = this.state;
+        const { onAwake } = this.props;
 
         return (
             isMounted
                 ?   <div
                         style={{
                             ...this.STYLES.p,
-                            opacity: isAwake ? 0 : 1
+                            opacity: isVisible ? 1 : 0
                         }}
-                        onClick={this.handleAwake}
-                        onMouseMove={this.handleAwake}
-                        onTransitionEnd={this.handleTransitionEnd}
+                        onClick={() => onAwake(true)}
+                        onMouseMove={() => onAwake(true)}
                     >
                         <div
                             style={{
@@ -93,7 +133,7 @@ export class ScreenSaver extends React.Component<IProps, IState> {
                                 <div
                                     style={{
                                         ...this.STYLES.loader,
-                                        transform: `scale(${isAwake ? 1 : 0})`
+                                        transform: `scale(${isVisible ? 1 : 0})`
                                     }}
                                 >
                                     <GrowingCircleLoader size={this.fontSize() * 2}/>

@@ -25,7 +25,8 @@ export class Pages extends React.Component<IProps, {}> {
             position: "relative",
             verticalAlign: "top",
             fontSize: 24,
-            color: colors.wht
+            color: colors.wht,
+            transition: "opacity 1600ms"
         }
     };
 
@@ -57,18 +58,20 @@ export class Pages extends React.Component<IProps, {}> {
     }
 
     render(): JSX.Element {
+        const { pagesLength, height, isAwake, scrollHeight } = this.props.store;
         return (
-            <div style={{...this.STYLES.p, height: this.props.store.scrollHeight}}>
+            <div style={{...this.STYLES.p, height: scrollHeight}}>
                 <div style={{...this.STYLES.slider,
                     left: this.widthMargin,
-                    width: this.props.store.pagesLength * this.adjustedWidth
+                    width: pagesLength * this.adjustedWidth
                 }}>
                 {MAIN_PAGES.map((page, i) =>
                     <div key={`page-${i}`}
                          style={prefixer({...this.STYLES.item,
                              width: this.adjustedWidth,
-                             height: this.props.store.height,
-                             transform: this.pageTransform
+                             height: height,
+                             transform: this.pageTransform,
+                             opacity: isAwake ? 1 : 0
                          })}>
                         {page.component}
                     </div>)}

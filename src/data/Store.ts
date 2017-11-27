@@ -3,7 +3,7 @@ import { browserHistory } from 'react-router';
 import { IParams, buildMap, breakPointTests, IDictionary, setBodyStyle, toParams } from '.';
 import { ITabData } from '../app/main';
 import { MAIN_PAGES, MAIN_PAGES_PATHS } from './pages';
-const AWAKE_DURATION = 5000;
+const AWAKE_DURATION = 30000;
 
 export class Store {
     isWideHeaderItemMounted: boolean;
@@ -46,7 +46,7 @@ export class Store {
         this.pagesLength = MAIN_PAGES.length;
         this.width = 0;
         this.height = 0;
-        this.docScroll = -5000;
+        this.docScroll = -20;
         this.savedParams = buildMap({
             activePagePath: "",
             activeViewPath: ""
@@ -147,7 +147,6 @@ export class Store {
     @action
     public onAwake = (isAwake: boolean) => {
         this.isAwake = isAwake;
-        this.incrementDocScroll();
         this.sleepTimeoutId = setTimeout(() => {
         // back to sleep
             this.isAwake = false;
@@ -161,6 +160,7 @@ export class Store {
 
     @action
     public onLoad = (nextParams: IParams) => {
+        this.incrementDocScroll();
         if (nextParams.activePagePath.length > 0) {
             this.savedParams = buildMap(nextParams);
         } else {
@@ -177,7 +177,7 @@ export class Store {
     public incrementDocScroll = () => {
         this.zoomIntervalId = setInterval(() => {
             if (this.docScroll < 0) {
-                this.onIncrementDocScroll(200);
+                this.onIncrementDocScroll(1);
             } else {
                 clearInterval(this.zoomIntervalId);
             }

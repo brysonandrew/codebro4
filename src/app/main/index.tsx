@@ -47,7 +47,7 @@ export class Main extends React.Component<IProps, {}> {
 
     render(): JSX.Element {
         const { width, height, docScroll, isAwake, projectOffsets, isAnimating, savedParams
-            , onAnimationEnd, isResizing } = this.props.store;
+            , onAnimationEnd, onAwake, isResizing, isMobile, isTablet } = this.props.store;
 
         return (
             <div>
@@ -69,7 +69,12 @@ export class Main extends React.Component<IProps, {}> {
                     <WideHeader/>
                 </div>
                 <Pages/>
-                <ScreenSaver/>
+                <ScreenSaver
+                    isAwake={isAwake}
+                    isMobile={isMobile}
+                    isTablet={isTablet}
+                    onAwake={onAwake}
+                />
                 {!!projectOffsets
                     ?   <MotionScroll
                             docScroll={docScroll}
