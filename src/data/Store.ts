@@ -3,7 +3,6 @@ import { browserHistory } from 'react-router';
 import { IParams, buildMap, breakPointTests, IDictionary, setBodyStyle, toParams } from '.';
 import { ITabData } from '../app/main';
 import { MAIN_PAGES, MAIN_PAGES_PATHS } from './pages';
-const AWAKE_DURATION = 30000;
 
 export class Store {
     isWideHeaderItemMounted: boolean;
@@ -147,10 +146,6 @@ export class Store {
     @action
     public onAwake = (isAwake: boolean) => {
         this.isAwake = isAwake;
-        this.sleepTimeoutId = setTimeout(() => {
-        // back to sleep
-            this.isAwake = false;
-        }, AWAKE_DURATION);
     };
 
     @action

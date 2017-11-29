@@ -6,6 +6,8 @@ import { toParams, IInlineStyles, Store, EXPERIMENTS_PATHS, colors } from '../da
 import { Main } from './main';
 import { Lab } from './lab';
 import { CSS_FONT_STRING } from '../widgets';
+import {ScreenSaver} from '../widgets/ScreenSaver';
+const AWAKE_DURATION = 30000;
 
 interface IProps {
     store?: Store
@@ -26,11 +28,13 @@ export class Home extends React.Component<IProps, {}> {
     };
 
     parentRef;
-    idleTimeoutId;
+    sleepTimeoutId;
+    scollTimeoutId;
     timeoutStopDelay = 50;
+    isScrolling = false;
 
     componentDidMount() {
-        const { onMeasureViewport, onLocationListen, onLoad, onScroll } = this.props.store;
+        const { onMeasureViewport, onLocationListen, onLoad } = this.props.store;
         const history = createHistory();
 
         onLoad(toParams(history.location.pathname));
@@ -41,17 +45,34 @@ export class Home extends React.Component<IProps, {}> {
         });
 
         window.scroll(0, 0);
-        window.addEventListener("scroll", onScroll);
+        window.addEventListener("scroll", this.handleScroll);
         window.addEventListener("resize", () => onMeasureViewport(window.innerWidth, window.innerHeight));
     }
 
-    componentWillUnmount() {
-        const { onMeasureViewport, onScroll } = this.props.store;
+    handleScroll = () => {
+        this.props.store.onScroll();
+        this.handleWakefullness();
+        clearTimeout(this.scollTimeoutId);
+        this.scollTimeoutId = setTimeout(() => {
+            // back to sleep
+        }, 100);
+    };
 
-        clearTimeout(this.idleTimeoutId);
-        window.removeEventListener("scroll", onScroll);
+    componentWillUnmount() {
+        const { onMeasureViewport } = this.props.store;
+
+        clearTimeout(this.sleepTimeoutId);
+        window.removeEventListener("scroll", this.handleScroll);
         window.removeEventListener("resize", () => onMeasureViewport(window.innerWidth, window.innerHeight));
     }
+
+    handleWakefullness = () => {
+        clearTimeout(this.sleepTimeoutId);
+        this.sleepTimeoutId = setTimeout(() => {
+            // back to sleep
+            this.props.store.onAwake(false);
+        }, AWAKE_DURATION);
+    };
 
     private renderHome = () => {
         const activePage = this.props.store.savedParams.get("activePagePath");
@@ -62,15 +83,24 @@ export class Home extends React.Component<IProps, {}> {
         } else {
             return  <Main/>
         }
-
     };
 
     render(): JSX.Element {
+        const { isAwake, onAwake, isMobile, isTablet } = this.props.store;
+
         return (
             <div
                 style={ this.STYLES.p }
                 ref={el => el ? (this.parentRef = el) : null}
+                onClick={this.handleWakefullness}
+                onMouseMove={this.handleWakefullness}
             >
+                <ScreenSaver
+                    isAwake={isAwake}
+                    isMobile={isMobile}
+                    isTablet={isTablet}
+                    onAwake={onAwake}
+                />
                 {this.renderHome()}
             </div>
         );

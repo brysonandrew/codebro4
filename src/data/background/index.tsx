@@ -4,6 +4,8 @@ import { inject, observer } from 'mobx-react';
 import { Amygdala, VERTICAL_CYLINDER, NUMBER_OF_ARMS, SCREEN } from '../experiments';
 import { CenteredText } from '../../widgets';
 import { Store, isGL } from '..';
+const RX0 = Math.PI * 0.1;
+const MAX = 20;
 
 interface IState {
     isFallback: boolean
@@ -12,7 +14,7 @@ interface IState {
 interface IProps {
     parentEl?: HTMLDivElement
     store?: Store
-    docScroll?: number
+    docScroll: number
 }
 
 @inject('store')
@@ -28,6 +30,8 @@ export class Background extends React.Component<IProps, IState> {
     playerFocus = new THREE.Group;
     structureComponent;
     structure;
+    prevDocScroll = 0;
+    count = 0;
 
     public constructor(props?: any, context?: any) {
         super(props, context);
@@ -40,6 +44,7 @@ export class Background extends React.Component<IProps, IState> {
     width = () => this.props.store.width;
     height = () => this.props.store.height;
     adjustedScrollHeight = () => this.props.store.scrollHeight - this.height();
+    docScroll = () => this.props.docScroll;
 
     componentDidMount() {
         if (isGL())  {
@@ -83,7 +88,7 @@ export class Background extends React.Component<IProps, IState> {
             1,
             8000
         );
-        this.camera.rotation.x = Math.PI * 0.1;
+        this.camera.rotation.x = RX0;
     }
 
     initScene() {
@@ -128,28 +133,36 @@ export class Background extends React.Component<IProps, IState> {
         this.renderMotion();
     }
 
+    zoom(scrollPos, direction) {
+        const d = {
+            pz: -200,
+            py: this.height() * 0.05,
+            rx: RX0
+        };
+
+        this.camera.position.z = scrollPos + d.pz * this.count / MAX;
+        this.camera.position.y = this.height() * 0.0025 + d.py * this.count / MAX;
+        this.camera.rotation.x = d.rx * (1 - this.count / MAX);
+
+        if (direction === "out" && this.count < MAX) {
+            this.count++;
+        } else if (direction === "in" && this.count > 0) {
+            this.count--;
+        }
+    }
+
     renderMotion() {
-        const scrollPos = -this.props.docScroll / this.adjustedScrollHeight() * (VERTICAL_CYLINDER.height - VERTICAL_CYLINDER.height / NUMBER_OF_ARMS) + VERTICAL_CYLINDER.height * 0.5;
+        const scrollPos = -this.docScroll() / this.adjustedScrollHeight() * (VERTICAL_CYLINDER.height - VERTICAL_CYLINDER.height / NUMBER_OF_ARMS) + VERTICAL_CYLINDER.height * 0.5;
         this.structureComponent.animate(scrollPos, this.props.store.isAnimating);
-        this.structure.rotation.y = this.props.docScroll / this.adjustedScrollHeight() * (Math.PI * 2 -  Math.PI * 2 / NUMBER_OF_ARMS) + Math.PI * 0.5;
-        if (!this.props.store.isAwake) {
-            if (this.camera.position.z > (scrollPos - 200) || this.camera.position.y > this.height() * 0.0025 * 10) {
-                this.camera.position.z -= this.camera.position.z > (scrollPos - 200) ? (scrollPos - 200) / 20 : 0;
-                this.camera.position.y -= this.camera.position.y > this.height() * 0.0025 * 10 ? this.height() * 0.0025 / 20 : 0;
-            } else {
-                this.camera.position.z = scrollPos - 200;
-                this.camera.position.y = this.height() * 0.0025 * 10;
-            }
+        this.structure.rotation.y = this.docScroll() / this.adjustedScrollHeight() * (Math.PI * 2 -  Math.PI * 2 / NUMBER_OF_ARMS) + Math.PI * 0.5;
+        if (this.props.store.isAwake) {
+            this.zoom(scrollPos, "in");
         } else {
-            if (this.camera.position.z < scrollPos || this.camera.position.y < this.height() * 0.0025) {
-                this.camera.position.z += this.camera.position.z < scrollPos ? scrollPos / 20 : 0;
-                this.camera.position.y += this.camera.position.y < this.height() * 0.0025 ? this.height() * 0.0025 / 20 : 0;
-            } else {
-                this.camera.position.z = scrollPos;
-                this.camera.position.y = this.height() * 0.0025;
-            }
+            this.zoom(scrollPos, "out");
         }
         this.points.position.z = scrollPos;
+        this.prevDocScroll = this.docScroll();
+
         this.renderer.render( this.scene, this.camera );
     }
 
