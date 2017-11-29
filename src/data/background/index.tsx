@@ -136,7 +136,7 @@ export class Background extends React.Component<IProps, IState> {
     zoom(scrollPos, direction) {
         const d = {
             pz: -200,
-            py: this.height() * 0.05,
+            py: this.height() * 0.075,
             rx: RX0
         };
 

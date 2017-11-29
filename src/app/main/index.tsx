@@ -21,7 +21,8 @@ const STYLES: IInlineStyles = {
         position: "absolute",
         left: 0,
         fontSize: 28,
-        transform: "rotate(-90deg) translate(50%, -25%)"
+        transform: "rotate(-90deg) translate(50%, -25%)",
+        transition: "400ms opacity"
     }),
     background: {
         position: "fixed",
@@ -62,7 +63,7 @@ export class Main extends React.Component<IProps, {}> {
                             />
                         :   null}
                 </div>
-                <div style={{...STYLES.title, top: height * 0.85}}>
+                <div style={{...STYLES.title, top: height * 0.85, opacity: docScroll === 0 ? 1 : 0.22}}>
                     <h1>code bro</h1>
                 </div>
                 <div style={ STYLES.header }>
