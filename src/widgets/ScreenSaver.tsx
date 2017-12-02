@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
-import { colors, IInlineStyles, prefixer, GrowingCircleLoader } from '../data';
+import { IInlineStyles, prefixer, GrowingCircleLoader } from '../data';
 import { TypingTextInterval, TYPING_SPEED } from './TypingTextInterval';
 
 const TEXT_CONTENT = "Hi, my name is Andrew and I make websites ";

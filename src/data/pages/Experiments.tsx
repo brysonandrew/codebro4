@@ -8,7 +8,7 @@ export class Experiments extends React.Component<{}, {}> {
 
     STYLES: IInlineStyles = {
         p: prefixer({
-            id: "gallery",
+            id: "experiments",
             position: "absolute",
             top: "50%",
             left: "50%",

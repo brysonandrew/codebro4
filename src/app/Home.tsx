@@ -7,7 +7,7 @@ import { Main } from './main';
 import { Lab } from './lab';
 import { CSS_FONT_STRING } from '../widgets';
 import {ScreenSaver} from '../widgets/ScreenSaver';
-const AWAKE_DURATION = 30000;
+const AWAKE_DURATION = 300000;
 
 interface IProps {
     store?: Store
