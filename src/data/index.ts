@@ -6,4 +6,5 @@ export { EXPERIMENTS, EXPERIMENTS_DICT, EXPERIMENTS_PATHS, Particles, PARTICLES,
 export { Background } from "./background";
 export { IDictionary, IInlineStyles, IPage, IWork, ILabProject, IParams } from "./models";
 export { colors } from "./themeOptions";
+export { contact, technologies } from "./icons";
 export { Store } from "./Store";

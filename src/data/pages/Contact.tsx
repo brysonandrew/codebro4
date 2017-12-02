@@ -2,38 +2,10 @@ import * as React from 'react';
 import { observer } from 'mobx-react';
 import { IInlineStyles, prefixer } from '..';
 import { UnderlineSwitch, ExternalLink } from '../../widgets';
-import { EmailSvg, GithubSvg, UpworkSvg, CodepenSvg, YouTubeSvg } from '../icons';
+import { contact } from '..';
 
 @observer
 export class Contact extends React.Component<{}, {}> {
-
-    LINKS = [
-        {
-            name: "andrew@codebro.io",
-            path: "mailto:andrew@codebro.io",
-            icon: <EmailSvg/>
-        },
-        {
-            name: "Github",
-            path: "https://github.com/brysonandrew",
-            icon: <GithubSvg/>
-        },
-        {
-            name: "Upwork",
-            path: "https://www.upwork.com/o/profiles/users/_~01bbcef9fbd4ce21aa/",
-            icon: <UpworkSvg/>
-        },
-        {
-            name: "Codepen",
-            path: "https://codepen.io/codebro/",
-            icon: <CodepenSvg/>
-        },
-        {
-            name: "YouTube",
-            path: "https://www.youtube.com/channel/UCF1SvsAZTJL4Bw9qj0hdNLA",
-            icon: <YouTubeSvg/>
-        }
-    ];
 
     STYLES: IInlineStyles = {
         contact: prefixer({
@@ -63,19 +35,19 @@ export class Contact extends React.Component<{}, {}> {
     render(): JSX.Element {
         return (
             <div style={this.STYLES.contact}>
-                {this.LINKS.map(link =>
+                {contact.map(link =>
                     <UnderlineSwitch
-                        key={link.name}
+                        key={link.id}
                     >
                         <ExternalLink
-                            path={link.path}
+                            path={link.link}
                         >
                             <span style={this.STYLES.item}>
                                  <span style={this.STYLES.icon}>
-                                    {link.icon}
+                                    {link.content}
                                 </span>
                                 <span style={this.STYLES.name}>
-                                    {link.name}
+                                    {link.title}
                                 </span>
                             </span>
                         </ExternalLink>
