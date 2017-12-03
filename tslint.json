@@ -39,10 +39,7 @@
         }
       }
     ],
-    "indent": [
-      true,
-      "spaces"
-    ],
+    "indent": false,
     "semicolon": false,
     "quotemark": [
       true,

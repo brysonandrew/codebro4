@@ -13,11 +13,11 @@ export const ARM = {
     spread: 10
 };
 
-export const NUMBER_OF_ARMS = 4;
+export const NUMBER_OF_ARMS = 5;
 
 export const SCREEN = {
     width: 200,
-    height: 120,
+    height: 160,
     radius: 155,
     openingBuffer: VERTICAL_CYLINDER.height / NUMBER_OF_ARMS
 };
