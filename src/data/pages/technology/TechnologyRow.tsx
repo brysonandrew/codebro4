@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
-import { IInlineStyles } from '../../';
-import {ITechnology} from './index';
-import {TechnologyItem} from './TechnologyItem';
+import { IInlineStyles } from '../..';
+import { ITechnology } from '.';
+import { TechnologyItem } from './TechnologyItem';
 
 interface IProps {
     techRow: ITechnology
@@ -14,14 +14,15 @@ export class TechnologyRow extends React.Component<IProps, {}> {
 
     STYLES: IInlineStyles = {
         p: {
-            id: "row",
+            id: "row wrapper",
             position: "relative",
+            height: "100%",
             cursor: "pointer"
         },
         techRowName: {
             id: "techRowName",
             position: "absolute",
-            left: "17.5%",
+            left: "7.5%",
             top: "50%",
             transform: "translate(-50%, -50%) rotate(-90deg)",
             opacity: 0.66
@@ -32,8 +33,7 @@ export class TechnologyRow extends React.Component<IProps, {}> {
         return (
             <div
                 style={{
-                    ...this.STYLES.p,
-                    height: `${100 / this.props.techCol.length}%`
+                    ...this.STYLES.p
                 }}
             >
                 <div style={{...this.STYLES.techRowName, color: this.props.techRow.backgroundColor}}>

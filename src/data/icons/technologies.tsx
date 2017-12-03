@@ -1,10 +1,11 @@
 import * as React from "react";
-import {IIconSvgInfo} from '.';
+import {ITechnologyIconSvgInfo} from '.';
 
-export const styleTechnologies: IIconSvgInfo[] = [
+export const styleTechnologies: ITechnologyIconSvgInfo[] = [
     {
         id     : "css3-technologies-svg",
         title  : "CSS",
+        score  : 10,
         link   : "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS3",
         content:
             <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 540">
@@ -19,6 +20,7 @@ export const styleTechnologies: IIconSvgInfo[] = [
     {
         id: "svg-technologies-svg",
         title: "SVG",
+        score  : 8,
         link: "https://www.w3.org/standards/techs/svg#w3c_all",
         content:
             <svg xmlns="http://www.w3.org/2000/svg"
@@ -52,6 +54,7 @@ export const styleTechnologies: IIconSvgInfo[] = [
     {
         id     : "threejs-technologies-svg",
         title  : "THREE",
+        score  : 9,
         link   : "https://threejs.org/",
         content:
             <svg viewBox="0 0 256 256" xmlSpace="preserve" fillRule="evenodd" clipRule="evenodd" strokeLinejoin="round" strokeMiterlimit="1.41421">
@@ -60,10 +63,11 @@ export const styleTechnologies: IIconSvgInfo[] = [
     },
 ];
 
-export const baseTechnologies: IIconSvgInfo[] = [
+export const baseTechnologies: ITechnologyIconSvgInfo[] = [
     {
         id     : "html5-technologies-svg",
         title  : "HTML",
+        score  : 7,
         link   : "https://www.w3.org/TR/html51/",
         content:
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 540">
@@ -76,6 +80,7 @@ export const baseTechnologies: IIconSvgInfo[] = [
     {
         id     : "javascript-technologies-svg",
         title  : "JavaScript",
+        score  : 7,
         link   : "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
         content:
             <svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 256 256">
@@ -86,6 +91,7 @@ export const baseTechnologies: IIconSvgInfo[] = [
     {
         id     : "typescript-technologies-svg",
         title  : "TypeScript",
+        score  : 8,
         link   : "https://www.typescriptlang.org/",
         content:
             <svg fill="#007ACC" viewBox="0 0 256.000000 256.000000">
@@ -95,10 +101,11 @@ export const baseTechnologies: IIconSvgInfo[] = [
     }
 ];
 
-export const frontEndTechnologies: IIconSvgInfo[] = [
+export const frontEndTechnologies: ITechnologyIconSvgInfo[] = [
     {
         id     : "react-technologies-svg",
         title  : "React",
+        score  : 9,
         link   : "https://reactjs.org/",
         content:
             <svg version="1.1" id="Layer_2_1_" x="0px" y="0px" viewBox="0 0 841.9 595.3">
@@ -114,6 +121,7 @@ export const frontEndTechnologies: IIconSvgInfo[] = [
     {
         id     : "redux-technologies-svg",
         title  : "Redux",
+        score  : 7,
         link   : "https://github.com/reactjs/redux",
         content:
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
@@ -127,6 +135,7 @@ export const frontEndTechnologies: IIconSvgInfo[] = [
     {
         id     : "mobx-technologies-svg",
         title  : "MobX",
+        score  : 4,
         link   : "https://github.com/mobxjs/mobx",
         content:
             <svg viewBox="0 0 1200 1200" fillRule="evenodd" clipRule="evenodd" strokeLinejoin="round" strokeMiterlimit="1.41421">
@@ -159,10 +168,11 @@ export const frontEndTechnologies: IIconSvgInfo[] = [
     }
 ];
 
-export const backEndTechnologies: IIconSvgInfo[] = [
+export const backEndTechnologies: ITechnologyIconSvgInfo[] = [
     {
         id     : "nodejs-technologies-svg",
         title  : "Node.js",
+        score  : 6,
         link   : "https://github.com/nodejs/node",
         content:
             <svg width="100%" height="100%" preserveAspectRatio="xMinYMin meet" viewBox="0 0 256 282" id="node-logo">
@@ -183,10 +193,11 @@ export const backEndTechnologies: IIconSvgInfo[] = [
     // },
 ];
 
-export const databaseTechnologies: IIconSvgInfo[] = [
+export const databaseTechnologies: ITechnologyIconSvgInfo[] = [
     {
         id     : "mongodb-technologies-svg",
         title  : "MongoDB",
+        score  : 4,
         link   : "https://www.mongodb.com/",
         content:
             <svg width="100%" height="100%" viewBox="0 0 57 57">
@@ -221,6 +232,7 @@ export const databaseTechnologies: IIconSvgInfo[] = [
     {
         id     : "firebase",
         title  : "Firebase",
+        score  : 3,
         link   : "https://firebase.google.com/",
         content:
             <svg width="100%" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 351 351">

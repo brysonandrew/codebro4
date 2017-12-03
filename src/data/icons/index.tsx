@@ -1,5 +1,9 @@
 import * as React from "react";
 
+export interface ITechnologyIconSvgInfo extends IIconSvgInfo {
+    score: number
+}
+
 export interface IIconSvgInfo {
     id: string
     title: string

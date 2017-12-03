@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
-import { IInlineStyles } from '../../';
-import {ITechnology} from './index';
+import { IInlineStyles } from '../..';
+import {ITechnology} from '.';
 import {TechnologyRow} from './TechnologyRow';
-import {TECH_HEIGHT} from './Technology';
+import {TECH_HEIGHT} from '.';
 
 interface IProps {
     techCol: ITechnology[]
@@ -19,8 +19,7 @@ export class TechnologyCol extends React.Component<IProps, {}> {
             display: 'inline-block',
             verticalAlign: 'top',
             width: '33%',
-            height: TECH_HEIGHT,
-            fontSize: 20
+            height: TECH_HEIGHT
         },
         row: {
             id: 'row',

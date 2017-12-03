@@ -1,21 +1,24 @@
 import * as React from 'react';
-import { observer } from 'mobx-react';
-import { IInlineStyles, prefixer } from '../../';
+import { inject, observer } from 'mobx-react';
+import { IInlineStyles, prefixer } from '../..';
 import {
-    backEndTechnologies, baseTechnologies, databaseTechnologies, frontEndTechnologies,
+    backEndTechnologies,
+    baseTechnologies,
+    databaseTechnologies,
+    frontEndTechnologies,
     styleTechnologies
 } from '../../icons/technologies';
-import {IIconSvgInfo} from '../../icons/index';
-import {TechnologyCol} from './TechnologyCol';
+import { ITechnologyIconSvgInfo } from '../../icons';
+import { TechnologyCol } from './TechnologyCol';
+import { Store } from '../..';
 
 export interface ITechnology {
     name: string
     backgroundColor: string
-    technologies: IIconSvgInfo[]
+    technologies: ITechnologyIconSvgInfo[]
 }
 
-const WIDTH = 800;
-const HEIGHT = 480;
+export const TECH_HEIGHT = 480;
 
 const COLUMNS: ITechnology[][] = [
     [
@@ -52,8 +55,23 @@ const COLUMNS: ITechnology[][] = [
     ]
 ];
 
+interface IProps {
+    store?: Store
+}
+
+@inject('store')
 @observer
-export class Technology extends React.Component<{}, {}> {
+export class Technology extends React.Component<IProps, {}> {
+
+    techWidth = (): number => {
+        const { isMobile, isTablet } = this.props.store;
+        return isMobile ? 320 : isTablet ? 600 : 800;
+    };
+
+    fontSize = (): number => {
+        const { isMobile, isTablet } = this.props.store;
+        return isMobile ? 12 : isTablet ? 15 : 20;
+    };
 
     STYLES: IInlineStyles = {
         p: prefixer({
@@ -61,17 +79,16 @@ export class Technology extends React.Component<{}, {}> {
             position: "absolute",
             top: "50%",
             left: "50%",
-            width: WIDTH,
-            height: HEIGHT,
-            fontSize: 20,
+            height: TECH_HEIGHT,
             textAlign: "left",
             transform: "translate(-50%, -50%)"
         })
     };
 
     render(): JSX.Element {
+
         return (
-            <div style={this.STYLES.p}>
+            <div style={{...this.STYLES.p, width: this.techWidth(), fontSize: this.fontSize()}}>
                 {COLUMNS.map((techCol, i) =>
                     <TechnologyCol
                         key={`colTech-${i}`}

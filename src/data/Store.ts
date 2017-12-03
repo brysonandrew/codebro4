@@ -26,7 +26,6 @@ export class Store {
     tabDimensions: Array<ITabData> = [];
     pagesLength;
     timeoutId;
-    sleepTimeoutId;
     zoomIntervalId;
     timeoutStopDelay = 50;
 
@@ -60,7 +59,7 @@ export class Store {
     public onScroll = () => {
         this.onSetDocScroll((!!document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop);
         this.timeoutId = setTimeout(() => {
-            if (!this.isAnimating && MAIN_PAGES_PATHS.indexOf(this.savedParams.get('activePagePath')) > -1) {
+            if (!this.isAnimating) {
                 this.changeProjectPathOnScroll();
             }
         }, this.timeoutStopDelay);
