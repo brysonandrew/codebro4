@@ -76,9 +76,18 @@ export class Background extends React.Component<IProps, IState> {
     }
 
     initRenderer() {
+        this.removeExisting();
+
         this.renderer = new THREE.WebGLRenderer({alpha: true});
+        this.renderer.domElement.id = "background";
         this.renderer.setSize( this.width(), this.height() );
         this.props.parentEl.appendChild( this.renderer.domElement );
+    }
+
+    removeExisting() {
+        if (document.getElementById("background")) {
+            this.props.parentEl.removeChild( document.getElementById("background" ));
+        }
     }
 
     initCamera() {
@@ -96,12 +105,12 @@ export class Background extends React.Component<IProps, IState> {
     }
 
     initLighting() {
-        let pointLeft = new THREE.PointLight( 0xFFFFFF, 2 );
+        let pointLeft = new THREE.PointLight( 0xFFFFFF, 0.5 );
         pointLeft.position.y += SCREEN.height * 1.5;
         pointLeft.position.x -= SCREEN.width;
         this.points.add(pointLeft);
 
-        let pointRight = new THREE.PointLight( 0xFFFFFF, 2 );
+        let pointRight = new THREE.PointLight( 0xFFFFFF, 0.5 );
         pointRight.position.y += SCREEN.height * 1.5;
         pointRight.position.x += SCREEN.width;
         this.points.add(pointRight);

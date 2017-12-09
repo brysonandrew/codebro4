@@ -50,5 +50,5 @@ export {
     frontEndTechnologies,
     backEndTechnologies,
     databaseTechnologies
-} from "./icons";
+} from "./labels";
 export { Store } from "./Store";

@@ -2,13 +2,13 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { IInlineStyles } from '../..';
 import { ITechnology } from '.';
-import { ITechnologyIconSvgInfo } from '../../icons';
+import { ITechnologyLabel } from '../../labels';
 import { Store } from '../../Store';
 
 interface IProps {
     store?: Store
     techRow: ITechnology
-    tech: ITechnologyIconSvgInfo
+    tech: ITechnologyLabel
 }
 
 @inject('store')
@@ -30,7 +30,8 @@ export class TechnologyItem extends React.Component<IProps, {}> {
             height: 32,
             transform: "translate(-50%, -50%)",
             color: this.props.techRow.backgroundColor,
-            textDecoration: "none"
+            textDecoration: "none",
+            cursor: "pointer"
         },
         score: {
             position: "absolute",

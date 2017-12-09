@@ -1,8 +1,8 @@
 import * as React from "react";
-import {IIconSvgInfo} from '.';
+import {ILabelInfo} from '.';
 import {colors} from '../themeOptions';
 
-export const contact: IIconSvgInfo[] = [
+export const contact: ILabelInfo[] = [
     {
         id     : "email-contact-svg",
         title  : "Email",

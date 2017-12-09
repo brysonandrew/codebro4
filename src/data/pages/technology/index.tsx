@@ -7,15 +7,15 @@ import {
     databaseTechnologies,
     frontEndTechnologies,
     styleTechnologies
-} from '../../icons/technologies';
-import { ITechnologyIconSvgInfo } from '../../icons';
+} from '../../labels/technology';
+import { ITechnologyLabel } from '../../labels';
 import { TechnologyCol } from './TechnologyCol';
 import { Store } from '../..';
 
 export interface ITechnology {
     name: string
     backgroundColor: string
-    technologies: ITechnologyIconSvgInfo[]
+    technologies: ITechnologyLabel[]
 }
 
 export const TECH_HEIGHT = 480;

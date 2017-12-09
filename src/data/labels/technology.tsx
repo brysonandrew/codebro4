@@ -1,7 +1,7 @@
 import * as React from "react";
-import {ITechnologyIconSvgInfo} from '.';
+import {ITechnologyLabel} from '.';
 
-export const styleTechnologies: ITechnologyIconSvgInfo[] = [
+export const styleTechnologies: ITechnologyLabel[] = [
     {
         id     : "css3-technologies-svg",
         title  : "CSS",
@@ -63,7 +63,7 @@ export const styleTechnologies: ITechnologyIconSvgInfo[] = [
     },
 ];
 
-export const baseTechnologies: ITechnologyIconSvgInfo[] = [
+export const baseTechnologies: ITechnologyLabel[] = [
     {
         id     : "html5-technologies-svg",
         title  : "HTML",
@@ -101,7 +101,7 @@ export const baseTechnologies: ITechnologyIconSvgInfo[] = [
     }
 ];
 
-export const frontEndTechnologies: ITechnologyIconSvgInfo[] = [
+export const frontEndTechnologies: ITechnologyLabel[] = [
     {
         id     : "react-technologies-svg",
         title  : "React",
@@ -168,7 +168,7 @@ export const frontEndTechnologies: ITechnologyIconSvgInfo[] = [
     }
 ];
 
-export const backEndTechnologies: ITechnologyIconSvgInfo[] = [
+export const backEndTechnologies: ITechnologyLabel[] = [
     {
         id     : "nodejs-technologies-svg",
         title  : "Node.js",
@@ -193,7 +193,7 @@ export const backEndTechnologies: ITechnologyIconSvgInfo[] = [
     // },
 ];
 
-export const databaseTechnologies: ITechnologyIconSvgInfo[] = [
+export const databaseTechnologies: ITechnologyLabel[] = [
     {
         id     : "mongodb-technologies-svg",
         title  : "MongoDB",

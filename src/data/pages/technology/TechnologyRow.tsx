@@ -16,8 +16,7 @@ export class TechnologyRow extends React.Component<IProps, {}> {
         p: {
             id: "row wrapper",
             position: "relative",
-            height: "100%",
-            cursor: "pointer"
+            height: "100%"
         },
         techRowName: {
             id: "techRowName",
