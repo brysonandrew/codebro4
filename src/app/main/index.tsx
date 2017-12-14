@@ -3,9 +3,8 @@ import { observer, inject } from 'mobx-react';
 import { WideHeader, WideHeaderItem, ITabData } from "./WideHeader";
 import { Pages } from "./Pages";
 import { prefixer, Background, Store, IInlineStyles } from '../../data';
-import { MotionScroll } from '../../widgets';
+import { MotionScroll, Logo } from '../../widgets';
 import { GrowingCircleLoader } from '../../data/experiments/Loaders';
-import {Logo} from '../../widgets/Logo/Logo';
 
 const STYLES: IInlineStyles = {
     mainHeader: {

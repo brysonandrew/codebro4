@@ -8,5 +8,5 @@ export { TypingTextInterval } from "./TypingTextInterval";
 export { ExternalLink } from "./ExternalLink";
 export { InternalLink } from "./InternalLink";
 export { UnderlineSwitch } from "./UnderlineSwitch";
-export { TextLogo } from "./TextLogo";
+export { Logo } from "./Logo/Logo";
 export { ThreeBarLoader } from "../data/experiments/Loaders/ThreeBarLoader";

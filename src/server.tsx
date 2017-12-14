@@ -13,7 +13,7 @@ import { MobxAsyncConnect, loadOnServer, store as mobxAsyncConnect } from 'mobx-
 import routes from './routes';
 
 import { Html } from './app';
-import {Store} from './data/Store';
+import {Store} from './data';
 const manifest = require('../build/manifest.json');
 
 const express = require('express');

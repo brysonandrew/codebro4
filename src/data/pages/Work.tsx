@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
-import { IInlineStyles, prefixer, colors } from '..';
+import { IInlineStyles, prefixer, colors, Store } from '..';
 import { IWorkLabel, work } from '../labels';
-import { Store } from '../Store';
 const ROW_HEIGHT = 30;
 const ROW_MARGIN = 10;
 const TOTAL_HEIGHT = (ROW_HEIGHT + ROW_MARGIN) * (work.length + 1);
@@ -34,7 +33,8 @@ export class Work extends React.Component<IProps, {}> {
             id: "work info",
             height: ROW_HEIGHT,
             margin: `${ROW_MARGIN * 0.5}px 0`,
-            padding: "0 4px"
+            padding: "0 4px",
+            cursor: "pointer"
         },
         item: {
             display: "inline-flex",
@@ -65,39 +65,44 @@ export class Work extends React.Component<IProps, {}> {
         }
     };
 
+    handleClick = () => {
+        this.props.store.onZoomIn(!this.props.store.isIn);
+    };
+
     render(): JSX.Element {
         return (
             <div style={this.STYLES.p}>
-                <div>
-                    {this.headers().map(head =>
-                        <div
-                            key={`Work.head ${head}`}
-                            style={{...this.STYLES.item, ...this.STYLES.header}}
-                        >
-                            {head}
-                        </div>)}
-                    {work.map((work: IWorkLabel, i) =>
-                        <div
-                            key={work.id}
-                            style={{...this.STYLES.info, border: `1px solid ${work.color}`}}
-                        >
-                            <div style={this.STYLES.item}>
-                                {work.title}
-                            </div>
-                            {this.props.store.isMobile
-                                ?   null
-                                :   <div style={this.STYLES.item}>
-                                        {work.teamType}
-                                    </div>}
-                            {this.props.store.isTablet
-                                ?   null
-                                :   <div style={this.STYLES.item}>
-                                        {work.clientType}
-                                    </div>}
+                {this.headers().map(head =>
+                    <div
+                        key={`Work.head ${head}`}
+                        style={{...this.STYLES.item, ...this.STYLES.header}}
+                    >
+                        {head}
+                    </div>)}
+                {work.map((work: IWorkLabel, i) =>
+                    <div
+                        key={work.id}
+                        style={{
+                            ...this.STYLES.info
+                            , border: `1px solid ${work.color}`
+                        }}
+                        onClick={this.handleClick}
+                    >
+                        <div style={this.STYLES.item}>
+                            {work.title}
                         </div>
-                    )}
-                </div>
-
+                        {this.props.store.isMobile
+                            ?   null
+                            :   <div style={this.STYLES.item}>
+                                {work.teamType}
+                            </div>}
+                        {this.props.store.isTablet
+                            ?   null
+                            :   <div style={this.STYLES.item}>
+                                {work.clientType}
+                            </div>}
+                    </div>
+                )}
             </div>
         );
     }

@@ -1,13 +1,14 @@
-import {observable, action, computed} from 'mobx';
+import { observable, action, computed } from 'mobx';
 import { browserHistory } from 'react-router';
 import { IParams, buildMap, breakPointTests, IDictionary, setBodyStyle, toParams } from '.';
 import { ITabData } from '../app/main';
-import { MAIN_PAGES, MAIN_PAGES_PATHS } from './pages';
+import { MAIN_PAGES } from './pages';
 
 export class Store {
     isWideHeaderItemMounted: boolean;
     @observable isAnimating: boolean;
     @observable isAwake: boolean;
+    @observable isIn: boolean;
     @observable isMobile: boolean;
     @observable isTablet: boolean;
     @observable isLaptop: boolean;
@@ -33,6 +34,7 @@ export class Store {
         this.isWideHeaderItemMounted = false;
         this.isAnimating = false;
         this.isAwake = false;
+        this.isIn = false;
         this.isCollapseMenuOpen = false;
         this.isToggleMenuMounted = false;
         this.isResizing = false;
@@ -57,6 +59,9 @@ export class Store {
 
     @action
     public onScroll = () => {
+        if (!this.isIn) {
+            this.onZoomIn(true);
+        }
         this.onSetDocScroll((!!document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop);
         this.timeoutId = setTimeout(() => {
             if (!this.isAnimating) {
@@ -145,6 +150,12 @@ export class Store {
     @action
     public onAwake = (isAwake: boolean) => {
         this.isAwake = isAwake;
+        this.onZoomIn(isAwake);
+    };
+
+    @action
+    public onZoomIn = (isIn: boolean) => {
+        this.isIn = isIn;
     };
 
     @action
