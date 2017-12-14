@@ -70,7 +70,10 @@ export class Work extends React.Component<IProps, {}> {
             <div style={this.STYLES.p}>
                 <div>
                     {this.headers().map(head =>
-                        <div style={{...this.STYLES.item, ...this.STYLES.header}}>
+                        <div
+                            key={`Work.head ${head}`}
+                            style={{...this.STYLES.item, ...this.STYLES.header}}
+                        >
                             {head}
                         </div>)}
                     {work.map((work: IWorkLabel, i) =>

@@ -3,12 +3,19 @@ import { observer, inject } from 'mobx-react';
 import { WideHeader, WideHeaderItem, ITabData } from "./WideHeader";
 import { Pages } from "./Pages";
 import { prefixer, Background, Store, IInlineStyles } from '../../data';
-import { ScreenSaver, MotionScroll } from '../../widgets';
+import { MotionScroll } from '../../widgets';
 import { GrowingCircleLoader } from '../../data/experiments/Loaders';
+import {Logo} from '../../widgets/Logo/Logo';
 
 const STYLES: IInlineStyles = {
+    mainHeader: {
+        id: "main home header",
+        display: "inline-block",
+        verticalAlign: "middle",
+        paddingLeft: 20
+    },
     header: {
-        id: "home header",
+        id: "wide header",
         position: "fixed",
         left: 0,
         top: 0,
@@ -19,7 +26,7 @@ const STYLES: IInlineStyles = {
     title: prefixer({
         id: "home title",
         position: "absolute",
-        left: 0,
+        left: 100,
         fontSize: 28,
         transform: "rotate(-90deg) translate(50%, -25%)",
         transition: "400ms opacity"
@@ -64,7 +71,10 @@ export class Main extends React.Component<IProps, {}> {
                         :   null}
                 </div>
                 <div style={{...STYLES.title, top: height * 0.85, opacity: docScroll === 0 ? 1 : 0.22}}>
-                    <h1>code bro</h1>
+                    <Logo/>
+                    <h1 style={STYLES.mainHeader}>
+                        code bro
+                    </h1>
                 </div>
                 <div style={ STYLES.header }>
                     <WideHeader/>
