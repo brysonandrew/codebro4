@@ -37,6 +37,6 @@ export {
     databaseTechnologies
 } from "./technology";
 
-export {work} from "./work";
+export {WORK_LABELS} from "./work";
 
 export {contact} from "./contact";

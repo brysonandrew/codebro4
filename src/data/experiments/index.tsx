@@ -6,7 +6,7 @@ import { Loaders } from './Loaders';
 import { PageMaker, IPage, IInlineStyles, IDictionary, arrayToDictionary, colors } from '..';
 import { InternalLink, UnderlineSwitch } from '../../widgets';
 import { Particles, PARTICLES, PARTICLES_DICT } from './Particles';
-import { Models, Amygdala, VERTICAL_CYLINDER, NUMBER_OF_ARMS, ARM, SCREEN } from './Models';
+import { Models, Amygdala, VERTICAL_CYLINDER, NUMBER_OF_ARMS, ARM, SCREEN, MODELS } from './Models';
 import { TextExperiments } from './TextExperiments';
 import {Buttons} from './Buttons/index';
 
@@ -88,5 +88,5 @@ export const EXPERIMENTS: IPage[] = [
 export const EXPERIMENTS_PATHS: string[] = EXPERIMENTS.map(experiment => experiment.path);
 export const EXPERIMENTS_DICT: IDictionary<IPage> = arrayToDictionary(EXPERIMENTS, "path");
 
-export { Particles, PARTICLES, PARTICLES_DICT, Amygdala, MascotControls, VERTICAL_CYLINDER, NUMBER_OF_ARMS, ARM, SCREEN };
+export { Particles, PARTICLES, PARTICLES_DICT, Amygdala, MascotControls, VERTICAL_CYLINDER, NUMBER_OF_ARMS, ARM, SCREEN, MODELS };
 export { GrowingCircleLoader } from "./Loaders";

@@ -2,8 +2,7 @@ import * as React from 'react';
 import { IndexRoute, Route, Redirect } from 'react-router';
 import { App, Home } from '../app';
 import { NotFound } from '../widgets';
-import { MAIN_PAGES, EXPERIMENTS, PARTICLES } from '../data';
-import { MODELS } from '../data/experiments/Models/models/index';
+import { MAIN_PAGES, EXPERIMENTS, PARTICLES, MODELS, WORK_LABELS, toPath } from '../data';
 
 export default (
     <Route path="/" component={App}>
@@ -14,6 +13,14 @@ export default (
                 key={`pages-${i}`}
                 path={`/${page.path}`}
                 component={Home} />
+        )}
+        {/*work-pages*/}
+        {WORK_LABELS.map((work, i) =>
+            <Route
+                key={`selected-work-${i}`}
+                path={`/selected-work/${toPath(work.title)}`}
+                component={Home}
+            />
         )}
         {/*lab-pages*/}
         {EXPERIMENTS.map((experiment, i) =>

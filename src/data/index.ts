@@ -31,7 +31,8 @@ export {
     Particles,
     PARTICLES,
     PARTICLES_DICT,
-    GrowingCircleLoader
+    GrowingCircleLoader,
+    MODELS
 } from "./experiments";
 export { Background } from "./background";
 export {
@@ -49,6 +50,8 @@ export {
     baseTechnologies,
     frontEndTechnologies,
     backEndTechnologies,
-    databaseTechnologies
+    databaseTechnologies,
+    IWorkLabel,
+    WORK_LABELS
 } from "./labels";
 export { Store } from "./Store";

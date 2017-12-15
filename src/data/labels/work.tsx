@@ -20,7 +20,7 @@ const BOX_CONFIGS = [
     { x: 50, y: 30, color: "#12ccaf" }
 ];
 
-export const work: IWorkLabel[] = [
+export const WORK_LABELS: IWorkLabel[] = [
     {
         id     : 'phonetradr-work-svg',
         title  : 'Phonetradr',
