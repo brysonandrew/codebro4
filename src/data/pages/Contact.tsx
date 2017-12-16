@@ -44,7 +44,7 @@ export class Contact extends React.Component<{}, {}> {
                         >
                             <span style={this.STYLES.item}>
                                  <span style={this.STYLES.icon}>
-                                    {link.content}
+                                    {link.icon}
                                 </span>
                                 <span style={this.STYLES.name}>
                                     {link.title}

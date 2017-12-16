@@ -26,7 +26,7 @@ export interface ILabelInfo {
     id: string
     title: string
     link: string
-    content: JSX.Element
+    icon: JSX.Element
 }
 
 export {
@@ -35,7 +35,7 @@ export {
     frontEndTechnologies,
     backEndTechnologies,
     databaseTechnologies
-} from "./technology";
+} from "./technology/technology";
 
 export {WORK_LABELS} from "./work";
 

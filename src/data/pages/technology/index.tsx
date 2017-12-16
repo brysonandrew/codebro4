@@ -7,7 +7,7 @@ import {
     databaseTechnologies,
     frontEndTechnologies,
     styleTechnologies
-} from '../../labels/technology';
+} from '../../labels/technology/technology';
 import { ITechnologyLabel } from '../../labels';
 import { TechnologyCol } from './TechnologyCol';
 import { Store } from '../..';
