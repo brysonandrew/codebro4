@@ -15,7 +15,8 @@ export {
     prefixer,
     createArrayOf,
     PageMaker,
-    arrayToDictionary
+    arrayToDictionary,
+    workDetails
 } from "./helpers";
 export {
     Video,

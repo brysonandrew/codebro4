@@ -80,6 +80,8 @@ export class Work extends React.Component<IProps, {}> {
                 component:  <WorkDetails
                                 key="Work.WorkDetails"
                                 width={this.width()}
+                                work={WORK_LABELS.filter(work => toPath(work.title) === this.view()).pop()}
+                                faintColor={colors.faint}
                             />
             }]
         );

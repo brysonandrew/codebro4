@@ -1,4 +1,3 @@
-import * as React from 'react';
 import {IWorkLabel} from '../';
 import {phonetradrLabel} from './phonetradr';
 import {gulumjanConsultingLabel} from './gulumjan-consulting';

@@ -35,7 +35,7 @@ export {
     frontEndTechnologies,
     backEndTechnologies,
     databaseTechnologies
-} from "./technology/technology";
+} from "./technology";
 
 export {WORK_LABELS} from "./work";
 
