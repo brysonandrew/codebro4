@@ -11,4 +11,5 @@ export { isGL } from "./is-gl";
 export { createArrayOf, arrayToDictionary } from "./array-utils";
 export { PageMaker } from "./constructors";
 export { workDetails } from "./create-work-details";
+export { svgsToIconSize } from "./wrappers";
 export const isEqual = (a, b) => a === b;

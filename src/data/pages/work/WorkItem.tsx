@@ -44,13 +44,13 @@ export const WorkItem = (props: IProps) => {
             {store.isMobile || view
                 ?   null
                 :   <div style={STYLES.item}>
-                    {work.teamType}
-                </div>}
+                        {work.teamType}
+                    </div>}
             {store.isTablet || view
                 ?   null
                 :   <div style={STYLES.item}>
-                    {work.clientType}
-                </div>}
+                        {work.clientType}
+                    </div>}
         </div>
     );
 };

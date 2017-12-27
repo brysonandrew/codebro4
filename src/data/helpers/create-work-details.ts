@@ -1,6 +1,13 @@
-import {IWorkLabel} from '../labels';
+import {EClientType, ETeamType, IWorkLabel} from '../labels';
+import {svgsToIconSize} from '.';
 
-export const workDetails = (work: IWorkLabel) => {
+interface IDetails {
+    id: string
+    name: string
+    info: ETeamType | EClientType | string | JSX.Element[]
+}
+
+export const workDetails = (work: IWorkLabel): IDetails[] => {
   return [
       {
           id: "details-team",
@@ -11,6 +18,16 @@ export const workDetails = (work: IWorkLabel) => {
           id: "details-client",
           name: "CLIENT",
           info: work.clientType
+      },
+      {
+          id: "details-time",
+          name: "YEAR",
+          info: work.year
+      },
+      {
+          id: "details-tech",
+          name: "TECH",
+          info: svgsToIconSize(work.tech)
       }
   ];
 };

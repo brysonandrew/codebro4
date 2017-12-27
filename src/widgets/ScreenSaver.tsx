@@ -33,7 +33,7 @@ export class ScreenSaver extends React.Component<IProps, IState> {
             width: "100%",
             height: "100vh",
             background: "rgba(0,0,0, 0.22)",
-            transition: "2000ms opacity",
+            transition: "2000ms opacity 2000ms",
             zIndex: 20
         }),
         center: prefixer({
@@ -91,7 +91,7 @@ export class ScreenSaver extends React.Component<IProps, IState> {
             this.setState({
                 isMounted: false
             });
-        }, 2000);
+        }, 6000);
     };
 
     sleep = () => {

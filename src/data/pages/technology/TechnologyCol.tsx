@@ -46,7 +46,8 @@ export class TechnologyCol extends React.Component<IProps, {}> {
                             techRow={rowTech}
                             techCol={this.props.techCol}
                         />
-                    </div>)}
+                    </div>
+                )}
             </div>
         );
     }

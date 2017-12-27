@@ -17,9 +17,11 @@ export interface ITechnologyLabel extends ILabelInfo {
 }
 
 export interface IWorkLabel extends ILabelInfo {
+    year: string
+    color: string
     teamType: ETeamType
     clientType: EClientType
-    color: string
+    tech: JSX.Element[]
 }
 
 export interface ILabelInfo {
