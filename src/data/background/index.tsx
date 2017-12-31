@@ -164,7 +164,7 @@ export class Background extends React.Component<IProps, IState> {
         const scrollPos = -this.docScroll() / this.adjustedScrollHeight() * (VERTICAL_CYLINDER.height - VERTICAL_CYLINDER.height / NUMBER_OF_ARMS) + VERTICAL_CYLINDER.height * 0.5;
         this.structureComponent.animate(scrollPos, this.props.store.isAnimating);
         this.structure.rotation.y = this.docScroll() / this.adjustedScrollHeight() * (Math.PI * 2 -  Math.PI * 2 / NUMBER_OF_ARMS) + Math.PI * 0.5;
-        if (this.props.store.isIn) {
+        if (!this.props.store.savedParams.get("activeViewPath")) {
             this.zoom(scrollPos, "in");
         } else {
             this.zoom(scrollPos, "out");

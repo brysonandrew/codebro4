@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {IWorkLabel} from '../../labels';
 import {workDetails, IInlineStyles} from '../..';
-import {WorkDescription} from './WorkDescription';
+import {isArray} from '../..';
 
 const STYLES: IInlineStyles = {
     p: {
@@ -10,7 +10,8 @@ const STYLES: IInlineStyles = {
     },
     row: {
         id: "work details",
-        position: "relative"
+        position: "relative",
+        textAlign: "right"
     },
     name: {
         id: "work details --- name",
@@ -22,7 +23,14 @@ const STYLES: IInlineStyles = {
     },
     info: {
         id: "work details --- info",
-        textAlign: "right"
+        display: "inline-block",
+        width: "80%"
+    },
+    info__item: {
+        display: "inline-block",
+        verticalAlign: "top",
+        margin: "10px 0",
+        fontSize: 18
     }
 };
 
@@ -45,9 +53,16 @@ export const WorkDetails = (props: IProps) => {
                         {details.name}
                     </div>
                     <div style={STYLES.info}>
-                        {details.info}
+                        {isArray(details.info)
+                        ?   (details.info as (string | JSX.Element)[]).map((item, i) =>
+                                <div
+                                    key={`item-${i}`}
+                                    style={STYLES.info__item}
+                                >
+                                    {item}
+                                </div>)
+                        :   details.info}
                     </div>
-                    <WorkDescription description={details.description}/>
                 </div>)}
         </div>
     );

@@ -36,18 +36,17 @@ export class Work extends React.Component<IProps, {}> {
     };
 
     handleItemClick = (title: string) => {
-        if (this.props.store.isIn) {
+        if (!this.props.store.savedParams.get("activeViewPath")) {
             browserHistory.push(`/selected-work/${toPath(title)}`);
         } else {
             browserHistory.push("/selected-work");
         }
-        this.props.store.onZoomIn(!this.props.store.isIn);
     };
 
     view = () => this.props.store.savedParams.get("activeViewPath");
     isMobile = () => this.props.store.isMobile;
     isTablet = () => this.props.store.isTablet;
-    width = () => this.view() ? this.isMobile() ? 295 : this.isTablet() ? 590 : 885 : 295;
+    width = () => !!this.view() ? this.isMobile() ? 295 : this.isTablet() ? 590 : 885 : 295;
 
     renderItems() {
         const items = [

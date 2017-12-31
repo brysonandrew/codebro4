@@ -8,7 +8,7 @@ export { toParams, toPath } from "./route-utils";
 export { listeners } from "./listeners";
 export { setBodyStyle, setHtmlStyle } from "./set-body-style";
 export { isGL } from "./is-gl";
-export { createArrayOf, arrayToDictionary } from "./array-utils";
+export { createArrayOf, arrayToDictionary, isArray } from "./array-utils";
 export { PageMaker } from "./constructors";
 export { workDetails } from "./create-work-details";
 export { svgsToIconSize } from "./wrappers";

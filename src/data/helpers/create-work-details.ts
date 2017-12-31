@@ -4,8 +4,7 @@ import {svgsToIconSize} from '.';
 interface IDetails {
     id: string
     name: string
-    info: ETeamType | EClientType | string | JSX.Element[]
-    description: string[]
+    info: ETeamType | EClientType | string | string[] | JSX.Element[]
 }
 
 export const workDetails = (work: IWorkLabel): IDetails[] => {
@@ -13,26 +12,27 @@ export const workDetails = (work: IWorkLabel): IDetails[] => {
       {
           id: "details-team",
           name: "TEAM",
-          info: work.teamType,
-          description: work.description
+          info: work.teamType
       },
       {
           id: "details-client",
           name: "CLIENT",
-          info: work.clientType,
-          description: work.description
+          info: work.clientType
       },
       {
           id: "details-time",
           name: "YEAR",
-          info: work.year,
-          description: work.description
+          info: work.year
       },
       {
           id: "details-tech",
           name: "TECH",
-          info: svgsToIconSize(work.tech),
-          description: work.description
+          info: svgsToIconSize(work.tech)
+      },
+      {
+          id: "details-description",
+          name: "",
+          info: work.description
       }
   ];
 };

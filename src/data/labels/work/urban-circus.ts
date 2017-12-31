@@ -19,6 +19,6 @@ export const urbanCircusLabel = {
         technologyIcon.redux
     ],
     description: [
-        "Very interesting task involving implementing correctly various libraries that dealt with panoramas and other image effects. Also tidying up ruthless attemps at programming in react from previous parties"
+        "Very interesting task involving implementing correctly various libraries that dealt with panoramas and other image effects. Also tidying up ruthless attempts at programming in react from previous parties."
     ]
 };

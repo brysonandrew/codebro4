@@ -14,6 +14,7 @@ export {
     isGL,
     prefixer,
     createArrayOf,
+    isArray,
     PageMaker,
     arrayToDictionary,
     workDetails
