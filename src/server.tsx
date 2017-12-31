@@ -48,7 +48,7 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(favicon(path.join(__dirname, 'public/favicon.ico')));
 
 // google console verification
-app.use('/googlee5c42f8d4283c5d8.html', express.static('./assets/googlefa80bba47b497f84.html'));
+app.use('/googlee5c42f8d4283c5d8.html', express.static('./assets/googlee5c42f8d4283c5d8.html'));
 
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
