@@ -5,6 +5,7 @@ interface IDetails {
     id: string
     name: string
     info: ETeamType | EClientType | string | JSX.Element[]
+    description: string[]
 }
 
 export const workDetails = (work: IWorkLabel): IDetails[] => {
@@ -12,22 +13,26 @@ export const workDetails = (work: IWorkLabel): IDetails[] => {
       {
           id: "details-team",
           name: "TEAM",
-          info: work.teamType
+          info: work.teamType,
+          description: work.description
       },
       {
           id: "details-client",
           name: "CLIENT",
-          info: work.clientType
+          info: work.clientType,
+          description: work.description
       },
       {
           id: "details-time",
           name: "YEAR",
-          info: work.year
+          info: work.year,
+          description: work.description
       },
       {
           id: "details-tech",
           name: "TECH",
-          info: svgsToIconSize(work.tech)
+          info: svgsToIconSize(work.tech),
+          description: work.description
       }
   ];
 };

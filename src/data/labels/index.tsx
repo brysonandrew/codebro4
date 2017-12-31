@@ -22,6 +22,7 @@ export interface IWorkLabel extends ILabelInfo {
     teamType: ETeamType
     clientType: EClientType
     tech: JSX.Element[]
+    description: string[]
 }
 
 export interface ILabelInfo {

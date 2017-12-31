@@ -18,5 +18,8 @@ export const eventerpriseLabel: IWorkLabel = {
         technologyIcon.react,
         technologyIcon.redux,
         technologyIcon.nodeJs
+    ],
+    description: [
+        "After creating a few React components they asked me to make sure that they score a high score with page speed sites that I believe they are still successful with to this day."
     ]
 };

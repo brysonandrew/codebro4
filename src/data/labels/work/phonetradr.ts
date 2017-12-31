@@ -21,5 +21,8 @@ export const phonetradrLabel = {
         technologyIcon.nodeJs,
         technologyIcon.mongoDb,
         technologyIcon.firebase
+    ],
+    description: [
+        "This has been the more insteresting job so far working with a team of 5 it has been very challenging and rewarding to meet the goals of the project manager."
     ]
 };
