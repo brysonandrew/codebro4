@@ -50,6 +50,8 @@ export default (
             component={Home}
         />
         <Route path='/404' component={NotFound} />
+        {/*Google verification*/}
+        <Route path='/googlefa80bba47b497f84.html' component={Home} />
         <Redirect from='*' to='/404' />
     </Route>
 );
