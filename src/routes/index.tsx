@@ -2,7 +2,8 @@ import * as React from 'react';
 import { IndexRoute, Route, Redirect } from 'react-router';
 import { App, Home } from '../app';
 import { NotFound } from '../widgets';
-import { MAIN_PAGES, EXPERIMENTS, PARTICLES, MODELS, WORK_LABELS, toPath } from '../data';
+import { MAIN_PAGES, EXPERIMENTS, PARTICLES, MODELS, toPath } from '../data';
+import {WORK_LABELS} from '../data/pages/work/labels';
 
 export default (
     <Route path="/" component={App}>

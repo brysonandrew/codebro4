@@ -1,8 +1,8 @@
 import * as React from "react";
-import { Video } from './Video';
-import { Experiments } from './Experiments';
+import { Video } from './video/Video';
+import { Experiments } from './lab/Lab';
 import { Work } from './work/Work';
-import { Contact } from './Contact';
+import { Contact } from './contact/Contact';
 import { Technology } from './technology';
 import { IPage, PageMaker, IDictionary, arrayToDictionary } from '..';
 

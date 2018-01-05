@@ -1,5 +1,5 @@
-import {ITechnologyLabel} from '../index';
-import {technologyIcon} from '../../icons/technology';
+import {technologyIcon} from '../../../icons/technology';
+import {ITechnologyLabel} from '..';
 
 export const baseTechnologies: ITechnologyLabel[] = [
     {

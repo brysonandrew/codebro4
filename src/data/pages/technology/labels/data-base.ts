@@ -1,5 +1,5 @@
-import {ITechnologyLabel} from '../index';
-import {technologyIcon} from '../../icons/technology';
+import {ITechnologyLabel} from '..';
+import {technologyIcon} from '../../../icons/technology';
 
 export const databaseTechnologies: ITechnologyLabel[] = [
     {

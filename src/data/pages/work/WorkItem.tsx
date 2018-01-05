@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {ROW_MARGIN} from './Work';
-import {Store, IInlineStyles, IWorkLabel} from '../..';
+import {Store, IInlineStyles} from '../..';
+import {IWorkLabel} from './labels/models';
 
 interface IProps {
     width: number

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { IInlineStyles } from '../..';
 import {buttons} from './buttons';
+import {ButtonsControls} from './ButtonsControls';
 
 const STYLES: IInlineStyles = {
     p: {
@@ -11,33 +12,19 @@ const STYLES: IInlineStyles = {
         width: "100vw",
         height: "100vh"
     },
-    loaderFrame: {
-        position: "relative",
-        display: "inline-block",
-        width: 300,
-        height: 300
-    },
-    loader: {
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        width: 100,
-        height: 100
+    button: {
+        margin: 20
     }
 };
 
 export const Buttons = () => {
     return  <div style={STYLES.p}>
-                {buttons.map((loaders, i) =>
+                {buttons.map((button, i) =>
                     <div
-                        key={`loader-${i}`}
-                        style={STYLES.loaderFrame}
+                        key={`button-${i}`}
+                        style={STYLES.button}
                     >
-                        <div
-                            style={STYLES.loader}
-                        >
-                            {loaders}
-                        </div>
+                        <ButtonsControls button={button} index={i}/>
                     </div>)}
             </div>
 };

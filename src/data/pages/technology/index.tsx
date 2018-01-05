@@ -7,10 +7,14 @@ import {
     databaseTechnologies,
     frontEndTechnologies,
     styleTechnologies
-} from '../../labels/technology';
-import { ITechnologyLabel } from '../../labels';
+} from './labels';
 import { TechnologyCol } from './TechnologyCol';
 import { Store } from '../..';
+import { ILabelInfo } from '../../models';
+
+export interface ITechnologyLabel extends ILabelInfo {
+    score: number
+}
 
 export interface ITechnology {
     name: string

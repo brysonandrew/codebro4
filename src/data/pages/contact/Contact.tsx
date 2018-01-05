@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
-import { IInlineStyles, prefixer } from '..';
-import { UnderlineSwitch, ExternalLink } from '../../widgets';
-import { contact } from '..';
+import { IInlineStyles, prefixer, colors } from '../../';
+import { UnderlineSwitch, ExternalLink } from '../../../widgets';
+import {contact} from './labels';
 
 @observer
 export class Contact extends React.Component<{}, {}> {
@@ -35,7 +35,7 @@ export class Contact extends React.Component<{}, {}> {
     render(): JSX.Element {
         return (
             <div style={this.STYLES.contact}>
-                {contact.map(link =>
+                {contact(colors.wht).map(link =>
                     <UnderlineSwitch
                         key={link.id}
                     >

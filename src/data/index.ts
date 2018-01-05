@@ -46,14 +46,4 @@ export {
     IParams
 } from "./models";
 export { colors } from "./themeOptions";
-export {
-    contact,
-    styleTechnologies,
-    baseTechnologies,
-    frontEndTechnologies,
-    backEndTechnologies,
-    databaseTechnologies,
-    IWorkLabel,
-    WORK_LABELS
-} from "./labels";
 export { Store } from "./Store";

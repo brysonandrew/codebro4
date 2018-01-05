@@ -1,6 +1,6 @@
-import {workIcon} from '../../icons/work';
-import {EClientType, ETeamType, IWorkLabel} from '../index';
-import {technologyIcon} from '../../icons/technology';
+import {workIcon} from '../../../icons/work';
+import {technologyIcon} from '../../../icons/technology';
+import {EClientType, ETeamType, IWorkLabel} from './models';
 
 export const eventerpriseLabel: IWorkLabel = {
     id     : 'eventerprise-work-svg',

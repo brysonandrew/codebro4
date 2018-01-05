@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { browserHistory } from 'react-router';
 import { inject, observer } from 'mobx-react';
-import { IInlineStyles, prefixer, colors, Store, IWorkLabel, WORK_LABELS, toPath } from '../..';
+import { IInlineStyles, prefixer, colors, Store, toPath } from '../..';
 import { WorkItem } from './WorkItem';
 import { WorkHeading } from './WorkHeading';
 import { WorkDetails } from './WorkDetails';
+import { WORK_LABELS } from './labels';
+import {IWorkLabel} from './labels/models';
 export const ROW_HEIGHT = 30;
 export const ROW_MARGIN = 10;
 const TOP_MARGIN = 75;
@@ -78,6 +80,7 @@ export class Work extends React.Component<IProps, {}> {
                 condition:  !!this.view(),
                 component:  <WorkDetails
                                 key="Work.WorkDetails"
+                                isTablet={this.isTablet()}
                                 width={this.width()}
                                 work={WORK_LABELS.filter(work => toPath(work.title) === this.view()).pop()}
                                 faintColor={colors.faint}

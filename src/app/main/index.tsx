@@ -25,7 +25,7 @@ const STYLES: IInlineStyles = {
     title: prefixer({
         id: "home title",
         position: "absolute",
-        left: 100,
+        left: 0,
         fontSize: 28,
         transform: "rotate(-90deg) translate(50%, -25%)",
         transition: "400ms opacity"
@@ -69,7 +69,7 @@ export class Main extends React.Component<IProps, {}> {
                             />
                         :   null}
                 </div>
-                <div style={{...STYLES.title, top: height * 0.85, opacity: docScroll === 0 ? 1 : 0.22}}>
+                <div style={{...STYLES.title, top: height * 0.85, opacity: docScroll === 0 ? 1 : 0.06}}>
                     <Logo/>
                     <h1 style={STYLES.mainHeader}>
                         code bro

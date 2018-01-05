@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {IWorkLabel} from '../../labels';
 import {workDetails, IInlineStyles} from '../..';
 import {isArray} from '../..';
+import {IWorkLabel} from './labels/models';
 
 const STYLES: IInlineStyles = {
     p: {
@@ -11,33 +11,31 @@ const STYLES: IInlineStyles = {
     row: {
         id: "work details",
         position: "relative",
-        textAlign: "right"
+        textAlign: "left"
     },
     name: {
         id: "work details --- name",
-        position: "absolute",
-        top: "50%",
-        left: 5,
-        fontSize: 16,
-        transform: "translateY(-50%)"
+        display: "inline-block",
+        verticalAlign: "middle"
     },
     info: {
-        id: "work details --- info",
-        display: "inline-block",
-        width: "80%"
+        float: "right"
     },
     info__item: {
         display: "inline-block",
-        verticalAlign: "top",
-        margin: "10px 0",
-        fontSize: 18
+        verticalAlign: "top"
     }
 };
 
 interface IProps {
+    isTablet: boolean
     width: number
     work: IWorkLabel
     faintColor: string
+}
+
+function fontSize(isTablet) {
+    return isTablet ? 16 : 20;
 }
 
 export const WorkDetails = (props: IProps) => {
@@ -49,10 +47,10 @@ export const WorkDetails = (props: IProps) => {
                     key={details.id}
                     style={STYLES.row}
                 >
-                    <div style={STYLES.name}>
+                    <div style={{...STYLES.name, fontSize: fontSize(props.isTablet) * 0.75}}>
                         {details.name}
                     </div>
-                    <div style={STYLES.info}>
+                    <div style={{...STYLES.info, fontSize: fontSize(props.isTablet)}}>
                         {isArray(details.info)
                         ?   (details.info as (string | JSX.Element)[]).map((item, i) =>
                                 <div

@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
 import { IInlineStyles } from '../..';
-import {ITechnology} from '.';
+import {ITechnology, TECH_HEIGHT} from '.';
 import {TechnologyRow} from './TechnologyRow';
-import {TECH_HEIGHT} from '.';
 
 interface IProps {
     techCol: ITechnology[]

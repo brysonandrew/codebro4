@@ -1,6 +1,8 @@
 import * as React from "react";
-import {SocialMedia} from './SocialMedia';
+import {SwitchButton} from './SwitchButton';
 
 export const buttons = [
-    <SocialMedia/>
+    <SwitchButton
+        icons={["typescript", "javascript"]}
+    />
 ];

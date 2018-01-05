@@ -29,3 +29,10 @@ export interface ILabProject {
     component: JSX.Element
     subComponents?: any[]
 }
+
+export interface ILabelInfo {
+    id: string
+    title: string
+    link: string
+    icon: JSX.Element
+}

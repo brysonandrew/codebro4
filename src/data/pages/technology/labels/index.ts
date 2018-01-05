@@ -1,4 +1,3 @@
-import * as React from "react";
 export {styleTechnologies} from './style';
 export {baseTechnologies} from "./base";
 export {frontEndTechnologies} from "./front-end";

@@ -1,5 +1,5 @@
 import {ITechnologyLabel} from '..';
-import {technologyIcon} from '../../icons';
+import {technologyIcon} from '../../../icons';
 
 export const styleTechnologies: ITechnologyLabel[] = [
     {

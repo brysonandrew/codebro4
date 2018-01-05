@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
-import { IInlineStyles } from '../..';
-import { ITechnology } from '.';
-import { ITechnologyLabel } from '../../labels';
-import { Store } from '../../Store';
+import { IInlineStyles, Store } from '../..';
+import { ITechnology, ITechnologyLabel } from '.';
 
 interface IProps {
     store?: Store

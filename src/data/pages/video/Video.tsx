@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { observer } from 'mobx-react';
-import { IInlineStyles, prefixer } from '..';
-import { InternalLink, UnderlineSwitch } from '../../widgets';
+import { IInlineStyles, prefixer } from '../../';
+import { ExternalLink, UnderlineSwitch } from '../../../widgets';
 
 @observer
-export class Experiments extends React.Component<{}, {}> {
+export class Video extends React.Component<{}, {}> {
 
     STYLES: IInlineStyles = {
-        p: prefixer({
-            id: "experiments",
+        video: prefixer({
+            id: "video",
             position: "absolute",
             top: "50%",
             left: "50%",
@@ -24,15 +24,15 @@ export class Experiments extends React.Component<{}, {}> {
 
     render(): JSX.Element {
         return (
-            <div style={this.STYLES.p}>
-                Here you will find some code experiments that I have been working on, either for clients or just for fun.
+            <div style={this.STYLES.video}>
+                Coming from a teaching background, I enjoy sharing my knowledge of coding through video.
                 <div style={this.STYLES.button}>
                     <UnderlineSwitch>
-                        <InternalLink
-                            path="lab-menu"
+                        <ExternalLink
+                            path="https://www.youtube.com/channel/UCF1SvsAZTJL4Bw9qj0hdNLA"
                         >
-                            Go to lab →
-                        </InternalLink>
+                            Go to channel →
+                        </ExternalLink>
                     </UnderlineSwitch>
                 </div>
             </div>

@@ -1,10 +1,12 @@
-import {EClientType, ETeamType, IWorkLabel} from '../labels';
+import * as React from "react";
 import {svgsToIconSize} from '.';
+import {EClientType, ETeamType, IWorkLabel} from '../pages/work/labels/models';
+import {ExternalLink} from '../../widgets/ExternalLink';
 
 interface IDetails {
     id: string
     name: string
-    info: ETeamType | EClientType | string | string[] | JSX.Element[]
+    info: ETeamType | EClientType | string | string[] | JSX.Element[] | JSX.Element
 }
 
 export const workDetails = (work: IWorkLabel): IDetails[] => {
@@ -13,6 +15,11 @@ export const workDetails = (work: IWorkLabel): IDetails[] => {
           id: "details-team",
           name: "TEAM",
           info: work.teamType
+      },
+      {
+          id: "details-link",
+          name: "LIVE LINK",
+          info: <ExternalLink path={work.link}>{work.link}</ExternalLink>
       },
       {
           id: "details-client",
